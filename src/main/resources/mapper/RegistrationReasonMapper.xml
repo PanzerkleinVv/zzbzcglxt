@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.RegistrationReasonMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.RegistrationReason">
+        <constructor>
+            <idArg column="REGISTRATION_REASON_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="REGISTRATION_REASON_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="REGISTRATION_REASON_NOTE" javaType="java.lang.Boolean" jdbcType="BIT"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    REGISTRATION_REASON_ID, REGISTRATION_REASON_NAME, REGISTRATION_REASON_NOTE
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReasonExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from registration_reason
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from registration_reason
+        where REGISTRATION_REASON_ID = #{registrationReasonId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from registration_reason
+    where REGISTRATION_REASON_ID = #{registrationReasonId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReasonExample">
+        delete from registration_reason
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReason">
+    insert into registration_reason (REGISTRATION_REASON_ID, REGISTRATION_REASON_NAME, 
+      REGISTRATION_REASON_NOTE)
+    values (#{registrationReasonId,jdbcType=VARCHAR}, #{registrationReasonName,jdbcType=VARCHAR}, 
+      #{registrationReasonNote,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReason">
+        insert into registration_reason
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="registrationReasonId != null">
+                REGISTRATION_REASON_ID,
+            </if>
+            <if test="registrationReasonName != null">
+                REGISTRATION_REASON_NAME,
+            </if>
+            <if test="registrationReasonNote != null">
+                REGISTRATION_REASON_NOTE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="registrationReasonId != null">
+                #{registrationReasonId,jdbcType=VARCHAR},
+            </if>
+            <if test="registrationReasonName != null">
+                #{registrationReasonName,jdbcType=VARCHAR},
+            </if>
+            <if test="registrationReasonNote != null">
+                #{registrationReasonNote,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReasonExample"
+            resultType="java.lang.Long">
+        select count(*) from registration_reason
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update registration_reason
+        <set>
+            <if test="record.registrationReasonId != null">
+                REGISTRATION_REASON_ID = #{record.registrationReasonId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registrationReasonName != null">
+                REGISTRATION_REASON_NAME = #{record.registrationReasonName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registrationReasonNote != null">
+                REGISTRATION_REASON_NOTE = #{record.registrationReasonNote,jdbcType=BIT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update registration_reason
+        set REGISTRATION_REASON_ID = #{record.registrationReasonId,jdbcType=VARCHAR},
+        REGISTRATION_REASON_NAME = #{record.registrationReasonName,jdbcType=VARCHAR},
+        REGISTRATION_REASON_NOTE = #{record.registrationReasonNote,jdbcType=BIT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReason">
+        update registration_reason
+        <set>
+            <if test="registrationReasonName != null">
+                REGISTRATION_REASON_NAME = #{registrationReasonName,jdbcType=VARCHAR},
+            </if>
+            <if test="registrationReasonNote != null">
+                REGISTRATION_REASON_NOTE = #{registrationReasonNote,jdbcType=BIT},
+            </if>
+        </set>
+        where REGISTRATION_REASON_ID = #{registrationReasonId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReason">
+    update registration_reason
+    set REGISTRATION_REASON_NAME = #{registrationReasonName,jdbcType=VARCHAR},
+      REGISTRATION_REASON_NOTE = #{registrationReasonNote,jdbcType=BIT}
+    where REGISTRATION_REASON_ID = #{registrationReasonId,jdbcType=VARCHAR}
+  </update>
+</mapper>

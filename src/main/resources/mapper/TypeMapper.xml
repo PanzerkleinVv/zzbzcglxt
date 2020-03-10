@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.TypeMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Type">
+        <constructor>
+            <idArg column="TYPE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_BRAND" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_MODEL" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_SECRECY" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_IP" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_MAC" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_SN" javaType="java.lang.Boolean" jdbcType="BIT"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    TYPE_ID, TYPE_NAME, TYPE_BRAND, TYPE_MODEL, TYPE_SECRECY, TYPE_IP, TYPE_MAC, TYPE_SN
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from type
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from type
+        where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from type
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample">
+        delete from type
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Type">
+    insert into type (TYPE_ID, TYPE_NAME, TYPE_BRAND, 
+      TYPE_MODEL, TYPE_SECRECY, TYPE_IP, 
+      TYPE_MAC, TYPE_SN)
+    values (#{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{typeBrand,jdbcType=BIT}, 
+      #{typeModel,jdbcType=BIT}, #{typeSecrecy,jdbcType=BIT}, #{typeIp,jdbcType=BIT}, 
+      #{typeMac,jdbcType=BIT}, #{typeSn,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Type">
+        insert into type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                TYPE_ID,
+            </if>
+            <if test="typeName != null">
+                TYPE_NAME,
+            </if>
+            <if test="typeBrand != null">
+                TYPE_BRAND,
+            </if>
+            <if test="typeModel != null">
+                TYPE_MODEL,
+            </if>
+            <if test="typeSecrecy != null">
+                TYPE_SECRECY,
+            </if>
+            <if test="typeIp != null">
+                TYPE_IP,
+            </if>
+            <if test="typeMac != null">
+                TYPE_MAC,
+            </if>
+            <if test="typeSn != null">
+                TYPE_SN,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                #{typeId,jdbcType=VARCHAR},
+            </if>
+            <if test="typeName != null">
+                #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="typeBrand != null">
+                #{typeBrand,jdbcType=BIT},
+            </if>
+            <if test="typeModel != null">
+                #{typeModel,jdbcType=BIT},
+            </if>
+            <if test="typeSecrecy != null">
+                #{typeSecrecy,jdbcType=BIT},
+            </if>
+            <if test="typeIp != null">
+                #{typeIp,jdbcType=BIT},
+            </if>
+            <if test="typeMac != null">
+                #{typeMac,jdbcType=BIT},
+            </if>
+            <if test="typeSn != null">
+                #{typeSn,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample" resultType="java.lang.Long">
+        select count(*) from type
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update type
+        <set>
+            <if test="record.typeId != null">
+                TYPE_ID = #{record.typeId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.typeName != null">
+                TYPE_NAME = #{record.typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.typeBrand != null">
+                TYPE_BRAND = #{record.typeBrand,jdbcType=BIT},
+            </if>
+            <if test="record.typeModel != null">
+                TYPE_MODEL = #{record.typeModel,jdbcType=BIT},
+            </if>
+            <if test="record.typeSecrecy != null">
+                TYPE_SECRECY = #{record.typeSecrecy,jdbcType=BIT},
+            </if>
+            <if test="record.typeIp != null">
+                TYPE_IP = #{record.typeIp,jdbcType=BIT},
+            </if>
+            <if test="record.typeMac != null">
+                TYPE_MAC = #{record.typeMac,jdbcType=BIT},
+            </if>
+            <if test="record.typeSn != null">
+                TYPE_SN = #{record.typeSn,jdbcType=BIT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update type
+        set TYPE_ID = #{record.typeId,jdbcType=VARCHAR},
+        TYPE_NAME = #{record.typeName,jdbcType=VARCHAR},
+        TYPE_BRAND = #{record.typeBrand,jdbcType=BIT},
+        TYPE_MODEL = #{record.typeModel,jdbcType=BIT},
+        TYPE_SECRECY = #{record.typeSecrecy,jdbcType=BIT},
+        TYPE_IP = #{record.typeIp,jdbcType=BIT},
+        TYPE_MAC = #{record.typeMac,jdbcType=BIT},
+        TYPE_SN = #{record.typeSn,jdbcType=BIT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Type">
+        update type
+        <set>
+            <if test="typeName != null">
+                TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="typeBrand != null">
+                TYPE_BRAND = #{typeBrand,jdbcType=BIT},
+            </if>
+            <if test="typeModel != null">
+                TYPE_MODEL = #{typeModel,jdbcType=BIT},
+            </if>
+            <if test="typeSecrecy != null">
+                TYPE_SECRECY = #{typeSecrecy,jdbcType=BIT},
+            </if>
+            <if test="typeIp != null">
+                TYPE_IP = #{typeIp,jdbcType=BIT},
+            </if>
+            <if test="typeMac != null">
+                TYPE_MAC = #{typeMac,jdbcType=BIT},
+            </if>
+            <if test="typeSn != null">
+                TYPE_SN = #{typeSn,jdbcType=BIT},
+            </if>
+        </set>
+        where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Type">
+    update type
+    set TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      TYPE_BRAND = #{typeBrand,jdbcType=BIT},
+      TYPE_MODEL = #{typeModel,jdbcType=BIT},
+      TYPE_SECRECY = #{typeSecrecy,jdbcType=BIT},
+      TYPE_IP = #{typeIp,jdbcType=BIT},
+      TYPE_MAC = #{typeMac,jdbcType=BIT},
+      TYPE_SN = #{typeSn,jdbcType=BIT}
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

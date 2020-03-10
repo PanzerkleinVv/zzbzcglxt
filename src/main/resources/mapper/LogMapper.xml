@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.LogMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Log">
+        <constructor>
+            <idArg column="LOG_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_EQUIPMENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_USER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="LOG_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="LOG_TARGET" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_OPERATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="LOG_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    LOG_ID, LOG_EQUIPMENT, LOG_USER, LOG_TIME, LOG_STATUS, LOG_TARGET, LOG_OPERATION_DATE, 
+    LOG_NOTE
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.LogExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from log
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from log
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.LogExample">
+        delete from log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Log">
+    insert into log (LOG_ID, LOG_EQUIPMENT, LOG_USER, 
+      LOG_TIME, LOG_STATUS, LOG_TARGET, 
+      LOG_OPERATION_DATE, LOG_NOTE)
+    values (#{logId,jdbcType=VARCHAR}, #{logEquipment,jdbcType=VARCHAR}, #{logUser,jdbcType=VARCHAR}, 
+      #{logTime,jdbcType=TIMESTAMP}, #{logStatus,jdbcType=INTEGER}, #{logTarget,jdbcType=VARCHAR}, 
+      #{logOperationDate,jdbcType=TIMESTAMP}, #{logNote,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Log">
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                LOG_ID,
+            </if>
+            <if test="logEquipment != null">
+                LOG_EQUIPMENT,
+            </if>
+            <if test="logUser != null">
+                LOG_USER,
+            </if>
+            <if test="logTime != null">
+                LOG_TIME,
+            </if>
+            <if test="logStatus != null">
+                LOG_STATUS,
+            </if>
+            <if test="logTarget != null">
+                LOG_TARGET,
+            </if>
+            <if test="logOperationDate != null">
+                LOG_OPERATION_DATE,
+            </if>
+            <if test="logNote != null">
+                LOG_NOTE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                #{logId,jdbcType=VARCHAR},
+            </if>
+            <if test="logEquipment != null">
+                #{logEquipment,jdbcType=VARCHAR},
+            </if>
+            <if test="logUser != null">
+                #{logUser,jdbcType=VARCHAR},
+            </if>
+            <if test="logTime != null">
+                #{logTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logStatus != null">
+                #{logStatus,jdbcType=INTEGER},
+            </if>
+            <if test="logTarget != null">
+                #{logTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="logOperationDate != null">
+                #{logOperationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logNote != null">
+                #{logNote,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.LogExample" resultType="java.lang.Long">
+        select count(*) from log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update log
+        <set>
+            <if test="record.logId != null">
+                LOG_ID = #{record.logId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.logEquipment != null">
+                LOG_EQUIPMENT = #{record.logEquipment,jdbcType=VARCHAR},
+            </if>
+            <if test="record.logUser != null">
+                LOG_USER = #{record.logUser,jdbcType=VARCHAR},
+            </if>
+            <if test="record.logTime != null">
+                LOG_TIME = #{record.logTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.logStatus != null">
+                LOG_STATUS = #{record.logStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.logTarget != null">
+                LOG_TARGET = #{record.logTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="record.logOperationDate != null">
+                LOG_OPERATION_DATE = #{record.logOperationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.logNote != null">
+                LOG_NOTE = #{record.logNote,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update log
+        set LOG_ID = #{record.logId,jdbcType=VARCHAR},
+        LOG_EQUIPMENT = #{record.logEquipment,jdbcType=VARCHAR},
+        LOG_USER = #{record.logUser,jdbcType=VARCHAR},
+        LOG_TIME = #{record.logTime,jdbcType=TIMESTAMP},
+        LOG_STATUS = #{record.logStatus,jdbcType=INTEGER},
+        LOG_TARGET = #{record.logTarget,jdbcType=VARCHAR},
+        LOG_OPERATION_DATE = #{record.logOperationDate,jdbcType=TIMESTAMP},
+        LOG_NOTE = #{record.logNote,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Log">
+        update log
+        <set>
+            <if test="logEquipment != null">
+                LOG_EQUIPMENT = #{logEquipment,jdbcType=VARCHAR},
+            </if>
+            <if test="logUser != null">
+                LOG_USER = #{logUser,jdbcType=VARCHAR},
+            </if>
+            <if test="logTime != null">
+                LOG_TIME = #{logTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logStatus != null">
+                LOG_STATUS = #{logStatus,jdbcType=INTEGER},
+            </if>
+            <if test="logTarget != null">
+                LOG_TARGET = #{logTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="logOperationDate != null">
+                LOG_OPERATION_DATE = #{logOperationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logNote != null">
+                LOG_NOTE = #{logNote,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Log">
+    update log
+    set LOG_EQUIPMENT = #{logEquipment,jdbcType=VARCHAR},
+      LOG_USER = #{logUser,jdbcType=VARCHAR},
+      LOG_TIME = #{logTime,jdbcType=TIMESTAMP},
+      LOG_STATUS = #{logStatus,jdbcType=INTEGER},
+      LOG_TARGET = #{logTarget,jdbcType=VARCHAR},
+      LOG_OPERATION_DATE = #{logOperationDate,jdbcType=TIMESTAMP},
+      LOG_NOTE = #{logNote,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+</mapper>

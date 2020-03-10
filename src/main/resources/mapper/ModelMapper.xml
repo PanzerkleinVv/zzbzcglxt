@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.ModelMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Model">
+        <constructor>
+            <idArg column="MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    MODEL_ID, MODEL_BRAND, MODEL_NAME
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.ModelExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from model
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from model
+        where MODEL_ID = #{modelId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from model
+    where MODEL_ID = #{modelId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.ModelExample">
+        delete from model
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Model">
+    insert into model (MODEL_ID, MODEL_BRAND, MODEL_NAME
+      )
+    values (#{modelId,jdbcType=VARCHAR}, #{modelBrand,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Model">
+        insert into model
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">
+                MODEL_ID,
+            </if>
+            <if test="modelBrand != null">
+                MODEL_BRAND,
+            </if>
+            <if test="modelName != null">
+                MODEL_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">
+                #{modelId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelBrand != null">
+                #{modelBrand,jdbcType=VARCHAR},
+            </if>
+            <if test="modelName != null">
+                #{modelName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.ModelExample" resultType="java.lang.Long">
+        select count(*) from model
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update model
+        <set>
+            <if test="record.modelId != null">
+                MODEL_ID = #{record.modelId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.modelBrand != null">
+                MODEL_BRAND = #{record.modelBrand,jdbcType=VARCHAR},
+            </if>
+            <if test="record.modelName != null">
+                MODEL_NAME = #{record.modelName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update model
+        set MODEL_ID = #{record.modelId,jdbcType=VARCHAR},
+        MODEL_BRAND = #{record.modelBrand,jdbcType=VARCHAR},
+        MODEL_NAME = #{record.modelName,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Model">
+        update model
+        <set>
+            <if test="modelBrand != null">
+                MODEL_BRAND = #{modelBrand,jdbcType=VARCHAR},
+            </if>
+            <if test="modelName != null">
+                MODEL_NAME = #{modelName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where MODEL_ID = #{modelId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Model">
+    update model
+    set MODEL_BRAND = #{modelBrand,jdbcType=VARCHAR},
+      MODEL_NAME = #{modelName,jdbcType=VARCHAR}
+    where MODEL_ID = #{modelId,jdbcType=VARCHAR}
+  </update>
+</mapper>

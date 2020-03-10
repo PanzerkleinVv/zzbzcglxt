@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.SecrecyMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Secrecy">
+        <constructor>
+            <idArg column="SECRECY_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SECRECY_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="IP_MIN" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="IP_MAX" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    SECRECY_ID, SECRECY_NAME, IP_MIN, IP_MAX
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.SecrecyExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from secrecy
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from secrecy
+        where SECRECY_ID = #{secrecyId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from secrecy
+    where SECRECY_ID = #{secrecyId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.SecrecyExample">
+        delete from secrecy
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Secrecy">
+    insert into secrecy (SECRECY_ID, SECRECY_NAME, IP_MIN, 
+      IP_MAX)
+    values (#{secrecyId,jdbcType=VARCHAR}, #{secrecyName,jdbcType=VARCHAR}, #{ipMin,jdbcType=INTEGER}, 
+      #{ipMax,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Secrecy">
+        insert into secrecy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="secrecyId != null">
+                SECRECY_ID,
+            </if>
+            <if test="secrecyName != null">
+                SECRECY_NAME,
+            </if>
+            <if test="ipMin != null">
+                IP_MIN,
+            </if>
+            <if test="ipMax != null">
+                IP_MAX,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="secrecyId != null">
+                #{secrecyId,jdbcType=VARCHAR},
+            </if>
+            <if test="secrecyName != null">
+                #{secrecyName,jdbcType=VARCHAR},
+            </if>
+            <if test="ipMin != null">
+                #{ipMin,jdbcType=INTEGER},
+            </if>
+            <if test="ipMax != null">
+                #{ipMax,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.SecrecyExample"
+            resultType="java.lang.Long">
+        select count(*) from secrecy
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update secrecy
+        <set>
+            <if test="record.secrecyId != null">
+                SECRECY_ID = #{record.secrecyId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.secrecyName != null">
+                SECRECY_NAME = #{record.secrecyName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ipMin != null">
+                IP_MIN = #{record.ipMin,jdbcType=INTEGER},
+            </if>
+            <if test="record.ipMax != null">
+                IP_MAX = #{record.ipMax,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update secrecy
+        set SECRECY_ID = #{record.secrecyId,jdbcType=VARCHAR},
+        SECRECY_NAME = #{record.secrecyName,jdbcType=VARCHAR},
+        IP_MIN = #{record.ipMin,jdbcType=INTEGER},
+        IP_MAX = #{record.ipMax,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Secrecy">
+        update secrecy
+        <set>
+            <if test="secrecyName != null">
+                SECRECY_NAME = #{secrecyName,jdbcType=VARCHAR},
+            </if>
+            <if test="ipMin != null">
+                IP_MIN = #{ipMin,jdbcType=INTEGER},
+            </if>
+            <if test="ipMax != null">
+                IP_MAX = #{ipMax,jdbcType=INTEGER},
+            </if>
+        </set>
+        where SECRECY_ID = #{secrecyId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Secrecy">
+    update secrecy
+    set SECRECY_NAME = #{secrecyName,jdbcType=VARCHAR},
+      IP_MIN = #{ipMin,jdbcType=INTEGER},
+      IP_MAX = #{ipMax,jdbcType=INTEGER}
+    where SECRECY_ID = #{secrecyId,jdbcType=VARCHAR}
+  </update>
+</mapper>
