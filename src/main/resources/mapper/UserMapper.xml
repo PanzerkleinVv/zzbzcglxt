@@ -217,8 +217,8 @@
         <if test="distinct">
             distinct
         </if>
-        USER_ID, USER_NAME, USER_ROLE_ID, USER_DESC
+        <include refid="Base_Column_List"/>
         from user
-        order by USER_ID
+        order by USER_NAME ASC
     </select>
 </mapper>

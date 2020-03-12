@@ -13,6 +13,19 @@
             <arg column="TYPE_SN" javaType="java.lang.Boolean" jdbcType="BIT"/>
         </constructor>
     </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.TypeVo">
+        <constructor>
+            <idArg column="TYPE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_BRAND" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_MODEL" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_SECRECY" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_IP" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_MAC" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_SN" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="EQUIPMENT_COUNT" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -75,7 +88,10 @@
     </sql>
     <sql id="Base_Column_List">
     TYPE_ID, TYPE_NAME, TYPE_BRAND, TYPE_MODEL, TYPE_SECRECY, TYPE_IP, TYPE_MAC, TYPE_SN
-  </sql>
+    </sql>
+    <sql id="Extend_Column_List">
+    TYPE_ID, TYPE_NAME, TYPE_BRAND, TYPE_MODEL, TYPE_SECRECY, TYPE_IP, TYPE_MAC, TYPE_SN, EQUIPMENT_COUNT
+    </sql>
     <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -259,4 +275,20 @@
       TYPE_SN = #{typeSn,jdbcType=BIT}
     where TYPE_ID = #{typeId,jdbcType=VARCHAR}
   </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample" resultMap="ExtendResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>
+        from type
+        left outer join (select EQUIPMENT_TYPE, count(*) EQUIPMENT_COUNT from equipment group by EQUIPMENT_TYPE) t
+        on type.TYPE_ID = t.EQUIPMENT_TYPE
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

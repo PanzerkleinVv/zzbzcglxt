@@ -2,10 +2,11 @@ package com.demstudio.zzbzcglxt.controller;
 
 import com.demstudio.zzbzcglxt.domain.User;
 import com.demstudio.zzbzcglxt.service.UserService;
-import com.demstudio.zzbzcglxt.utils.PageRequest;
-import com.demstudio.zzbzcglxt.utils.PageResult;
+import com.demstudio.zzbzcglxt.vo.PageRequest;
+import com.demstudio.zzbzcglxt.vo.PageResult;
 import com.demstudio.zzbzcglxt.vo.Message;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class UserController {
 
     @GetMapping("/list")
     @ResponseBody
-    public PageResult list(@RequestBody PageRequest pageQuery) {
+    public PageResult list(PageRequest pageQuery) {
         return userService.findPage(pageQuery);
     }
 
@@ -52,6 +53,31 @@ public class UserController {
             return new Message(true, "新增用户成功");
         } else {
             return new Message(false, "新增用户失败");
+        }
+    }
+
+    @GetMapping("/checkUserName")
+    @ResponseBody
+    public Boolean checkUserName(String userName) {
+        return userService.getUserByUserName(userName) == null;
+    }
+
+    @GetMapping("/psw")
+    public String psw() {
+        return "psw";
+    }
+
+    @PostMapping("/changePsw")
+    @ResponseBody
+    public Message changePsw(String userPsw) {
+        final User me = (User) SecurityUtils.getSubject().getPrincipal();
+        User user = new User();
+        user.setUserId(me.getUserId());
+        user.setUserPsw(userPsw);
+        if (userService.changePsw(user)) {
+            return new Message(true, "重置密码成功");
+        } else {
+            return new Message(false, "重置密码失败");
         }
     }
 }

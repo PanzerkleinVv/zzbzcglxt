@@ -2,8 +2,10 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Type;
 import com.demstudio.zzbzcglxt.domain.TypeExample;
-import java.util.List;
+import com.demstudio.zzbzcglxt.vo.TypeVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TypeMapper {
     long countByExample(TypeExample example);
@@ -27,4 +29,6 @@ public interface TypeMapper {
     int updateByPrimaryKeySelective(Type record);
 
     int updateByPrimaryKey(Type record);
+
+    List<TypeVo> searchPage(TypeExample example);
 }

@@ -1,4 +1,4 @@
-package com.demstudio.zzbzcglxt.utils;
+package com.demstudio.zzbzcglxt.vo;
 
 import java.util.List;
 

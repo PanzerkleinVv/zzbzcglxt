@@ -1,5 +1,7 @@
 package com.demstudio.zzbzcglxt.utils;
 
+import com.demstudio.zzbzcglxt.vo.PageRequest;
+import com.demstudio.zzbzcglxt.vo.PageResult;
 import com.github.pagehelper.PageInfo;
 
 public class PageUtils {

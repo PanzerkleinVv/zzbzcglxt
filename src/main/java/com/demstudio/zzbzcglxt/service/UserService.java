@@ -1,8 +1,8 @@
 package com.demstudio.zzbzcglxt.service;
 
 import com.demstudio.zzbzcglxt.domain.User;
-import com.demstudio.zzbzcglxt.utils.PageRequest;
-import com.demstudio.zzbzcglxt.utils.PageResult;
+import com.demstudio.zzbzcglxt.vo.PageRequest;
+import com.demstudio.zzbzcglxt.vo.PageResult;
 
 public interface UserService {
 

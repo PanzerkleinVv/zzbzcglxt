@@ -28,6 +28,17 @@ public class Type {
         this.typeSn = typeSn;
     }
 
+    public Type (Type type) {
+        this.typeId = type.typeId;
+        this.typeName = type.typeName;
+        this.typeBrand = type.typeBrand;
+        this.typeModel = type.typeModel;
+        this.typeSecrecy = type.typeSecrecy;
+        this.typeIp = type.typeIp;
+        this.typeMac = type.typeMac;
+        this.typeSn = type.typeSn;
+    }
+
     public Type() {
         super();
     }
