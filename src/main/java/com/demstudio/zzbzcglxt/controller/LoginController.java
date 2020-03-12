@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -19,9 +22,9 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public String login(String username, String password, Model model) {
+    public String login(String userName, String userPsw, Model model) {
 
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, userPsw);
         Subject currentUser = SecurityUtils.getSubject();
 
         try {
@@ -33,10 +36,19 @@ public class LoginController {
             model.addAttribute("msg", "账号不存在");
         }
         if (currentUser.isAuthenticated()) {
-            return "index";
+            return "redirect:/index";
         } else {
             token.clear();
             return "login";
         }
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        model.addAttribute("msg", "安全退出！");
+        return "login";
+    }
+
 }

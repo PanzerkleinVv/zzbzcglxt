@@ -211,5 +211,14 @@
       USER_ROLE_ID = #{userRoleId,jdbcType=INTEGER},
       USER_DESC = #{userDesc,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=VARCHAR}
-  </update>
+    </update>
+    <select id="selectPage" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        USER_ID, USER_NAME, USER_ROLE_ID, USER_DESC
+        from user
+        order by USER_ID
+    </select>
 </mapper>

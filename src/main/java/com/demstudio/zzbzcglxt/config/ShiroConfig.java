@@ -5,12 +5,14 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Configuration
 public class ShiroConfig {
-    @Bean
+    @Bean("shiroFilter")
     public ShiroFilterFactoryBean webFilter() {
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -23,6 +25,16 @@ public class ShiroConfig {
 
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问,先配置anon再配置authc。
         filterChainMap.put("/login", "anon");
+        filterChainMap.put("/", "anon");
+        filterChainMap.put("/app/**", "anon");
+        filterChainMap.put("/assets/**", "anon");
+        //logout是shiro提供的过滤器,这是走自定义的 shiroLogoutFilter 上面有配置
+        filterChainMap.put("/logout", "logout");
+        //此时访问/user/delete需要delete权限,在自定义Realm中为用户授权。
+        //filterChainDefinitionMap.put("/user/delete", "perms[\"user:delete\"]");
+
+        //其他资源都需要认证  authc 表示需要认证才能进行访问 user表示配置记住我或认证通过可以访问的地址
+        //如果开启限制同一账号登录,改为 .put("/**", "kickout,user");
         filterChainMap.put("/**", "authc");
 
         //设置拦截请求后跳转的URL.
@@ -31,9 +43,15 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(new CustomRealm());
+        securityManager.setRealm(customRealm());
         return securityManager;
+    }
+
+    @Bean
+    public CustomRealm customRealm() {
+        return new CustomRealm();
     }
 }

@@ -1,8 +1,6 @@
 package com.demstudio.zzbzcglxt.security;
 
 import com.demstudio.zzbzcglxt.domain.User;
-import com.demstudio.zzbzcglxt.service.PermissionService;
-import com.demstudio.zzbzcglxt.service.RoleService;
 import com.demstudio.zzbzcglxt.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -14,10 +12,6 @@ import javax.annotation.Resource;
 public class CustomRealm extends AuthorizingRealm {
     @Resource
     UserService userService;
-    @Resource
-    RoleService roleService;
-    @Resource
-    PermissionService permissionService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -33,7 +27,7 @@ public class CustomRealm extends AuthorizingRealm {
         if (authentication == null) {
             throw new UnknownAccountException();
         } else {
-            String psw = (String) token.getCredentials();
+            String psw = new String((char[]) token.getCredentials());
             if (!authentication.getUserPsw().equals(psw)) {
                 throw new IncorrectCredentialsException();
             }
