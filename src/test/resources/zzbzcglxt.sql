@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2020-03-06 19:06:01
+Date: 2020-03-12 18:38:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,6 +25,10 @@ CREATE TABLE `brand` (
   `BRAND_NAME` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BRAND_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of brand
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for equipment
@@ -49,6 +53,10 @@ CREATE TABLE `equipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of equipment
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for log
 -- ----------------------------
 DROP TABLE IF EXISTS `log`;
@@ -65,6 +73,10 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for model
 -- ----------------------------
 DROP TABLE IF EXISTS `model`;
@@ -76,16 +88,8 @@ CREATE TABLE `model` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for permission
+-- Records of model
 -- ----------------------------
-DROP TABLE IF EXISTS `permission`;
-CREATE TABLE `permission` (
-  `PERM_ID` int(3) NOT NULL AUTO_INCREMENT,
-  `PERM_NAME` varchar(255) DEFAULT NULL,
-  `PERM_SIGN` varchar(255) DEFAULT NULL,
-  `PERM_DESC` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`PERM_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for registration_reason
@@ -99,27 +103,8 @@ CREATE TABLE `registration_reason` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for role
+-- Records of registration_reason
 -- ----------------------------
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
-  `ROLE_ID` int(3) NOT NULL AUTO_INCREMENT,
-  `ROLE_NAME` varchar(255) DEFAULT NULL,
-  `ROLE_SIGN` varchar(255) DEFAULT NULL,
-  `ROLE_DESC` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ROLE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for role_permission
--- ----------------------------
-DROP TABLE IF EXISTS `role_permission`;
-CREATE TABLE `role_permission` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ROLE_ID` int(3) DEFAULT NULL,
-  `PERM_ID` int(3) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for secrecy
@@ -132,6 +117,10 @@ CREATE TABLE `secrecy` (
   `IP_MAX` int(11) DEFAULT NULL,
   PRIMARY KEY (`SECRECY_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of secrecy
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for type
@@ -150,6 +139,11 @@ CREATE TABLE `type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of type
+-- ----------------------------
+INSERT INTO `type` VALUES ('4b5ece21cc9fb8b368b3a355b7e3a4df57ceea0e', '笔记本', '1', '1', '1', '0', '1', '1');
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -161,3 +155,9 @@ CREATE TABLE `user` (
   `USER_DESC` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('0e876709ae08fe659ff7c55b526ac1770c1a9db5', '陈文超', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', null, '陈文超');
+INSERT INTO `user` VALUES ('6d4d2708dbc9fd944eecad305cdc72c5545d5e26', '叶颖钧', 'c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646', null, '');
