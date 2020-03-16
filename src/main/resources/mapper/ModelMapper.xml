@@ -8,6 +8,24 @@
             <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.ModelVo">
+        <constructor>
+            <idArg column="MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_COUNT" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="InfoResultMap" type="com.demstudio.zzbzcglxt.vo.ModelVo">
+        <constructor>
+            <idArg column="MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,7 +88,10 @@
     </sql>
     <sql id="Base_Column_List">
     MODEL_ID, MODEL_BRAND, MODEL_NAME
-  </sql>
+    </sql>
+    <sql id="Extend_Column_List">
+    MODEL_ID, MODEL_BRAND, MODEL_NAME, BRAND_NAME, TYPE_NAME, EQUIPMENT_COUNT
+    </sql>
     <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.ModelExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -181,5 +202,33 @@
     set MODEL_BRAND = #{modelBrand,jdbcType=VARCHAR},
       MODEL_NAME = #{modelName,jdbcType=VARCHAR}
     where MODEL_ID = #{modelId,jdbcType=VARCHAR}
-  </update>
+    </update>
+    <select id="selectByPrimaryKeyExtend" parameterType="java.lang.String" resultMap="InfoResultMap">
+        select
+        <include refid="Base_Column_List"/>, BRAND_TYPE
+        from model
+        left outer join brand
+        on model.MODEL_BRAND = brand.BRAND_ID
+        where MODEL_ID = #{modelId,jdbcType=VARCHAR}
+    </select>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.ModelExample" resultMap="ExtendResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>
+        from model
+        left outer join (select EQUIPMENT_MODEL, count(*) EQUIPMENT_COUNT from equipment group by EQUIPMENT_MODEL) t
+        on model.MODEL_ID = t.EQUIPMENT_MODEL
+        left outer join brand
+        on model.MODEL_BRAND = brand.BRAND_ID
+        left outer join type
+        on brand.BRAND_TYPE = type.TYPE_ID
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

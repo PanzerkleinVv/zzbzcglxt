@@ -28,7 +28,7 @@ public class TypeController {
     @ResponseBody
     public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String typeName) {
         TypeExample example = new TypeExample();
-        if (typeName != null) {
+        if (typeName != null && !"".equals(typeName)) {
             example.createCriteria().andTypeNameLike("%" + typeName + "%");
         }
         example.setOrderByClause("TYPE_NAME ASC");
@@ -53,7 +53,7 @@ public class TypeController {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<Type> list() {
-        return typeService.list();
+    public List<Type> list(Type type) {
+        return typeService.list(type);
     }
 }

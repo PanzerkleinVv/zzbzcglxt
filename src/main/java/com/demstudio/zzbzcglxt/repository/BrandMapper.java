@@ -2,8 +2,10 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Brand;
 import com.demstudio.zzbzcglxt.domain.BrandExample;
-import java.util.List;
+import com.demstudio.zzbzcglxt.vo.BrandVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface BrandMapper {
     long countByExample(BrandExample example);
@@ -27,4 +29,6 @@ public interface BrandMapper {
     int updateByPrimaryKeySelective(Brand record);
 
     int updateByPrimaryKey(Brand record);
+
+    List<BrandVo> searchPage(BrandExample example);
 }

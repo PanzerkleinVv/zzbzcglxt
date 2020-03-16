@@ -44,8 +44,19 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<Type> list() {
+    public List<Type> list(Type type) {
         TypeExample example = new TypeExample();
+        if (type != null) {
+            if (type.getTypeBrand()) {
+                example.createCriteria().andTypeBrandEqualTo(true);
+            }
+            if (type.getTypeModel()) {
+                example.createCriteria().andTypeModelEqualTo(true);
+            }
+            if (type.getTypeSecrecy()) {
+                example.createCriteria().andTypeSecrecyEqualTo(true);
+            }
+        }
         example.setOrderByClause("TYPE_NAME ASC");
         return typeMapper.selectByExample(example);
     }

@@ -8,6 +8,15 @@
             <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.BrandVo">
+        <constructor>
+            <idArg column="BRAND_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_COUNT" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,7 +79,10 @@
     </sql>
     <sql id="Base_Column_List">
     BRAND_ID, BRAND_TYPE, BRAND_NAME
-  </sql>
+    </sql>
+    <sql id="Extend_Column_List">
+    BRAND_ID, BRAND_TYPE, BRAND_NAME, TYPE_NAME, EQUIPMENT_COUNT
+    </sql>
     <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.BrandExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -181,5 +193,23 @@
     set BRAND_TYPE = #{brandType,jdbcType=VARCHAR},
       BRAND_NAME = #{brandName,jdbcType=VARCHAR}
     where BRAND_ID = #{brandId,jdbcType=VARCHAR}
-  </update>
+    </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.BrandExample" resultMap="ExtendResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>
+        from brand
+        left outer join (select EQUIPMENT_BRAND, count(*) EQUIPMENT_COUNT from equipment group by EQUIPMENT_BRAND) t
+        on brand.BRAND_ID = t.EQUIPMENT_BRAND
+        left outer join type
+        on brand.BRAND_TYPE = type.TYPE_ID
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

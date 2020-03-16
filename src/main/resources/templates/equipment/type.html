@@ -57,7 +57,7 @@
                         </span>
                         <span>
 							<input type="radio" id="typeModelTrue" name="typeModel" placeholder="是"
-                                   class="" required autocomplete="off" value="true"/>-是&emsp;&emsp;
+                                   class="" required autocomplete="off" value="true" disabled/>-是&emsp;&emsp;
                             <input type="radio" id="typeModelFalse" name="typeModel" placeholder="否"
                                    class="" required autocomplete="off" value="false"/>-否
 						</span>
@@ -124,6 +124,14 @@
             search(1);
         });
 
+        $(":radio[name='typeBrand'] ").on("click", function(){
+            if ($(":radio[name='typeBrand']:checked").val() === 'true') {
+                $("#typeModelTrue").attr("disabled", false);
+            } else {
+                $("#typeModelTrue").attr("disabled", true);
+            }
+        });
+
         $('#createBut').click(function () {
             edit(0);
         });
@@ -154,6 +162,7 @@
 
         function edit(typeId) {
             if (typeId == 0) {
+                $("#typeModelTrue").attr("disabled", true);
                 $("#equipmentTypeForm").resetForm();
             } else {
                 const url = 'equipment/type/info';
@@ -162,12 +171,17 @@
                 }, function (data) {
                     $("#typeId").val(data.typeId);
                     $("#typeName").val(data.typeName);
-                    $("input[name='typeBrand'][value='" + data.typeBrand + "']").attr('checked',true);
-                    $("input[name='typeModel'][value='" + data.typeModel + "']").attr('checked',true);
-                    $("input[name='typeSecrecy'][value='" + data.typeSecrecy + "']").attr('checked',true);
-                    $("input[name='typeIp'][value='" + data.typeIp + "']").attr('checked',true);
-                    $("input[name='typeMac'][value='" + data.typeMac + "']").attr('checked',true);
-                    $("input[name='typeSn'][value='" + data.typeSn + "']").attr('checked',true);
+                    $("input[name='typeBrand'][value='" + data.typeBrand + "']").click();
+                    if (data.typeBrand) {
+                        $("#typeModelTrue").attr("disabled", false);
+                    } else {
+                        $("#typeModelTrue").attr("disabled", true);
+                    }
+                    $("input[name='typeModel'][value='" + data.typeModel + "']").click();
+                    $("input[name='typeSecrecy'][value='" + data.typeSecrecy + "']").click();
+                    $("input[name='typeIp'][value='" + data.typeIp + "']").click();
+                    $("input[name='typeMac'][value='" + data.typeMac + "']").click();
+                    $("input[name='typeSn'][value='" + data.typeSn + "']").click();
                 });
             }
             dialogueOpen("equipmentTypeInfo");

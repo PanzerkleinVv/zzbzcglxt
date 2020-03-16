@@ -15,6 +15,6 @@ public interface TypeService {
 
     boolean edit(Type type);
 
-    List<Type> list();
+    List<Type> list(Type type);
 
 }

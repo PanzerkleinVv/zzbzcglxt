@@ -1,0 +1,231 @@
+<div class="mainContent">
+    <div class="">
+        <form action="" method="post">
+            <input name="modelName" id="modelNameSearch" size="25" class="form-control placeholder-no-fix searchBox"
+                   style="width: 35%;" type="text" autocomplete="off" placeholder="查找设备品牌"/>
+            <span>类型：</span>
+            <select id="brandTypeSearch" class="form-control" style="width: 20%; display: inline-block;">
+                <option value="0" selected>所有</option>
+            </select>
+            <span>品牌：</span>
+            <select name="modelBrand" id="modelBrandSearch" class="form-control" style="width: 20%; display: inline-block;">
+                <option value="0" selected>所有</option>
+            </select>
+            <button id="searchBut" type="button" class="btn blue">查询</button>
+            <button id="createBut" type="button" class="btn green">新增</button>
+        </form>
+    </div>
+    <div class="userTable" id="searchResult">
+        <div class="userRow userHeader">
+            <span class="userItem6-1">设备型号</span>
+            <span class="userItem6-1">所属类型</span>
+            <span class="userItem6-1">所属品牌</span>
+            <span class="userItem6">设备数量</span>
+            <span class="userItem6">操作</span>
+        </div>
+    </div>
+    <div class="pageBox">
+        <input type="hidden" id="pageNum"/>
+    </div>
+    <div class="mask"></div>
+    <div id="equipmentModelInfo" class="dialogueBox">
+        <div class="dialogueHeader">
+            <span>设备型号信息</span>
+            <span class="dialogueClose">
+				<i class="fa fa-window-close"></i>
+			</span>
+        </div>
+        <div class="dialogueBody">
+            <form id="equipmentModelForm" class="needs-validation">
+                <div class="formLine">
+                    <div class="formDiv">
+						<span>
+							设备型号：<i>*</i>
+						</span>
+                        <input type="hidden" id="modelId" name="modelId"/>
+                        <span>
+							<input type="text" id="modelName" name="modelName" placeholder="设备型号"
+                                   class="form-control placeholder-no-fix" required autocomplete="off"/>
+						</span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span>
+                            所属类型：<i>*</i>
+                        </span>
+                        <span>
+							<select name="brandType" id="brandType" class="form-control" required>
+                            </select>
+						</span>
+                    </div>
+                    <div class="formDiv">
+                        <span>
+                            所属品牌：<i>*</i>
+                        </span>
+                        <span>
+							<select name="modelBrand" id="modelBrand" class="form-control" required>
+                            </select>
+						</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="dialogueFooter">
+            <button id="saveEquipmentModel" type="button" class="btn blue">保存</button>
+            <button id="closeEquipmentModel" type="button" class="btn gray">取消</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('#searchBut').click(function () {
+            search(1);
+        });
+
+        $('#createBut').click(function () {
+            edit(0);
+        });
+
+        function search(pageNum) {
+            const url = 'equipment/model/search';
+            $.getJSON(
+                url,
+                {
+                    'pageNum': pageNum,
+                    'pageSize': 25,
+                    'modelName': $("#modelNameSearch").val(),
+                    'modelBrand': $("#modelBrandSearch").val()
+                },
+                function (data) {
+                    setPage(data, $(".pageBox"), $("#pageNum"));
+                    $("#searchResult .userHeader").nextAll().remove();
+                    $.each(data.content, function (i, n) {
+                        $("#searchResult").append('<div class="userRow"><span class="userItem6-1">'
+                            + n.modelName
+                            + '</span><span class="userItem6-1">'
+                            + n.typeName
+                            + '</span><span class="userItem6-1">'
+                            + n.brandName
+                            + '</span><span class="userItem6">'
+                            + nullToZero(n.equipmentCount)
+                            + '</span><span class="userItem6"><button type="button" class="btn blue" onclick="edit(\''
+                            + n.modelId
+                            + '\')">修改</button></span></div>');
+                    });
+                });
+        }
+
+        function edit(modelId) {
+            if (modelId == 0) {
+                $("#equipmentBrandForm").resetForm();
+                getBrandList($("#brandType").val());
+            } else {
+                const url = 'equipment/model/info';
+                $.getJSON(url, {
+                    'modelId': modelId
+                }, function (data) {
+                    $("#modelId").val(data.modelId);
+                    $("#modelName").val(data.modelName);
+                    $("#brandType").val(data.brandType);
+                    getBrandList(data.brandType);
+                    $("#modelBrand").val(data.modelBrand);
+                });
+            }
+            dialogueOpen("equipmentModelInfo");
+        }
+
+        $(".dialogueClose").click(function (target) {
+            dialogueClose($(this).parent().parent().attr("id"));
+        });
+
+        $("#closeEquipmentModel").click(function (target) {
+            dialogueClose("equipmentModelInfo");
+        });
+
+        $("#saveEquipmentModel").click(function (target) {
+            $("form#equipmentModelForm").submit();
+        });
+
+        $(function () {
+            $("form#equipmentModelForm.needs-validation").validate({
+                submitHandler: function (form) {
+                    $("#brandType").attr("disabled", true);
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "equipment/model/edit",
+                        dataType: "json",
+                        success: function (result) { //表单提交后更新页面显示的数据
+                            dialogueClose("equipmentModelInfo");
+                            search(1);
+                            layer.msg(result.content, {
+                                time: 2000
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        function getTypeList() {
+            const url = 'equipment/type/list';
+            $.getJSON(url, {
+                'typeBrand': true,
+                'typeModel': true,
+                'typeSecrecy': false,
+                }, function (data) {
+                    $.each(data, function (i, n) {
+                        let str = "<option value='" + n.typeId + "'>" + n.typeName + "</option>";
+                        $("#brandTypeSearch").append(str);
+                        $("#brandType").append(str);
+                    });
+            });
+        }
+
+        function getBrandSearchList(brandType) {
+            const url = 'equipment/brand/list';
+            $.getJSON(url, {
+                'brandType': brandType
+            }, function (data) {
+                $("#modelBrandSearch option[value='0']").nextAll().remove();
+                $.each(data, function (i, n) {
+                    let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
+                    $("#modelBrandSearch").append(str);
+                });
+            });
+        }
+
+        function getBrandList(brandType) {
+            const url = 'equipment/brand/list';
+            $.getJSON(url, {
+                'brandType': brandType
+            }, function (data) {
+                $("#modelBrand").children().remove();
+                $.each(data, function (i, n) {
+                    let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
+                    $("#modelBrand").append(str);
+                });
+            });
+        }
+
+        $("#brandTypeSearch").change(function() {
+            $("#modelBrandSearch").val(0);
+            if ($("#brandTypeSearch").val() != "0") {
+                getBrandSearchList($("#brandTypeSearch").val());
+            } else {
+                $("#modelBrandSearch").val(0);
+                $("#modelBrandSearch option[value='0']").nextAll().remove();
+            }
+        });
+
+        $("#brandType").change(function() {
+            getBrandList($("#brandType").val());
+        });
+
+        $(function () {
+            search(1);
+            getTypeList();
+            $("#index-page-title").html("设备型号管理");
+            $("#current-page-title").html("设备型号管理");
+        });
+    </script>
+</div>

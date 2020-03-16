@@ -1,8 +1,11 @@
 package com.demstudio.zzbzcglxt.repository;
 
+import com.demstudio.zzbzcglxt.domain.BrandExample;
 import com.demstudio.zzbzcglxt.domain.Equipment;
 import com.demstudio.zzbzcglxt.domain.EquipmentExample;
 import java.util.List;
+
+import com.demstudio.zzbzcglxt.vo.EquipmentVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentMapper {
@@ -27,4 +30,8 @@ public interface EquipmentMapper {
     int updateByPrimaryKeySelective(Equipment record);
 
     int updateByPrimaryKey(Equipment record);
+
+    List<EquipmentVo> searchPage(EquipmentExample example);
+
+    EquipmentVo admin(String equipmentId);
 }

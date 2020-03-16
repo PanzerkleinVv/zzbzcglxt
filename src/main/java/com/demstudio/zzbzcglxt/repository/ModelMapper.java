@@ -2,8 +2,10 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Model;
 import com.demstudio.zzbzcglxt.domain.ModelExample;
-import java.util.List;
+import com.demstudio.zzbzcglxt.vo.ModelVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ModelMapper {
     long countByExample(ModelExample example);
@@ -27,4 +29,8 @@ public interface ModelMapper {
     int updateByPrimaryKeySelective(Model record);
 
     int updateByPrimaryKey(Model record);
+
+    List<ModelVo> searchPage(ModelExample example);
+
+    ModelVo selectByPrimaryKeyExtend(String modelId);
 }

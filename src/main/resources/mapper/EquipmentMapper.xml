@@ -19,6 +19,30 @@
             <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.domain.EquipmentVo">
+        <constructor>
+            <idArg column="EQUIPMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_MODEL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_IP" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="EQUIPMENT_MAC" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_SN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="EQUIPMENT_REGISTRATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="EQUIPMENT_REGISTRATION_REASON" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_REGISTRATION_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SECRECY_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="REGISTRATION_REASON_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_TARGET" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -83,7 +107,13 @@
     EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE, EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY, 
     EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN, EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE, 
     EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, EQUIPMENT_NOTE
-  </sql>
+    </sql>
+    <sql id="Extend_Column_List">
+    EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE, EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY,
+    EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN, EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE,
+    EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, EQUIPMENT_NOTE, TYPE_NAME,
+    BRAND_NAME, MODEL_NAME, SECRECY_NAME, REGISTRATION_REASON_NAME
+    </sql>
     <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample"
             resultMap="BaseResultMap">
         select
@@ -359,4 +389,44 @@
       EQUIPMENT_NOTE = #{equipmentNote,jdbcType=VARCHAR}
     where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
   </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample" resultMap="ExtendResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>, LOG_TARGET
+        from equipment
+        left outer join type
+        on equipment.EQUIPMENT_TYPE = type.TYPE_ID
+        left outer join brand
+        on equipment.EQUIPMENT_BRAND = brand.BRAND_ID
+        left outer join model
+        on equipment.EQUIPMENT_MODEL = model.MODEL_ID
+        left outer join secrecy
+        on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
+        left outer join registration_reason
+        on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
+        left outer join (select LOG_EQUIPMENT, LOG_TARGET from log limit 1 order by LOG_OPERATION_DATE DESC) t
+        on equipment.EQUIPMENT_ID = t.LOG_EQUIPMENT
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="admin" parameterType="java.lang.String" resultMap="ExtendResultMap">
+        select
+        <include refid="Extend_Column_List"/>
+        from equipment
+        left outer join type
+        on equipment.EQUIPMENT_TYPE = type.TYPE_ID
+        left outer join brand
+        on equipment.EQUIPMENT_BRAND = brand.BRAND_ID
+        left outer join model
+        on equipment.EQUIPMENT_MODEL = model.MODEL_ID
+        left outer join secrecy
+        on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
+        where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
+    </select>
 </mapper>

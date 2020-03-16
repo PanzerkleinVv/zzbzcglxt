@@ -163,4 +163,34 @@ public class Equipment {
     public void setEquipmentNote(String equipmentNote) {
         this.equipmentNote = equipmentNote == null ? null : equipmentNote.trim();
     }
+
+    public EquipmentExample toExample() {
+        EquipmentExample example = new EquipmentExample();
+        EquipmentExample.Criteria criteria = example.createCriteria();
+        if (equipmentName != null && !"".equals(equipmentName)) {
+            criteria.andEquipmentNameLike("%" + equipmentName + "%");
+        }
+        if (equipmentSn != null && !"".equals(equipmentSn)) {
+            criteria.andEquipmentSnLike("%" + equipmentSn + "%");
+        }
+        if (equipmentMac != null && !"".equals(equipmentMac)) {
+            criteria.andEquipmentMacLike("%" + equipmentMac + "%");
+        }
+        if (equipmentType != null && !"0".equals(equipmentType)) {
+            criteria.andEquipmentTypeEqualTo(equipmentType);
+        }
+        if (equipmentBrand != null && !"0".equals(equipmentBrand)) {
+            criteria.andEquipmentBrandEqualTo(equipmentBrand);
+        }
+        if (equipmentModel != null && !"0".equals(equipmentModel)) {
+            criteria.andEquipmentModelEqualTo(equipmentModel);
+        }
+        if (equipmentStatus != null && !"4".equals(equipmentStatus)) {
+            criteria.andEquipmentStatusEqualTo(equipmentStatus);
+        } else {
+            criteria.andEquipmentStatusNotEqualTo(0);
+        }
+        example.setOrderByClause("EQUIPMENT_STATUS DESC, EQUIPMENT_TYPE ASC, EQUIPMENT_BRAND ASC, EQUIPMENT_MODEL ASC, EQUIPMENT_NAME ASC");
+        return example;
+    }
 }

@@ -184,4 +184,18 @@
       REGISTRATION_REASON_NOTE = #{registrationReasonNote,jdbcType=BIT}
     where REGISTRATION_REASON_ID = #{registrationReasonId,jdbcType=VARCHAR}
   </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.RegistrationReasonExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from registration_reason
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

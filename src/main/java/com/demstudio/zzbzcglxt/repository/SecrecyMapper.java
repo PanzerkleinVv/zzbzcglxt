@@ -27,4 +27,6 @@ public interface SecrecyMapper {
     int updateByPrimaryKeySelective(Secrecy record);
 
     int updateByPrimaryKey(Secrecy record);
+
+    List<Secrecy> searchPage(SecrecyExample example);
 }

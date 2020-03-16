@@ -198,5 +198,19 @@
       IP_MIN = #{ipMin,jdbcType=INTEGER},
       IP_MAX = #{ipMax,jdbcType=INTEGER}
     where SECRECY_ID = #{secrecyId,jdbcType=VARCHAR}
-  </update>
+    </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.SecrecyExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from secrecy
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

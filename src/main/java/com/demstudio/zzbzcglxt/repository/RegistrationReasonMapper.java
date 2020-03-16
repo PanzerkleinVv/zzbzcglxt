@@ -27,4 +27,6 @@ public interface RegistrationReasonMapper {
     int updateByPrimaryKeySelective(RegistrationReason record);
 
     int updateByPrimaryKey(RegistrationReason record);
+
+    List<RegistrationReason> searchPage(RegistrationReasonExample example);
 }
