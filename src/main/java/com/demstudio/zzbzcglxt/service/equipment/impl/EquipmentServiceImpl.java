@@ -5,7 +5,7 @@ import com.demstudio.zzbzcglxt.domain.EquipmentExample;
 import com.demstudio.zzbzcglxt.repository.EquipmentMapper;
 import com.demstudio.zzbzcglxt.service.equipment.EquipmentService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
-import com.demstudio.zzbzcglxt.vo.EquipmentVo;
+import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
 import com.github.pagehelper.PageHelper;
@@ -36,6 +36,11 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public EquipmentVo admin(String equipmentId) {
         return equipmentMapper.admin(equipmentId);
+    }
+
+    @Override
+    public boolean delete(String equipmentId) {
+        return 1 == equipmentMapper.deleteByPrimaryKey(equipmentId);
     }
 
     @Override

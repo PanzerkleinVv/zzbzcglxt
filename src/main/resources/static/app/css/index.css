@@ -170,9 +170,10 @@
 	max-height: 60%;
 	border: 3px solid #ccc;
 	background-color: white;
+	overflow: hidden;
 	z-index: 2;
-	overflow: auto;
 	display: none;
+	flex-direction: column;
 }
 
 .dialogueHeader {
@@ -182,10 +183,7 @@
 	vertical-align: middle;
 	background-color: #a61515;
 	color: #FFFFFF;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding: 3px 20px;
 }
 
 .dialogueHeader span {
@@ -204,10 +202,8 @@
 }
 
 .dialogueBody {
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 10px;
+	overflow: auto;
 }
 
 .dialogueFooter {
@@ -218,8 +214,8 @@
 .mask {
 	display: none;
 	position: absolute;
-	top: 0%;
-	left: 0%;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: black;
@@ -260,191 +256,4 @@
 
 .formDiv span a {
 	line-height: 34px;
-}
-
-#examList {
-	margin: 5px;
-	background-color: #a61515;
-	border-bottom: 2px solid #a61515;
-}
-
-.examRow:NTH-CHILD(even) {
-	background-color: #FFFFFF;
-}
-
-.examRow:NTH-CHILD(odd) {
-	background-color: #EEEEEE;
-}
-
-.examRow {
-	line-height: 34px;
-	display: flex;
-	flex-direction: row;
-	flex-flow: row wrap;
-	align-content: flex-start;
-	margin-left: 2px;
-	margin-right: 2px;
-	margin-top: 2px;
-}
-
-.examHeader {
-	background-color: #a61515 !important;
-	font-family: 微软雅黑;
-	color: #FFFFFF;
-	text-align: center;
-}
-
-.examRow span {
-	display: block;
-	padding-left: 10px;
-	padding-right: 10px;
-	white-space: nowrap;
-	overflow-x: hidden;
-	text-overflow: ellipsis;
-}
-
-.examRow span:first-of-type {
-	flex: 0 0 30%;
-	cursor: pointer;
-}
-
-.examRow span:nth-of-type(2) {
-	border-left: 2px solid #FFFFFF;
-	flex: 0 0 40%;
-	text-align: center;
-	cursor: pointer;
-}
-
-.examRow span:nth-of-type(3) {
-	border-left: 2px solid #FFFFFF;
-	flex: 0 0 15%;
-	text-align: center;
-	cursor: pointer;
-}
-
-.examRow span:nth-of-type(4) {
-	border-left: 2px solid #FFFFFF;
-	flex: 0 0 15%;
-	text-align: center;
-	cursor: pointer;
-}
-
-.examRow span:nth-of-type(5) {
-	flex: 0 0 100%;
-	display: none;
-	background-color: #EEEEEE;
-}
-
-.examRow:NTH-CHILD(even) span:nth-of-type(5) {
-	background-color: #EEEEEE;
-}
-
-.examRow:NTH-CHILD(odd) span:nth-of-type(5) {
-	background-color: #FFFFFF;
-}
-
-#paperHeader {
-	background-color: #a61515 !important;
-	color: #FFFFFF;
-	display: flex;
-	padding: 3px;
-}
-
-#paperHeader span {
-	display: inline-block;
-	margin: 2px 2px 0 2px;
-	font-size: 26px;
-	line-height: 26px;
-	margin: 2px 2px 0 2px;
-}
-
-#paperHeader span:first-of-type {
-	flex: 1;
-	white-space: nowrap;
-	overflow-x: hidden;
-	text-overflow: ellipsis;
-}
-
-#paperHeader span:nth-of-type(2) {
-	width: 104px;
-}
-
-#paperHeader span:last-of-type {
-	width: 200px;
-}
-
-#paperBody {
-	display: flex;
-}
-
-#paperQuestionType {
-	width: 80px;
-	writing-mode: vertical-lr;
-	font-size: 24px;
-	padding: 10px;
-}
-
-.paperQuestionOl {
-	display: block;
-	flex: 1;
-	font-size: 22px;
-	font-family: '宋体';
-}
-
-.answerOl {
-	margin-left: 30px;
-	font-size: 16px;
-	list-style-type: none;
-	padding-left: 0;
-}
-
-.answerOl label {
-	display: block;
-}
-
-#paperFooter {
-	text-align: center;
-}
-
-#prevQuestion {
-	border-radius: 15px !important;
-}
-
-#nextQuestion {
-	border-radius: 15px !important;
-}
-
-#switchQuestion {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.questionButton {
-	display: block;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	background-color: gray;
-	vertical-align: middle;
-	text-align: center;
-	border-radius: 50% !important;
-	margin: 5px;
-	color: white;
-	cursor: pointer;
-}
-
-.switchQuestionType {
-	display: block;
-	width: 90px;
-	height: 40px;
-	line-height: 40px;
-	background-color: #ff8080;
-	vertical-align: middle;
-	text-align: center;
-	border-radius: 20px !important;
-	margin: 5px;
-	color: white;
 }

@@ -3,6 +3,8 @@ package com.demstudio.zzbzcglxt.repository;
 import com.demstudio.zzbzcglxt.domain.Log;
 import com.demstudio.zzbzcglxt.domain.LogExample;
 import java.util.List;
+
+import com.demstudio.zzbzcglxt.vo.equipment.LogVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface LogMapper {
@@ -27,4 +29,6 @@ public interface LogMapper {
     int updateByPrimaryKeySelective(Log record);
 
     int updateByPrimaryKey(Log record);
+
+    List<LogVo> list(LogExample example);
 }

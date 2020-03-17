@@ -4,7 +4,7 @@ import com.demstudio.zzbzcglxt.domain.Model;
 import com.demstudio.zzbzcglxt.domain.ModelExample;
 import com.demstudio.zzbzcglxt.service.equipment.ModelService;
 import com.demstudio.zzbzcglxt.vo.Message;
-import com.demstudio.zzbzcglxt.vo.ModelVo;
+import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
 import org.springframework.stereotype.Controller;

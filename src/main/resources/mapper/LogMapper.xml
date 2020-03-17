@@ -13,6 +13,19 @@
             <arg column="LOG_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.LogVo">
+        <constructor>
+            <idArg column="LOG_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_EQUIPMENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_USER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="LOG_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="LOG_TARGET" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LOG_OPERATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="LOG_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -77,6 +90,10 @@
     LOG_ID, LOG_EQUIPMENT, LOG_USER, LOG_TIME, LOG_STATUS, LOG_TARGET, LOG_OPERATION_DATE, 
     LOG_NOTE
   </sql>
+    <sql id="Extend_Column_List">
+    LOG_ID, LOG_EQUIPMENT, LOG_USER, LOG_TIME, LOG_STATUS, LOG_TARGET, LOG_OPERATION_DATE,
+    LOG_NOTE, USER_NAME
+    </sql>
     <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.LogExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -260,4 +277,20 @@
       LOG_NOTE = #{logNote,jdbcType=VARCHAR}
     where LOG_ID = #{logId,jdbcType=VARCHAR}
   </update>
+    <select id="list" parameterType="com.demstudio.zzbzcglxt.domain.LogExample" resultMap="ExtendResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>
+        from log
+        left outer join user
+        on log.LOG_USER = user.USER_ID
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

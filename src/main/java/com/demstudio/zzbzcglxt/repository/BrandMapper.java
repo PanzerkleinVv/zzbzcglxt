@@ -2,7 +2,7 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Brand;
 import com.demstudio.zzbzcglxt.domain.BrandExample;
-import com.demstudio.zzbzcglxt.vo.BrandVo;
+import com.demstudio.zzbzcglxt.vo.equipment.BrandVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

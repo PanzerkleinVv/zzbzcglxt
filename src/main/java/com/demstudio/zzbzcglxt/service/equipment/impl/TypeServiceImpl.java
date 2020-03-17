@@ -7,7 +7,7 @@ import com.demstudio.zzbzcglxt.service.equipment.TypeService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import com.demstudio.zzbzcglxt.vo.TypeVo;
+import com.demstudio.zzbzcglxt.vo.equipment.TypeVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;

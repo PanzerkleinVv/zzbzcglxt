@@ -19,7 +19,7 @@
             <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
-    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.domain.EquipmentVo">
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo">
         <constructor>
             <idArg column="EQUIPMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="EQUIPMENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>

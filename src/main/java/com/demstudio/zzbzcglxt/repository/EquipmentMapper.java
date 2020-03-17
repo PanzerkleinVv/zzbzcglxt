@@ -1,11 +1,10 @@
 package com.demstudio.zzbzcglxt.repository;
 
-import com.demstudio.zzbzcglxt.domain.BrandExample;
 import com.demstudio.zzbzcglxt.domain.Equipment;
 import com.demstudio.zzbzcglxt.domain.EquipmentExample;
 import java.util.List;
 
-import com.demstudio.zzbzcglxt.vo.EquipmentVo;
+import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
 import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentMapper {

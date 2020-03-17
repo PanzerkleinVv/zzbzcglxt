@@ -94,6 +94,7 @@
             if (registrationReasonId == 0) {
                 $("#registrationReasonForm").resetForm();
             } else {
+                $("#registrationReasonForm").resetForm();
                 const url = 'equipment/registrationReason/info';
                 $.getJSON(url, {
                     'registrationReasonId': registrationReasonId

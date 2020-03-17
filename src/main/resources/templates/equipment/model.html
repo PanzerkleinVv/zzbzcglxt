@@ -117,9 +117,10 @@
 
         function edit(modelId) {
             if (modelId == 0) {
-                $("#equipmentBrandForm").resetForm();
+                $("#equipmentModelForm").resetForm();
                 getBrandList($("#brandType").val());
             } else {
+                $("#equipmentModelForm").resetForm();
                 const url = 'equipment/model/info';
                 $.getJSON(url, {
                     'modelId': modelId
@@ -212,7 +213,6 @@
             if ($("#brandTypeSearch").val() != "0") {
                 getBrandSearchList($("#brandTypeSearch").val());
             } else {
-                $("#modelBrandSearch").val(0);
                 $("#modelBrandSearch option[value='0']").nextAll().remove();
             }
         });

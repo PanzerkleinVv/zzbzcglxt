@@ -8,7 +8,7 @@
             <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
-    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.ModelVo">
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.ModelVo">
         <constructor>
             <idArg column="MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="MODEL_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
@@ -18,7 +18,7 @@
             <arg column="EQUIPMENT_COUNT" javaType="java.lang.Long" jdbcType="INTEGER"/>
         </constructor>
     </resultMap>
-    <resultMap id="InfoResultMap" type="com.demstudio.zzbzcglxt.vo.ModelVo">
+    <resultMap id="InfoResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.ModelVo">
         <constructor>
             <idArg column="MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="MODEL_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>

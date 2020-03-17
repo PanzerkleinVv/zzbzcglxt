@@ -107,6 +107,7 @@
             if (secrecyId == 0) {
                 $("#equipmentSecrecyForm").resetForm();
             } else {
+                $("#equipmentSecrecyForm").resetForm();
                 const url = 'equipment/secrecy/info';
                 $.getJSON(url, {
                     'secrecyId': secrecyId

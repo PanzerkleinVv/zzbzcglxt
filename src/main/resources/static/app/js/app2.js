@@ -55,7 +55,7 @@ function setPage(data, pageBox, pageNoInp) {
 }
 
 function dialogueOpen(id) {
-    $("#" + id).slideDown(300);
+    $("#" + id).css('display','flex')
     $(".mask").show();
 }
 
@@ -94,17 +94,23 @@ function nullToZero(obj) {
 }
 
 function ipToNum(ip0, ip1, ip2, ip3) {
-    return (parseInt(ip0) >>> 0) + (parseInt(ip1) << 8) + (parseInt(ip2) << 16) + (parseInt(ip3) << 24);
+    if (!isNaN(ip0) && !isNaN(ip1) && !isNaN(ip2) && !isNaN(ip3)) {
+        return (parseInt(ip0) >>> 0) + (parseInt(ip1) << 8) + (parseInt(ip2) << 16) + (parseInt(ip3) << 24);
+    } else {
+        return "";
+    }
 }
 
 function numToIp(num, obj0, obj1, obj2, obj3) {
-    num = num < 0 ? 4294967296 + num : num;
-    let num0 = num % 256;
-    obj0.val(num0);
-    let num1 = ((num - (num0)) / 256) % 256
-    obj1.val(num1);
-    let num2 = ((num - (num0 + num1 * 256)) / 256 / 256) % 256
-    obj2.val(num2);
-    let num3 = ((num - (num0 + num1 * 256 + num2 * 256 * 256)) / 256 / 256 / 256) % 256
-    obj3.val(num3);
+    if (!isNaN(num)) {
+        num = num < 0 ? 4294967296 + num : num;
+        let num0 = num % 256;
+        obj0.val(num0);
+        let num1 = ((num - (num0)) / 256) % 256
+        obj1.val(num1);
+        let num2 = ((num - (num0 + num1 * 256)) / 256 / 256) % 256
+        obj2.val(num2);
+        let num3 = ((num - (num0 + num1 * 256 + num2 * 256 * 256)) / 256 / 256 / 256) % 256
+        obj3.val(num3);
+    }
 }

@@ -2,7 +2,7 @@ package com.demstudio.zzbzcglxt.controller.equipment;
 
 import com.demstudio.zzbzcglxt.domain.Equipment;
 import com.demstudio.zzbzcglxt.service.equipment.EquipmentService;
-import com.demstudio.zzbzcglxt.vo.EquipmentVo;
+import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;

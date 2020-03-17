@@ -5,7 +5,7 @@ import com.demstudio.zzbzcglxt.domain.ModelExample;
 import com.demstudio.zzbzcglxt.repository.ModelMapper;
 import com.demstudio.zzbzcglxt.service.equipment.ModelService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
-import com.demstudio.zzbzcglxt.vo.ModelVo;
+import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
 import com.github.pagehelper.PageHelper;

@@ -1,4 +1,4 @@
-package com.demstudio.zzbzcglxt.vo;
+package com.demstudio.zzbzcglxt.vo.equipment;
 
 import com.demstudio.zzbzcglxt.domain.Brand;
 

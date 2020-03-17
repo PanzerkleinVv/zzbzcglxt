@@ -2,7 +2,7 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Type;
 import com.demstudio.zzbzcglxt.domain.TypeExample;
-import com.demstudio.zzbzcglxt.vo.TypeVo;
+import com.demstudio.zzbzcglxt.vo.equipment.TypeVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

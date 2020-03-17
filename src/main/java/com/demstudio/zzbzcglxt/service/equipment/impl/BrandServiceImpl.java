@@ -5,7 +5,7 @@ import com.demstudio.zzbzcglxt.domain.BrandExample;
 import com.demstudio.zzbzcglxt.repository.BrandMapper;
 import com.demstudio.zzbzcglxt.service.equipment.BrandService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
-import com.demstudio.zzbzcglxt.vo.BrandVo;
+import com.demstudio.zzbzcglxt.vo.equipment.BrandVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
 import com.github.pagehelper.PageHelper;

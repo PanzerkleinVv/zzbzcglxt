@@ -103,6 +103,7 @@
             if (brandId == 0) {
                 $("#equipmentBrandForm").resetForm();
             } else {
+                $("#equipmentBrandForm").resetForm();
                 const url = 'equipment/brand/info';
                 $.getJSON(url, {
                     'brandId': brandId

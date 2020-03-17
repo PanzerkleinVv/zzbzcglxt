@@ -165,6 +165,7 @@
                 $("#typeModelTrue").attr("disabled", true);
                 $("#equipmentTypeForm").resetForm();
             } else {
+                $("#equipmentTypeForm").resetForm();
                 const url = 'equipment/type/info';
                 $.getJSON(url, {
                     'typeId': typeId

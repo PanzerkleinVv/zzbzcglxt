@@ -80,4 +80,12 @@ public class UserController {
             return new Message(false, "重置密码失败");
         }
     }
+
+    @GetMapping("/me")
+    @ResponseBody
+    public User me() {
+        final User me = (User) SecurityUtils.getSubject().getPrincipal();
+        me.setUserPsw("");
+        return me;
+    }
 }

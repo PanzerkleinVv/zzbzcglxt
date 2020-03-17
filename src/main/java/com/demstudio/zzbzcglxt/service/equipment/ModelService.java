@@ -2,7 +2,7 @@ package com.demstudio.zzbzcglxt.service.equipment;
 
 import com.demstudio.zzbzcglxt.domain.Model;
 import com.demstudio.zzbzcglxt.domain.ModelExample;
-import com.demstudio.zzbzcglxt.vo.ModelVo;
+import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
 
