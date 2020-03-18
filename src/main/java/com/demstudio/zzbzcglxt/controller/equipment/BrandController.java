@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Controller
 @RequestMapping("/equipment/brand")
@@ -57,9 +56,4 @@ public class BrandController {
         }
     }
 
-    @GetMapping("/list")
-    @ResponseBody
-    public List<Brand> list(String brandType) {
-        return brandService.list(brandType);
-    }
 }

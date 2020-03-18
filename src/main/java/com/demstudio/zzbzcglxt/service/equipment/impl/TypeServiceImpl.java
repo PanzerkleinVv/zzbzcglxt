@@ -7,6 +7,7 @@ import com.demstudio.zzbzcglxt.service.equipment.TypeService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.TypeExtend;
 import com.demstudio.zzbzcglxt.vo.equipment.TypeVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -44,7 +45,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public List<Type> list(Type type) {
+    public List<TypeExtend> list(Type type) {
         TypeExample example = new TypeExample();
         if (type != null) {
             if (type.getTypeBrand()) {
@@ -53,12 +54,8 @@ public class TypeServiceImpl implements TypeService {
             if (type.getTypeModel()) {
                 example.createCriteria().andTypeModelEqualTo(true);
             }
-            if (type.getTypeSecrecy()) {
-                example.createCriteria().andTypeSecrecyEqualTo(true);
-            }
         }
-        example.setOrderByClause("TYPE_NAME ASC");
-        return typeMapper.selectByExample(example);
+        return typeMapper.list(example);
     }
 
     private PageInfo<TypeVo> getPageInfo(PageRequest pageRequest, TypeExample example) {

@@ -5,9 +5,9 @@ import com.demstudio.zzbzcglxt.domain.ModelExample;
 import com.demstudio.zzbzcglxt.repository.ModelMapper;
 import com.demstudio.zzbzcglxt.service.equipment.ModelService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
-import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,14 +41,6 @@ public class ModelServiceImpl implements ModelService {
             model.setModelId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
             return 1 == modelMapper.insertSelective(model);
         }
-    }
-
-    @Override
-    public List<Model> list(String modelBrand) {
-        ModelExample example = new ModelExample();
-        example.createCriteria().andModelBrandEqualTo(modelBrand);
-        example.setOrderByClause("MODEL_NAME ASC");
-        return modelMapper.selectByExample(example);
     }
 
     private PageInfo<ModelVo> getPageInfo(PageRequest pageRequest, ModelExample example) {

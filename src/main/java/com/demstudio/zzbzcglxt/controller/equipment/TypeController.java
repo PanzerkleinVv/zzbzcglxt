@@ -6,6 +6,7 @@ import com.demstudio.zzbzcglxt.service.equipment.TypeService;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.TypeExtend;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +54,7 @@ public class TypeController {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<Type> list(Type type) {
+    public List<TypeExtend> list(Type type) {
         return typeService.list(type);
     }
 }

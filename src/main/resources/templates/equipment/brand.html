@@ -151,8 +151,7 @@
             const url = 'equipment/type/list';
             $.getJSON(url, {
                 'typeBrand': true,
-                'typeModel': false,
-                'typeSecrecy': false,
+                'typeModel': false
                 }, function (data) {
                     $.each(data, function (i, n) {
                         let str = "<option value='" + n.typeId + "'>" + n.typeName + "</option>";

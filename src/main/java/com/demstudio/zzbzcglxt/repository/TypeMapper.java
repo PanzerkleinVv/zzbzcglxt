@@ -2,6 +2,7 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Type;
 import com.demstudio.zzbzcglxt.domain.TypeExample;
+import com.demstudio.zzbzcglxt.vo.equipment.TypeExtend;
 import com.demstudio.zzbzcglxt.vo.equipment.TypeVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,6 @@ public interface TypeMapper {
     int updateByPrimaryKey(Type record);
 
     List<TypeVo> searchPage(TypeExample example);
+
+    List<TypeExtend> list(TypeExample example);
 }

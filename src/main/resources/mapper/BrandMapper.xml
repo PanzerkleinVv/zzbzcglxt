@@ -17,6 +17,15 @@
             <arg column="EQUIPMENT_COUNT" javaType="java.lang.Long" jdbcType="INTEGER"/>
         </constructor>
     </resultMap>
+    <resultMap id="ListResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.BrandModel">
+        <constructor>
+            <idArg column="BRAND_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+        <collection property="models" column="BRAND_ID"
+                    select="com.demstudio.zzbzcglxt.repository.ModelMapper.list"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -211,5 +220,15 @@
         <if test="orderByClause != null">
             order by ${orderByClause}
         </if>
+    </select>
+    <select id="list" parameterType="java.lang.String" resultMap="ListResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from brand
+        where BRAND_TYPE = #{brandType,jdbcType=VARCHAR}
+        order by BRAND_NAME ASC
     </select>
 </mapper>

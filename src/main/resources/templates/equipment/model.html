@@ -56,6 +56,7 @@
                         </span>
                         <span>
 							<select name="brandType" id="brandType" class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -65,6 +66,7 @@
                         </span>
                         <span>
 							<select name="modelBrand" id="modelBrand" class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -78,6 +80,8 @@
     </div>
 
     <script type="text/javascript">
+        let typeList;
+
         $('#searchBut').click(function () {
             search(1);
         });
@@ -118,7 +122,6 @@
         function edit(modelId) {
             if (modelId == 0) {
                 $("#equipmentModelForm").resetForm();
-                getBrandList($("#brandType").val());
             } else {
                 $("#equipmentModelForm").resetForm();
                 const url = 'equipment/model/info';
@@ -127,8 +130,7 @@
                 }, function (data) {
                     $("#modelId").val(data.modelId);
                     $("#modelName").val(data.modelName);
-                    $("#brandType").val(data.brandType);
-                    getBrandList(data.brandType);
+                    $("#brandType").val(data.brandType).change();
                     $("#modelBrand").val(data.modelBrand);
                 });
             }
@@ -163,6 +165,22 @@
                             });
                         }
                     });
+                },
+                rules: {
+                    "brandType": {
+                        notEqual: "0"
+                    },
+                    "modelBrand": {
+                        notEqual: "0"
+                    }
+                },
+                messages: {
+                    "brandType": {
+                        notEqual: "请选择"
+                    },
+                    "modelBrand": {
+                        notEqual: "请选择"
+                    }
                 }
             });
         });
@@ -171,9 +189,9 @@
             const url = 'equipment/type/list';
             $.getJSON(url, {
                 'typeBrand': true,
-                'typeModel': true,
-                'typeSecrecy': false,
+                'typeModel': true
                 }, function (data) {
+                    typeList = data;
                     $.each(data, function (i, n) {
                         let str = "<option value='" + n.typeId + "'>" + n.typeName + "</option>";
                         $("#brandTypeSearch").append(str);
@@ -182,43 +200,28 @@
             });
         }
 
-        function getBrandSearchList(brandType) {
-            const url = 'equipment/brand/list';
-            $.getJSON(url, {
-                'brandType': brandType
-            }, function (data) {
-                $("#modelBrandSearch option[value='0']").nextAll().remove();
-                $.each(data, function (i, n) {
+        $("#brandTypeSearch").change(function() {
+            let index = this.selectedIndex - 1;
+            $("#modelBrandSearch").val(0);
+            $("#modelBrandSearch option[value='0']").nextAll().remove();
+            if ($("#brandTypeSearch").val() != "0") {
+                $.each(typeList[index].brands, function (i, n) {
                     let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
                     $("#modelBrandSearch").append(str);
                 });
-            });
-        }
-
-        function getBrandList(brandType) {
-            const url = 'equipment/brand/list';
-            $.getJSON(url, {
-                'brandType': brandType
-            }, function (data) {
-                $("#modelBrand").children().remove();
-                $.each(data, function (i, n) {
-                    let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
-                    $("#modelBrand").append(str);
-                });
-            });
-        }
-
-        $("#brandTypeSearch").change(function() {
-            $("#modelBrandSearch").val(0);
-            if ($("#brandTypeSearch").val() != "0") {
-                getBrandSearchList($("#brandTypeSearch").val());
-            } else {
-                $("#modelBrandSearch option[value='0']").nextAll().remove();
             }
         });
 
         $("#brandType").change(function() {
-            getBrandList($("#brandType").val());
+            let index = this.selectedIndex - 1;
+            $("#modelBrand").val(0);
+            $("#modelBrand option[value='0']").nextAll().remove();
+            if ($("#brandType").val() != "0") {
+                $.each(typeList[index].brands, function (i, n) {
+                    let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
+                    $("#modelBrand").append(str);
+                });
+            }
         });
 
         $(function () {

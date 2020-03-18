@@ -1,5 +1,7 @@
 package com.demstudio.zzbzcglxt.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Log {
@@ -15,6 +17,7 @@ public class Log {
 
     private String logTarget;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date logOperationDate;
 
     private String logNote;

@@ -15,7 +15,7 @@
             </select>
             <select name="equipmentStatus" id="equipmentStatusSearch" class="form-control"
                     style="width: 24%; display: inline-block;">
-                <option value="4" selected>所有非报废设备</option>
+                <option value="4" selected>所有</option>
                 <option value="2">暂存</option>
                 <option value="1">借出</option>
                 <option value="3">维修</option>
@@ -81,6 +81,7 @@
                         </span>
                         <span>
 							<select name="equipmentType" id="equipmentType" class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -90,6 +91,7 @@
                         </span>
                         <span>
 							<select name="equipmentBrand" id="equipmentBrand" class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -101,6 +103,7 @@
                         </span>
                         <span>
 							<select name="equipmentModel" id="equipmentModel" class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -110,6 +113,7 @@
                         </span>
                         <span>
 							<select name="equipmentSecrecy" id="equipmentSecrecy" class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -162,6 +166,7 @@
                         <span>
                             <select name="equipmentRegistrationReason" id="equipmentRegistrationReason"
                                     class="form-control" required>
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -179,12 +184,12 @@
                     </div>
                     <div class="formDiv">
                         <span>
-                            入库备注：
+                            入库备注：<i>*</i>
                         </span>
                         <span>
                             <input type="text" id="equipmentRegistrationNote" name="equipmentRegistrationNote"
                                    placeholder="设备入库来源备注"
-                                   class="form-control placeholder-no-fix" autocomplete="off"/>
+                                   class="form-control placeholder-no-fix" required autocomplete="off"/>
 						</span>
                     </div>
                 </div>
@@ -195,8 +200,7 @@
                         </span>
                         <span>
                             <textarea id="equipmentNote" name="equipmentNote" placeholder="备注"
-                                      class="form-control placeholder-no-fix" autocomplete="off">
-                            </textarea>
+                                      class="form-control placeholder-no-fix" autocomplete="off"></textarea>
 						</span>
                     </div>
                 </div>
@@ -215,57 +219,79 @@
 			</span>
         </div>
         <div class="dialogueBody">
-            <form id="equipmentLogForm" class="needs-validation">
+            <form id="equipmentLogForm" class="needs-validation infoForm">
                 <div class="formLine">
                     <div class="formDiv">
-                        <span id="eT"></span>
+                        <span class="bold">编号：</span>
+                        <span id="eN" class="align-left"></span>
                         <input type="hidden" id="logEquipment" name="logEquipment"/>
-                        <span id="eBM"></span>
                     </div>
                 </div>
                 <div class="formLine">
                     <div class="formDiv">
-                        <span>编号：</span>
-                        <span id="eN"></span>
+                        <span class="bold">分类：</span>
+                        <span id="eT" class="align-left overflow-hidden"></span>
                     </div>
                     <div class="formDiv">
-                        <span>状态：</span>
-                        <span id="eSt"></span>
+                        <span class="bold">型号：</span>
+                        <span id="eBM" class="align-left overflow-hidden"></span>
                     </div>
                 </div>
                 <div class="formLine">
-                    <div class="formDiv" id="eMDiv">
-                        <span>mac：</span>
-                        <span id="eM"></span>
+                    <div class="formDiv">
+                        <span class="bold">状态：</span>
+                        <span id="eSt" class="align-left"></span>
                     </div>
-                    <div class="formDiv" id="eSnDiv">
-                        <span>sn：</span>
-                        <span id="eSn"></span>
-                    </div>
-                    <div class="formDiv" id="eScDiv">
-                        <span>密级：</span>
-                        <span id="eSc"></span>
+                    <div class="formDiv">
+                        <span class="bold">所在：</span>
+                        <span id="eLt" class="align-left overflow-hidden"></span>
                     </div>
                 </div>
                 <div class="formLine">
-                    <button id="lendEquipment" type="button" class="btn blue" onclick="addLog(0)">借出</button>
-                    <button id="returnEquipment" type="button" class="btn blue" onclick="addLog(1)">归还</button>
-                    <button id="repairEquipment" type="button" class="btn yellow" onclick="addLog(2)">报修</button>
-                    <button id="abandonEquipment" type="button" class="btn red" onclick="addLog(3)">报废</button>
-                    <button id="moveEquipment" type="button" class="btn green" onclick="addLog(4)">存放</button>
-                    <button id="deleteEquipment" type="button" class="btn green" onclick="deleteEquipment()">销毁</button>
+                    <div class="formDiv">
+                        <span class="bold">入库信息：</span>
+                        <span id="eRr" class="align-left overflow-hidden"></span>
+                    </div>
+                    <div class="formDiv">
+                        <span class="bold">密级：</span>
+                        <span id="eSc" class="align-left"></span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span class="bold">mac：</span>
+                        <span id="eM" class="align-left overflow-hidden"></span>
+                    </div>
+                    <div class="formDiv">
+                        <span class="bold">sn：</span>
+                        <span id="eSn" class="align-left overflow-hidden"></span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span class="bold">操作：</span>
+                        <span class="align-left overflow-hidden">
+                            <button id="lendEquipment" type="button" class="btn blue" onclick="addLog(0)">借出</button>
+                            <button id="returnEquipment" type="button" class="btn blue" onclick="addLog(1)">归还</button>
+                            <button id="repairEquipment" type="button" class="btn yellow"
+                                    onclick="addLog(2)">报修</button>
+                            <button id="abandonEquipment" type="button" class="btn red" onclick="addLog(3)">报废</button>
+                            <button id="moveEquipment" type="button" class="btn green" onclick="addLog(4)">存放</button>
+                            <button id="deleteEquipment" type="button" class="btn red">销毁</button>
+                        </span>
+                    </div>
                 </div>
                 <div class="formLine addLog">
                     <div class="formDiv">
                         <span id="targetName"></span>
-                        <span>
+                        <span class="bold">
                             <input type="hidden" id="logStatus" name="logStatus"/>
 							<input type="text" id="logTarget" name="logTarget" placeholder=""
                                    class="form-control placeholder-no-fix" required autocomplete="off"/>
 						</span>
                     </div>
                     <div class="formDiv">
-                        <span>
+                        <span class="bold">
                             日期：<i>*</i>
                         </span>
                         <span>
@@ -273,16 +299,23 @@
                                    class="form-control placeholder-no-fix" required autocomplete="off"/>
 						</span>
                     </div>
+                </div>
+                <div class="formLine addLog">
                     <div class="formDiv">
-                        <span>
-                            经手人：
+                        <span class="bold">
+                            经手人：<i>*</i>
                         </span>
                         <span id="logUser"></span>
                     </div>
                 </div>
                 <div class="formLine addLog">
-                    <button id="saveLog" type="button" class="btn blue">确定</button>
-                    <button id="cancelLog" type="button" class="btn blue">取消</button>
+                    <div class="formDiv">
+                        <span class="bold">操作：</span>
+                        <span class="align-left overflow-hidden">
+                            <button id="saveLog" type="button" class="btn blue">确定</button>
+                            <button id="cancelLog" type="button" class="btn grey">取消</button>
+                        </span>
+                    </div>
                 </div>
             </form>
         </div>
@@ -296,14 +329,14 @@
 
         const logStatusCode = ['借出', '归还', '报修', '报废', '存放'];
 
-        var mode = 0;
+        let mode = 0;
 
-        var typeList;
+        let typeList;
 
-        var currentType;
+        let registrationReasonList;
 
-        $(":radio[name='mode']").click(function (target) {
-            mode = $(target).val();
+        $(":radio[name='mode']").click(function () {
+            mode = $(this).val();
             if (mode == 0) {
                 $("#searchResult button").html('管理');
             } else {
@@ -340,14 +373,16 @@
                     $("#searchResult .userHeader").nextAll().remove();
                     $.each(data.content, function (i, n) {
                         $("#searchResult").append('<div class="userRow"><span class="userItem6-1">'
-                            + n.equipmentType
+                            + n.typeName
                             + '</span><span class="userItem6-1">'
-                            + n.equipmentBrand + '&emsp;' + n.equipmentModel
+                            + n.brandName + '&emsp;' + n.modelName
                             + '</span><span class="userItem6-1">'
-                            + n.logTarget
+                            + n.equipmentName
+                            + '</span><span class="userItem6-1">'
+                            + nullToUnsure(n.logTarget)
                             + '</span><span class="userItem6"><button type="button" class="btn blue" onclick="edit(\''
                             + n.equipmentId
-                            + '\')">管理</button></span></div>');
+                            + '\')">' + (mode == 0 ? '管理' : '修改') + '</button></span></div>');
                     });
                 });
         }
@@ -362,18 +397,17 @@
                 $.getJSON(url, {
                     'equipmentId': equipmentId
                 }, function (data) {
+                    $("#equipmentName").val(data.equipmentName);
                     $("#equipmentId").val(data.equipmentId);
-                    $("#equipmentType").val(data.equipmentType);
-                    getCurrentType(data.equipmentType);
-                    $("#equipmentBrand").val(data.equipmentBrand);
-                    getModelList(data.equipmentBrand);
+                    $("#equipmentType").val(data.equipmentType).change();
+                    $("#equipmentBrand").val(data.equipmentBrand).change();
                     $("#equipmentModel").val(data.equipmentModel);
                     $("#equipmentSecrecy").val(data.equipmentSecrecy);
                     numToIp(data.equipmentIp, $("#ip0"), $("#ip1"), $("#ip2"), $("#ip3"));
                     $("#equipmentMac").val(data.equipmentMac);
                     $("#equipmentSn").val(data.equipmentSn);
-                    $("#equipmentRegistrationReason").val(data.equipmentRegistrationReason);
-                    $("#equipmentRegistrationDate").val(data.equipmentRegistrationDate);
+                    $("#equipmentRegistrationReason").val(data.equipmentRegistrationReason).change();
+                    $("#equipmentRegistrationDate").val(new Date(data.equipmentRegistrationDate).format("yyyy-MM-dd"));
                     $("#equipmentRegistrationNote").val(data.equipmentRegistrationNote);
                 });
                 dialogueOpen("equipmentInfo");
@@ -384,15 +418,22 @@
                     'equipmentId': equipmentId
                 }, function (data) {
                     $("#eT").html(data.typeName);
+                    logTypeConfig(data.equipmentType);
                     $("#eBM").html(data.brandName + "&emsp;" + data.modelName);
                     $("#eN").html(data.equipmentName);
-                    $("#eSt").html(isNaN(data.equipmentStatus) ? "入库待定" : equipmentStatusCode[data.equipmentStatus]);
+                    $("#eSt").html(data.equipmentStatus == null ? "入库待定" : equipmentStatusCode[data.equipmentStatus]);
                     $("#eM").html(data.equipmentMac);
                     $("#eSn").html(data.equipmentSn);
                     $("#eSc").html(data.secrecyName);
+                    $("#eRr").html(new Date(data.equipmentRegistrationDate).format("yyyy-MM-dd") + "&emsp;" + data.registrationReasonName + "（" + data.equipmentRegistrationNote + "）")
                     $("#logEquipment").val(data.equipmentId);
                     initLogButton(data.equipmentStatus);
-                    logList(data.equipmentId);
+                    if (data.logs.length > 0) {
+                        $("#eLt").html(nullToUnsure(data.logs[0].logTarget));
+                        logList(data.logs);
+                    } else {
+                        $("#eLt").html("待定");
+                    }
                 });
                 dialogueOpen("equipmentLog");
             }
@@ -430,6 +471,40 @@
                             });
                         }
                     });
+                },
+                rules: {
+                    "equipmentType": {
+                        notEqual: "0"
+                    },
+                    "equipmentBrand": {
+                        notEqual: "0"
+                    },
+                    "equipmentModel": {
+                        notEqual: "0"
+                    },
+                    "equipmentSecrecy": {
+                        notEqual: "0"
+                    },
+                    "equipmentRegistrationReason": {
+                        notEqual: "0"
+                    }
+                },
+                messages: {
+                    "equipmentType": {
+                        notEqual: "请选择"
+                    },
+                    "equipmentBrand": {
+                        notEqual: "请选择"
+                    },
+                    "equipmentModel": {
+                        notEqual: "请选择"
+                    },
+                    "equipmentSecrecy": {
+                        notEqual: "请选择"
+                    },
+                    "equipmentRegistrationReason": {
+                        notEqual: "请选择"
+                    }
                 }
             });
         });
@@ -438,8 +513,7 @@
             const url = 'equipment/type/list';
             $.getJSON(url, {
                 'typeBrand': false,
-                'typeModel': false,
-                'typeSecrecy': false,
+                'typeModel': false
             }, function (data) {
                 typeList = data;
                 $.each(data, function (i, n) {
@@ -447,34 +521,23 @@
                     $("#equipmentTypeSearch").append(str);
                     $("#equipmentType").append(str);
                 });
-                getCurrentType($("#equipmentType").val());
             });
         }
 
-        function getBrandSearchList(brandType) {
-            const url = 'equipment/brand/list';
-            $.getJSON(url, {
-                'brandType': brandType
-            }, function (data) {
-                $("#equipmentBrandSearch option[value='0']").nextAll().remove();
-                $.each(data, function (i, n) {
-                    let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
-                    $("#equipmentBrandSearch").append(str);
-                });
+        function getBrandSearchList(index) {
+            $.each(typeList[index].brands, function (i, n) {
+                let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
+                $("#equipmentBrandSearch").append(str);
             });
         }
 
-        function getModelSearchList(modelBrand) {
-            const url = 'equipment/model/list';
-            $.getJSON(url, {
-                'modelBrand': modelBrand
-            }, function (data) {
-                $("#equipmentModelSearch option[value='0']").nextAll().remove();
-                $.each(data, function (i, n) {
+        function getModelSearchList(index0, index1) {
+            if (typeList[index0].brands.length != 0) {
+                $.each(typeList[index0].brands[index1].models, function (i, n) {
                     let str = "<option value='" + n.modelId + "'>" + n.modelName + "</option>";
                     $("#equipmentModelSearch").append(str);
                 });
-            });
+            }
         }
 
         function getSecrecyList() {
@@ -491,148 +554,170 @@
         function getRegistrationReasonList() {
             const url = 'equipment/registrationReason/list';
             $.getJSON(url, function (data) {
+                registrationReasonList = data;
                 $.each(data, function (i, n) {
                     let str = "<option value='" + n.registrationReasonId + "'>" + n.registrationReasonName + "</option>";
                     $("#equipmentRegistrationReasonSearch").append(str);
                     $("#equipmentRegistrationReason").append(str);
                 });
+                registrationReasonConfig($("#equipmentRegistrationReason").val());
             });
         }
 
-        function getBrandList(brandType) {
-            const url = 'equipment/brand/list';
-            $.getJSON(url, {
-                'brandType': brandType
-            }, function (data) {
-                $("#equipmentBrand").children().remove();
-                $.each(data, function (i, n) {
-                    let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
-                    $("#equipmentBrand").append(str);
-                });
-                if (currentType.typeModel) {
-                    getModelList($("#equipmentBrand").val());
-                }
+        function getBrandList(index) {
+            $.each(typeList[index].brands, function (i, n) {
+                let str = "<option value='" + n.brandId + "'>" + n.brandName + "</option>";
+                $("#equipmentBrand").append(str);
             });
         }
 
-        function getModelList(modelBrand) {
-            const url = 'equipment/model/list';
-            $.getJSON(url, {
-                'modelBrand': modelBrand
-            }, function (data) {
-                $("#equipmentModel").children().remove();
-                $.each(data, function (i, n) {
+        function getModelList(index0, index1) {
+            if (typeList[index0].brands.length != 0) {
+                $.each(typeList[index0].brands[index1].models, function (i, n) {
                     let str = "<option value='" + n.modelId + "'>" + n.modelName + "</option>";
                     $("#equipmentModel").append(str);
                 });
-            });
+            }
         }
 
         $("#equipmentTypeSearch").change(function () {
-            $("#equipmentBrandSearch").val(0);
+            $("#equipmentBrandSearch").val(0).change();
+            $("#equipmentBrandSearch option[value='0']").nextAll().remove();
             if ($("#equipmentTypeSearch").val() != "0") {
-                getBrandSearchList($("#equipmentTypeSearch").val());
-            } else {
-                $("#equipmentBrandSearch option[value='0']").nextAll().remove();
+                getBrandSearchList(this.selectedIndex - 1);
             }
         });
 
         $("#equipmentType").change(function () {
-            getCurrentType($("#equipmentType").val());
+            $("#equipmentBrand").val(0).change();
+            $("#equipmentBrand option[value='0']").nextAll().remove();
+            if ($(this).val() == '0') {
+                formInit(0);
+            } else {
+                typeConfig(this.selectedIndex - 1);
+            }
         });
 
-        function getCurrentType(typeId) {
+        function typeConfig(index) {
+            const currentType = typeList[index];
+            let target = $("#equipmentBrand");
+            if (currentType.typeBrand) {
+                getBrandList(index);
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
+            }
+            target = $("#equipmentModel");
+            if (currentType.typeModel) {
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
+            }
+            target = $("#equipmentSecrecy");
+            if (currentType.typeSecrecy) {
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
+            }
+            target = $("#equipmentIp");
+            if (currentType.typeIp) {
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
+            }
+            target = $("#equipmentMac");
+            if (currentType.typeMac) {
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
+            }
+            target = $("#equipmentSn");
+            if (currentType.typeSn) {
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
+            }
+        }
+
+        function logTypeConfig(typeId) {
+            let currentType;
             $.each(typeList, function (i, n) {
                 if (n.typeId == typeId) {
                     currentType = n;
                 }
             });
-            let target = $("#equipmentBrand");
+            let target = $("#eBM");
             if (currentType.typeBrand) {
-                getBrandList(typeId);
-                target.parent().parent().show();
-                target.attr("disabled", false);
+                target.parent().show();
             } else {
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.parent().hide();
             }
-            target = $("#equipmentModel");
-            if (currentType.typeModel) {
-                target.parent().parent().show();
-                target.attr("disabled", false);
-            } else {
-                target.parent().parent().hide();
-                target.attr("disabled", true);
-            }
-            target = $("#equipmentSecrecy");
+            target = $("#eSc");
             if (currentType.typeSecrecy) {
-                target.parent().parent().show();
-                target.attr("disabled", false);
+                target.parent().show();
             } else {
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.parent().hide();
             }
-            target = $("#equipmentIp");
-            if (currentType.typeIp) {
-                target.parent().parent().show();
-                target.attr("disabled", false);
-            } else {
-                target.parent().parent().hide();
-                target.attr("disabled", true);
-            }
-            target = $("#equipmentMac");
+            target = $("#eM");
             if (currentType.typeMac) {
-                target.parent().parent().show();
-                target.attr("disabled", false);
+                target.parent().show();
             } else {
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.parent().hide();
             }
-            target = $("#equipmentSn");
+            target = $("#eSn");
             if (currentType.typeSn) {
-                target.parent().parent().show();
-                target.attr("disabled", false);
+                target.parent().show();
             } else {
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.parent().hide();
+            }
+        }
+
+        $("#equipmentRegistrationReason").change(function () {
+            registrationReasonConfig(this.selectedIndex - 1);
+        });
+
+        function registrationReasonConfig(index) {
+            const currentRegistrationReason = registrationReasonList[index];
+            let target = $("#equipmentRegistrationNote");
+            if (currentRegistrationReason.registrationReasonNote) {
+                target.attr("disabled", false).parent().parent().show();
+            } else {
+                target.attr("disabled", true).parent().parent().hide();
             }
         }
 
         $("#equipmentBrandSearch").change(function () {
             $("#equipmentModelSearch").val(0);
+            $("#equipmentModelSearch option[value='0']").nextAll().remove();
             if ($("#equipmentBrandSearch").val() != "0") {
-                getModelSearchList($("#equipmentBrandSearch").val());
-            } else {
-                $("#equipmentBrandSearch option[value='0']").nextAll().remove();
+                getModelSearchList($("#equipmentTypeSearch")[0].selectedIndex - 1, this.selectedIndex - 1);
             }
         });
 
         $("#equipmentBrand").change(function () {
-            getModelList($("#equipmentBrand").val());
+            $("#equipmentModel").val(0);
+            $("#equipmentModel option[value='0']").nextAll().remove();
+            if ($("#equipmentBrand").val() != "0") {
+                getModelList($("#equipmentType")[0].selectedIndex - 1, this.selectedIndex - 1);
+            }
         });
 
         function formInit(num) {
-            if ("0" === num) {
+            if ("0" == num) {
                 $("#equipmentForm").resetForm();
                 let target = $("#equipmentBrand");
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.attr("disabled", true).parent().parent().hide();
                 target = $("#equipmentModel");
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.attr("disabled", true).parent().parent().hide();
                 target = $("#equipmentSecrecy");
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.attr("disabled", true).parent().parent().hide();
                 target = $("#equipmentIp");
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.attr("disabled", true).parent().parent().hide();
                 target = $("#equipmentMac");
-                target.parent().parent().hide();
-                target.attr("disabled", true);
+                target.attr("disabled", true).parent().parent().hide();
                 target = $("#equipmentSn");
-                target.parent().parent().hide();
-                target.attr("disabled", true);
-            } else if ("1" === num) {
+                target.attr("disabled", true).parent().parent().hide();
+            } else if ("1" == num) {
                 $("#equipmentLogForm").resetForm();
                 $("#eT").html("");
                 $("#eBM").html("");
@@ -641,15 +726,14 @@
                 $("#eM").html("");
                 $("#eSn").html("");
                 $("#eSc").html("");
-                $(".addLog").hide();
-                $(".addLog").last().nextAll().remove();
+                $(".addLog").hide().last().nextAll().remove();
             }
         }
 
         function initLogButton(equipmentStatus) {
-            if (isNaN(equipmentStatus)) {
+            if (equipmentStatus == null) {
                 $("#lendEquipment").show();
-                $("#returnEquipment").show();
+                $("#returnEquipment").hide();
                 $("#repairEquipment").show();
                 $("#abandonEquipment").hide();
                 $("#moveEquipment").show();
@@ -708,10 +792,10 @@
             $(".addLog").show();
         }
 
-        function deleteEquipment() {
+        $("#deleteEquipment").click(function () {
             layer.confirm('确认销毁？', {
-                btn: ['确认','取消']
-            }, function() {
+                btn: ['确认', '取消']
+            }, function () {
                 const url = 'equipment/log/delete';
                 $.getJSON(url, {
                     'equipmentId': $("#logEquipment").val()
@@ -723,23 +807,19 @@
                     });
                 });
                 layer.close(layer.index);
-            }, );
-        }
+            },);
+        });
 
-        function logList(equipmentId) {
-            const url = 'equipment/log/list';
-            $.getJSON(url, {
-                'logEquipment': equipmentId
-            }, function (data) {
-                $.each(data, function(i, n) {
-                    let str = "<div class='formLine'><div class='formDiv'><span>"
-                            + logStatusCode[n.logStatus] + "："
-                            + "</span><span>"
-                            + "日期：&emsp;" + n.logOperationDate + "<br>"
-                            + n.logStatus == 0 ? "借出人：" + n.logTarget : (n.logStatus == 2 ? "" : "存放地：" + n.logTarget) + "<br>"
-                            + "经手人：" + n.userName
-                            + "</span></div></div>"
-                });
+        function logList(logs) {
+            $.each(logs, function (i, n) {
+                let str = "<div class='formLine'><div class='formDiv'><span class='bold'>"
+                    + logStatusCode[n.logStatus] + "："
+                    + "</span><span>"
+                    + "日期：&emsp;" + new Date(n.logOperationDate).format("yyyy-MM-dd") + "<br>"
+                    + (n.logStatus == 0 ? "借出人：" + n.logTarget : (n.logStatus == 2 ? "" : "存放地：" + n.logTarget)) + "<br>"
+                    + "经手人：" + n.userName
+                    + "</span></div></div>";
+                $("#equipmentLogForm").append(str);
             });
         }
 

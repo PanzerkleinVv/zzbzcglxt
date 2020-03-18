@@ -33,4 +33,6 @@ public interface ModelMapper {
     List<ModelVo> searchPage(ModelExample example);
 
     ModelVo selectByPrimaryKeyExtend(String modelId);
+
+    List<Model> list(String modelBrand);
 }

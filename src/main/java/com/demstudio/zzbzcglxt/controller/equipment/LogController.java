@@ -5,7 +5,6 @@ import com.demstudio.zzbzcglxt.domain.Log;
 import com.demstudio.zzbzcglxt.domain.User;
 import com.demstudio.zzbzcglxt.service.equipment.LogService;
 import com.demstudio.zzbzcglxt.vo.Message;
-import com.demstudio.zzbzcglxt.vo.equipment.LogVo;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/equipment/log")
@@ -28,12 +25,6 @@ public class LogController {
 
     @Resource
     private EquipmentBiz equipmentBiz;
-
-    @GetMapping("/list")
-    @ResponseBody
-    public List<LogVo> list(String logEquipment) {
-        return logService.list(logEquipment);
-    }
 
     @PostMapping("/save")
     @ResponseBody

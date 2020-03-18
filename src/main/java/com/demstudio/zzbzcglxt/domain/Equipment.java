@@ -1,5 +1,7 @@
 package com.demstudio.zzbzcglxt.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Equipment {
@@ -23,6 +25,7 @@ public class Equipment {
 
     private Integer equipmentStatus;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date equipmentRegistrationDate;
 
     private String equipmentRegistrationReason;
@@ -185,10 +188,8 @@ public class Equipment {
         if (equipmentModel != null && !"0".equals(equipmentModel)) {
             criteria.andEquipmentModelEqualTo(equipmentModel);
         }
-        if (equipmentStatus != null && !"4".equals(equipmentStatus)) {
+        if (equipmentStatus != null && !(equipmentStatus == 4)) {
             criteria.andEquipmentStatusEqualTo(equipmentStatus);
-        } else {
-            criteria.andEquipmentStatusNotEqualTo(0);
         }
         example.setOrderByClause("EQUIPMENT_STATUS DESC, EQUIPMENT_TYPE ASC, EQUIPMENT_BRAND ASC, EQUIPMENT_MODEL ASC, EQUIPMENT_NAME ASC");
         return example;

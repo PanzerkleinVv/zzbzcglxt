@@ -26,6 +26,19 @@
             <arg column="EQUIPMENT_COUNT" javaType="java.lang.Long" jdbcType="INTEGER"/>
         </constructor>
     </resultMap>
+    <resultMap id="ListResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.TypeExtend">
+        <constructor>
+            <idArg column="TYPE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="TYPE_BRAND" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_MODEL" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_SECRECY" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_IP" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_MAC" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="TYPE_SN" javaType="java.lang.Boolean" jdbcType="BIT"/>
+        </constructor>
+        <collection property="brands" column="TYPE_ID" select="com.demstudio.zzbzcglxt.repository.BrandMapper.list"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -290,5 +303,17 @@
         <if test="orderByClause != null">
             order by ${orderByClause}
         </if>
+    </select>
+    <select id="list" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample" resultMap="ListResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from type
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        order by TYPE_NAME ASC
     </select>
 </mapper>

@@ -231,4 +231,11 @@
             order by ${orderByClause}
         </if>
     </select>
+    <select id="list" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from model
+        where MODEL_BRAND = #{modelBrand,jdbcType=VARCHAR}
+        order by MODEL_NAME ASC
+    </select>
 </mapper>

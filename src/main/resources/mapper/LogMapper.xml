@@ -286,11 +286,7 @@
         from log
         left outer join user
         on log.LOG_USER = user.USER_ID
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
+        where LOG_EQUIPMENT = #{logEquipment,jdbcType=VARCHAR}
+        order by LOG_OPERATION_DATE DESC, LOG_TIME DESC
     </select>
 </mapper>

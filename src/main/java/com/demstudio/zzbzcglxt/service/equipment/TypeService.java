@@ -4,6 +4,7 @@ import com.demstudio.zzbzcglxt.domain.Type;
 import com.demstudio.zzbzcglxt.domain.TypeExample;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.TypeExtend;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface TypeService {
 
     boolean edit(Type type);
 
-    List<Type> list(Type type);
+    List<TypeExtend> list(Type type);
 
 }

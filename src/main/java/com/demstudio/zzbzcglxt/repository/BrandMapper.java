@@ -2,6 +2,7 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Brand;
 import com.demstudio.zzbzcglxt.domain.BrandExample;
+import com.demstudio.zzbzcglxt.vo.equipment.BrandModel;
 import com.demstudio.zzbzcglxt.vo.equipment.BrandVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,6 @@ public interface BrandMapper {
     int updateByPrimaryKey(Brand record);
 
     List<BrandVo> searchPage(BrandExample example);
+
+    List<BrandModel> list(String brandType);
 }

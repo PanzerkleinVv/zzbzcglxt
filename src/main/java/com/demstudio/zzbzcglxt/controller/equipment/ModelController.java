@@ -4,14 +4,13 @@ import com.demstudio.zzbzcglxt.domain.Model;
 import com.demstudio.zzbzcglxt.domain.ModelExample;
 import com.demstudio.zzbzcglxt.service.equipment.ModelService;
 import com.demstudio.zzbzcglxt.vo.Message;
-import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Controller
 @RequestMapping("/equipment/model")
@@ -56,11 +55,5 @@ public class ModelController {
         } else {
             return new Message(false, "保存失败");
         }
-    }
-
-    @GetMapping("/list")
-    @ResponseBody
-    public List<Model> list(String modelBrand) {
-        return modelService.list(modelBrand);
     }
 }

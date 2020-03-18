@@ -5,9 +5,9 @@ import com.demstudio.zzbzcglxt.domain.BrandExample;
 import com.demstudio.zzbzcglxt.repository.BrandMapper;
 import com.demstudio.zzbzcglxt.service.equipment.BrandService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
-import com.demstudio.zzbzcglxt.vo.equipment.BrandVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.BrandVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,14 +41,6 @@ public class BrandServiceImpl implements BrandService {
             brand.setBrandId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
             return 1 == brandMapper.insertSelective(brand);
         }
-    }
-
-    @Override
-    public List<Brand> list(String brandType) {
-        BrandExample example = new BrandExample();
-        example.createCriteria().andBrandTypeEqualTo(brandType);
-        example.setOrderByClause("BRAND_NAME ASC");
-        return brandMapper.selectByExample(example);
     }
 
     private PageInfo<BrandVo> getPageInfo(PageRequest pageRequest, BrandExample example) {

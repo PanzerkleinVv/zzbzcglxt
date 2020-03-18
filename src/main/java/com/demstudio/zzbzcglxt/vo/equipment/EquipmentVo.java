@@ -3,6 +3,7 @@ package com.demstudio.zzbzcglxt.vo.equipment;
 import com.demstudio.zzbzcglxt.domain.Equipment;
 
 import java.util.Date;
+import java.util.List;
 
 public class EquipmentVo extends Equipment {
 
@@ -18,8 +19,19 @@ public class EquipmentVo extends Equipment {
 
     private String logTarget;
 
+    private List<LogVo> logs;
+
     public EquipmentVo() {
         super();
+    }
+
+    public EquipmentVo(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, Integer equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String typeName, String brandName, String modelName, String secrecyName, String registrationReasonName) {
+        super(equipmentId, equipmentName, equipmentType, equipmentBrand, equipmentModel, equipmentSecrecy, equipmentIp, equipmentMac, equipmentSn, equipmentStatus, equipmentRegistrationDate, equipmentRegistrationReason, equipmentRegistrationNote, equipmentNote);
+        this.typeName = typeName;
+        this.brandName = brandName;
+        this.modelName = modelName;
+        this.secrecyName = secrecyName;
+        this.registrationReasonName = registrationReasonName;
     }
 
     public EquipmentVo(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, Integer equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String typeName, String brandName, String modelName, String secrecyName, String registrationReasonName, String logTarget) {
@@ -78,5 +90,13 @@ public class EquipmentVo extends Equipment {
 
     public void setLogTarget(String logTarget) {
         this.logTarget = logTarget;
+    }
+
+    public List<LogVo> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<LogVo> logs) {
+        this.logs = logs;
     }
 }

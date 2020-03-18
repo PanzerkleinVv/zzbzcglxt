@@ -64,6 +64,10 @@ function dialogueClose(id) {
     $(".mask").hide();
 }
 
+jQuery.validator.addMethod("notEqual", function(value, element, param) {
+    return this.optional(element) || value != param;
+}, "Please specify a different (non-default) value");
+
 Date.prototype.format = function (fmt) {
     const o = {
         "M+": this.getMonth() + 1,                 //月份
@@ -88,6 +92,14 @@ Date.prototype.format = function (fmt) {
 function nullToZero(obj) {
     if (obj == null) {
         return 0;
+    } else {
+        return obj;
+    }
+}
+
+function nullToUnsure(obj) {
+    if (obj == null) {
+        return "待定";
     } else {
         return obj;
     }
