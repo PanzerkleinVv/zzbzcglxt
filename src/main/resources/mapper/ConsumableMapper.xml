@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.ConsumableMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Consumable">
+        <constructor>
+            <idArg column="CONSUMABLE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CONSUMABLE_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="PACKAGE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    CONSUMABLE_ID, CONSUMABLE_NAME, CONSUMABLE_COUNT, CONSUMABLE_UNIT, PACKAGE_ID
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.ConsumableExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from consumable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from consumable
+        where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from consumable
+    where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.ConsumableExample">
+        delete from consumable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Consumable">
+    insert into consumable (CONSUMABLE_ID, CONSUMABLE_NAME, CONSUMABLE_COUNT, 
+      CONSUMABLE_UNIT, PACKAGE_ID)
+    values (#{consumableId,jdbcType=VARCHAR}, #{consumableName,jdbcType=VARCHAR}, #{consumableCount,jdbcType=INTEGER}, 
+      #{consumableUnit,jdbcType=VARCHAR}, #{packageId,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Consumable">
+        insert into consumable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="consumableId != null">
+                CONSUMABLE_ID,
+            </if>
+            <if test="consumableName != null">
+                CONSUMABLE_NAME,
+            </if>
+            <if test="consumableCount != null">
+                CONSUMABLE_COUNT,
+            </if>
+            <if test="consumableUnit != null">
+                CONSUMABLE_UNIT,
+            </if>
+            <if test="packageId != null">
+                PACKAGE_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="consumableId != null">
+                #{consumableId,jdbcType=VARCHAR},
+            </if>
+            <if test="consumableName != null">
+                #{consumableName,jdbcType=VARCHAR},
+            </if>
+            <if test="consumableCount != null">
+                #{consumableCount,jdbcType=INTEGER},
+            </if>
+            <if test="consumableUnit != null">
+                #{consumableUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="packageId != null">
+                #{packageId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.ConsumableExample"
+            resultType="java.lang.Long">
+        select count(*) from consumable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update consumable
+        <set>
+            <if test="record.consumableId != null">
+                CONSUMABLE_ID = #{record.consumableId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.consumableName != null">
+                CONSUMABLE_NAME = #{record.consumableName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.consumableCount != null">
+                CONSUMABLE_COUNT = #{record.consumableCount,jdbcType=INTEGER},
+            </if>
+            <if test="record.consumableUnit != null">
+                CONSUMABLE_UNIT = #{record.consumableUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="record.packageId != null">
+                PACKAGE_ID = #{record.packageId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update consumable
+        set CONSUMABLE_ID = #{record.consumableId,jdbcType=VARCHAR},
+        CONSUMABLE_NAME = #{record.consumableName,jdbcType=VARCHAR},
+        CONSUMABLE_COUNT = #{record.consumableCount,jdbcType=INTEGER},
+        CONSUMABLE_UNIT = #{record.consumableUnit,jdbcType=VARCHAR},
+        PACKAGE_ID = #{record.packageId,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Consumable">
+        update consumable
+        <set>
+            <if test="consumableName != null">
+                CONSUMABLE_NAME = #{consumableName,jdbcType=VARCHAR},
+            </if>
+            <if test="consumableCount != null">
+                CONSUMABLE_COUNT = #{consumableCount,jdbcType=INTEGER},
+            </if>
+            <if test="consumableUnit != null">
+                CONSUMABLE_UNIT = #{consumableUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="packageId != null">
+                PACKAGE_ID = #{packageId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Consumable">
+    update consumable
+    set CONSUMABLE_NAME = #{consumableName,jdbcType=VARCHAR},
+      CONSUMABLE_COUNT = #{consumableCount,jdbcType=INTEGER},
+      CONSUMABLE_UNIT = #{consumableUnit,jdbcType=VARCHAR},
+      PACKAGE_ID = #{packageId,jdbcType=VARCHAR}
+    where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
+  </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.ConsumableExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from consumable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <update id="addCount" parameterType="com.demstudio.zzbzcglxt.domain.Consumable">
+    update consumable
+    set
+      CONSUMABLE_COUNT = CONSUMABLE_COUNT + #{consumableCount,jdbcType=INTEGER}
+    where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
+  </update>
+</mapper>

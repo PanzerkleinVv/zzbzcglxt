@@ -189,7 +189,7 @@
                         <span>
                             <input type="text" id="equipmentRegistrationNote" name="equipmentRegistrationNote"
                                    placeholder="设备入库来源备注"
-                                   class="form-control placeholder-no-fix" required autocomplete="off"/>
+                                   class="form-control placeholder-no-fix" required autocomplete="on"/>
 						</span>
                     </div>
                 </div>
@@ -287,7 +287,7 @@
                         <span class="bold">
                             <input type="hidden" id="logStatus" name="logStatus"/>
 							<input type="text" id="logTarget" name="logTarget" placeholder=""
-                                   class="form-control placeholder-no-fix" required autocomplete="off"/>
+                                   class="form-control placeholder-no-fix" required autocomplete="on"/>
 						</span>
                     </div>
                     <div class="formDiv">
@@ -836,6 +836,7 @@
                         url: "equipment/log/save",
                         dataType: "json",
                         success: function (result) { //表单提交后更新页面显示的数据
+                            search(1);
                             edit($("#logEquipment").val());
                             layer.msg(result.content, {
                                 time: 2000

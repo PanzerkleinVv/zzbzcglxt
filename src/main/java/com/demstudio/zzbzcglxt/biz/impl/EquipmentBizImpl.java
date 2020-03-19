@@ -44,7 +44,7 @@ public class EquipmentBizImpl implements EquipmentBiz {
                 equipment.setEquipmentStatus(0);
                 return equipmentService.edit(equipment);
             } else if (log.getLogStatus() == 4) {
-                if (equipment.getEquipmentStatus() != 0) {
+                if (equipment.getEquipmentStatus() == null || equipment.getEquipmentStatus() != 0) {
                     equipment.setEquipmentStatus(2);
                     return equipmentService.edit(equipment);
                 } else {

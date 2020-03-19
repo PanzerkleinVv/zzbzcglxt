@@ -430,8 +430,8 @@
         on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
         left outer join registration_reason
         on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
-        left outer join (select LOG_EQUIPMENT, LOG_TARGET, LOG_OPERATION_DATE from log limit 1 order by
-        LOG_OPERATION_DATE DESC) t
+        left outer join (select LOG_EQUIPMENT, LOG_TARGET, LOG_OPERATION_DATE from log order by
+        LOG_OPERATION_DATE DESC, LOG_TIME DESC limit 1) t
         on equipment.EQUIPMENT_ID = t.LOG_EQUIPMENT
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.LedgerMapper">
+    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Ledger">
+        <constructor>
+            <idArg column="LEDGER_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_CONSUMABLE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="LEDGER_PERSON" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="LEDGER_USER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_TYPE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.consumable.LedgerVo">
+        <constructor>
+            <idArg column="LEDGER_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_CONSUMABLE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="LEDGER_PERSON" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="LEDGER_USER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="LEDGER_TYPE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="USERNAME" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    LEDGER_ID, LEDGER_CONSUMABLE, LEDGER_COUNT, LEDGER_PERSON, LEDGER_UNIT, LEDGER_TIME, 
+    LEDGER_USER, LEDGER_TYPE
+  </sql>
+    <sql id="Extend_Column_List">
+    LEDGER_ID, LEDGER_CONSUMABLE, LEDGER_COUNT, LEDGER_PERSON, LEDGER_UNIT, LEDGER_TIME,
+    LEDGER_USER, LEDGER_TYPE, CONSUMABLE_NAME, USER_NAME
+  </sql>
+    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from ledger
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ledger
+        where LEDGER_ID = #{ledgerId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ledger
+    where LEDGER_ID = #{ledgerId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample">
+        delete from ledger
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Ledger">
+    insert into ledger (LEDGER_ID, LEDGER_CONSUMABLE, LEDGER_COUNT, 
+      LEDGER_PERSON, LEDGER_UNIT, LEDGER_TIME, 
+      LEDGER_USER, LEDGER_TYPE)
+    values (#{ledgerId,jdbcType=VARCHAR}, #{ledgerConsumable,jdbcType=VARCHAR}, #{ledgerCount,jdbcType=INTEGER}, 
+      #{ledgerPerson,jdbcType=VARCHAR}, #{ledgerUnit,jdbcType=VARCHAR}, #{ledgerTime,jdbcType=TIMESTAMP}, 
+      #{ledgerUser,jdbcType=VARCHAR}, #{ledgerType,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Ledger">
+        insert into ledger
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ledgerId != null">
+                LEDGER_ID,
+            </if>
+            <if test="ledgerConsumable != null">
+                LEDGER_CONSUMABLE,
+            </if>
+            <if test="ledgerCount != null">
+                LEDGER_COUNT,
+            </if>
+            <if test="ledgerPerson != null">
+                LEDGER_PERSON,
+            </if>
+            <if test="ledgerUnit != null">
+                LEDGER_UNIT,
+            </if>
+            <if test="ledgerTime != null">
+                LEDGER_TIME,
+            </if>
+            <if test="ledgerUser != null">
+                LEDGER_USER,
+            </if>
+            <if test="ledgerType != null">
+                LEDGER_TYPE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ledgerId != null">
+                #{ledgerId,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerConsumable != null">
+                #{ledgerConsumable,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerCount != null">
+                #{ledgerCount,jdbcType=INTEGER},
+            </if>
+            <if test="ledgerPerson != null">
+                #{ledgerPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerUnit != null">
+                #{ledgerUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerTime != null">
+                #{ledgerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ledgerUser != null">
+                #{ledgerUser,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerType != null">
+                #{ledgerType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample"
+            resultType="java.lang.Long">
+        select count(*) from ledger
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update ledger
+        <set>
+            <if test="record.ledgerId != null">
+                LEDGER_ID = #{record.ledgerId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ledgerConsumable != null">
+                LEDGER_CONSUMABLE = #{record.ledgerConsumable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ledgerCount != null">
+                LEDGER_COUNT = #{record.ledgerCount,jdbcType=INTEGER},
+            </if>
+            <if test="record.ledgerPerson != null">
+                LEDGER_PERSON = #{record.ledgerPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ledgerUnit != null">
+                LEDGER_UNIT = #{record.ledgerUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ledgerTime != null">
+                LEDGER_TIME = #{record.ledgerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.ledgerUser != null">
+                LEDGER_USER = #{record.ledgerUser,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ledgerType != null">
+                LEDGER_TYPE = #{record.ledgerType,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update ledger
+        set LEDGER_ID = #{record.ledgerId,jdbcType=VARCHAR},
+        LEDGER_CONSUMABLE = #{record.ledgerConsumable,jdbcType=VARCHAR},
+        LEDGER_COUNT = #{record.ledgerCount,jdbcType=INTEGER},
+        LEDGER_PERSON = #{record.ledgerPerson,jdbcType=VARCHAR},
+        LEDGER_UNIT = #{record.ledgerUnit,jdbcType=VARCHAR},
+        LEDGER_TIME = #{record.ledgerTime,jdbcType=TIMESTAMP},
+        LEDGER_USER = #{record.ledgerUser,jdbcType=VARCHAR},
+        LEDGER_TYPE = #{record.ledgerType,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Ledger">
+        update ledger
+        <set>
+            <if test="ledgerConsumable != null">
+                LEDGER_CONSUMABLE = #{ledgerConsumable,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerCount != null">
+                LEDGER_COUNT = #{ledgerCount,jdbcType=INTEGER},
+            </if>
+            <if test="ledgerPerson != null">
+                LEDGER_PERSON = #{ledgerPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerUnit != null">
+                LEDGER_UNIT = #{ledgerUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerTime != null">
+                LEDGER_TIME = #{ledgerTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ledgerUser != null">
+                LEDGER_USER = #{ledgerUser,jdbcType=VARCHAR},
+            </if>
+            <if test="ledgerType != null">
+                LEDGER_TYPE = #{ledgerType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where LEDGER_ID = #{ledgerId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Ledger">
+    update ledger
+    set LEDGER_CONSUMABLE = #{ledgerConsumable,jdbcType=VARCHAR},
+      LEDGER_COUNT = #{ledgerCount,jdbcType=INTEGER},
+      LEDGER_PERSON = #{ledgerPerson,jdbcType=VARCHAR},
+      LEDGER_UNIT = #{ledgerUnit,jdbcType=VARCHAR},
+      LEDGER_TIME = #{ledgerTime,jdbcType=TIMESTAMP},
+      LEDGER_USER = #{ledgerUser,jdbcType=VARCHAR},
+      LEDGER_TYPE = #{ledgerType,jdbcType=INTEGER}
+    where LEDGER_ID = #{ledgerId,jdbcType=VARCHAR}
+  </update>
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample"
+            resultMap="ExtendResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>
+        from ledger
+        left outer join consumable
+        on ledger.LEDGER_CONSUMABLE = consumable.CONSUMABLE_ID
+        left outer join user
+        on ledger.LEDGER_USER = user.USER_ID
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+</mapper>

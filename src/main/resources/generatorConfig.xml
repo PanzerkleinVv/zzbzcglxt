@@ -51,17 +51,8 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 -->
-        <table tableName="user"></table>
+
         <!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 -->
-        <table tableName="role"></table>
-        <table tableName="role_permission"></table>
-        <table tableName="brand"></table>
-        <table tableName="equipment"></table>
-        <table tableName="log"></table>
-        <table tableName="model"></table>
-        <table tableName="permission"></table>
-        <table tableName="registration_reason"></table>
-        <table tableName="secrecy"></table>
-        <table tableName="type"></table>
+        <table tableName="ledger"></table>
     </context>
 </generatorConfiguration>
