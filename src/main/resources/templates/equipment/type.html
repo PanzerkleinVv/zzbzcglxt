@@ -188,15 +188,15 @@
             dialogueOpen("equipmentTypeInfo");
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeEquipmentType").click(function (target) {
+        $("#closeEquipmentType").click(function () {
             dialogueClose("equipmentTypeInfo");
         });
 
-        $("#saveEquipmentType").click(function (target) {
+        $("#saveEquipmentType").click(function () {
             $("form#equipmentTypeForm").submit();
         });
 

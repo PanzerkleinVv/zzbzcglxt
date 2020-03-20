@@ -31,4 +31,6 @@ public interface LedgerMapper {
     int updateByPrimaryKey(Ledger record);
 
     List<LedgerVo> searchPage(LedgerExample example);
+
+    List<Ledger> getSubConsumable(String consumableId);
 }

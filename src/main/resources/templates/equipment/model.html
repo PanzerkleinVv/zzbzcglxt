@@ -137,15 +137,15 @@
             dialogueOpen("equipmentModelInfo");
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeEquipmentModel").click(function (target) {
+        $("#closeEquipmentModel").click(function () {
             dialogueClose("equipmentModelInfo");
         });
 
-        $("#saveEquipmentModel").click(function (target) {
+        $("#saveEquipmentModel").click(function () {
             $("form#equipmentModelForm").submit();
         });
 

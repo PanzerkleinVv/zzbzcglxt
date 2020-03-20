@@ -17,4 +17,6 @@ public interface EquipmentService {
     EquipmentVo admin(String equipmentId);
 
     boolean delete(String equipmentId);
+
+    Boolean checkEquipmentName(Equipment equipment);
 }

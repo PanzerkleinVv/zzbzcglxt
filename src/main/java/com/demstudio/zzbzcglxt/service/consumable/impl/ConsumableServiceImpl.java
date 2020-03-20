@@ -7,14 +7,17 @@ import com.demstudio.zzbzcglxt.service.consumable.ConsumableService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.consumable.ConsumableVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class ConsumableServiceImpl implements ConsumableService {
 
     @Resource
@@ -23,11 +26,6 @@ public class ConsumableServiceImpl implements ConsumableService {
     @Override
     public PageResult searchPage(PageRequest pageRequest, ConsumableExample example) {
         return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
-    }
-
-    @Override
-    public Consumable info(String consumableId) {
-        return consumableMapper.selectByPrimaryKey(consumableId);
     }
 
     @Override
@@ -55,11 +53,11 @@ public class ConsumableServiceImpl implements ConsumableService {
         return consumableMapper.selectByExample(example).get(0);
     }
 
-    private PageInfo<Consumable> getPageInfo(PageRequest pageRequest, ConsumableExample example) {
+    private PageInfo<ConsumableVo> getPageInfo(PageRequest pageRequest, ConsumableExample example) {
         int pageNum = pageRequest.getPageNum();
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
-        List<Consumable> consumable = consumableMapper.searchPage(example);
-        return new PageInfo<Consumable>(consumable);
+        List<ConsumableVo> consumable = consumableMapper.searchPage(example);
+        return new PageInfo<ConsumableVo>(consumable);
     }
 }

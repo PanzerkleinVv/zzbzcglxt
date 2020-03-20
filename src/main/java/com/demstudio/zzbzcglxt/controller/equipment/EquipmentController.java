@@ -54,4 +54,10 @@ public class EquipmentController {
         }
     }
 
+    @GetMapping("/checkEquipmentName")
+    @ResponseBody
+    public Boolean checkEquipmentName(Equipment equipment) {
+        return equipmentService.checkEquipmentName(equipment);
+    }
+
 }

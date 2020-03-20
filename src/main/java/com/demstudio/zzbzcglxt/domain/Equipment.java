@@ -188,7 +188,7 @@ public class Equipment {
         if (equipmentModel != null && !"0".equals(equipmentModel)) {
             criteria.andEquipmentModelEqualTo(equipmentModel);
         }
-        if (equipmentStatus != null && !(equipmentStatus == 4)) {
+        if (equipmentStatus != null && !(equipmentStatus == 5)) {
             criteria.andEquipmentStatusEqualTo(equipmentStatus);
         }
         example.setOrderByClause("EQUIPMENT_STATUS DESC, EQUIPMENT_TYPE ASC, EQUIPMENT_BRAND ASC, EQUIPMENT_MODEL ASC, EQUIPMENT_NAME ASC");

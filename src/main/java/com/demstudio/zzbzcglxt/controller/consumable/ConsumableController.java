@@ -35,12 +35,6 @@ public class ConsumableController {
         return consumableBiz.consumablePage(pageRequest, example);
     }
 
-    @GetMapping("/info")
-    @ResponseBody
-    public Consumable info(String consumableId) {
-        return consumableBiz.getConsumable(consumableId);
-    }
-
     @PostMapping("/edit")
     @ResponseBody
     public Message edit(Consumable consumable) {
@@ -51,7 +45,7 @@ public class ConsumableController {
         }
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ResponseBody
     public List<Consumable> list() {
         return consumableBiz.list();

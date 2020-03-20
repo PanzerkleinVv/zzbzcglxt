@@ -92,15 +92,15 @@
             });
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeUser").click(function (target) {
+        $("#closeUser").click(function () {
             dialogueClose("userInfo");
         });
 
-        $("#saveUser").click(function (target) {
+        $("#saveUser").click(function () {
             $("form#userForm").submit();
         });
 

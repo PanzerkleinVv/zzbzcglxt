@@ -121,15 +121,15 @@
             dialogueOpen("equipmentSecrecyInfo");
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeEquipmentSecrecy").click(function (target) {
+        $("#closeEquipmentSecrecy").click(function () {
             dialogueClose("equipmentSecrecyInfo");
         });
 
-        $("#saveEquipmentSecrecy").click(function (target) {
+        $("#saveEquipmentSecrecy").click(function () {
             $("form#equipmentSecrecyForm").submit();
         });
 

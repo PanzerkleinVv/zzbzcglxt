@@ -279,8 +279,7 @@
       LEDGER_TYPE = #{ledgerType,jdbcType=INTEGER}
     where LEDGER_ID = #{ledgerId,jdbcType=VARCHAR}
   </update>
-    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample"
-            resultMap="ExtendResultMap">
+    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample" resultMap="ExtendResultMap">
         select
         <if test="distinct">
             distinct

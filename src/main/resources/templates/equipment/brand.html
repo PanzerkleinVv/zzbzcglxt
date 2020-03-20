@@ -116,15 +116,15 @@
             dialogueOpen("equipmentBrandInfo");
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeEquipmentBrand").click(function (target) {
+        $("#closeEquipmentBrand").click(function () {
             dialogueClose("equipmentBrandInfo");
         });
 
-        $("#saveEquipmentBrand").click(function (target) {
+        $("#saveEquipmentBrand").click(function () {
             $("form#equipmentBrandForm").submit();
         });
 

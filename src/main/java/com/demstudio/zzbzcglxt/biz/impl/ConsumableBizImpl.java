@@ -9,10 +9,13 @@ import com.demstudio.zzbzcglxt.service.consumable.ConsumableService;
 import com.demstudio.zzbzcglxt.service.consumable.LedgerService;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.consumable.ConsumableVo;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service
 public class ConsumableBizImpl implements ConsumableBiz {
 
     @Resource
@@ -24,11 +27,6 @@ public class ConsumableBizImpl implements ConsumableBiz {
     @Override
     public PageResult consumablePage(PageRequest pageRequest, ConsumableExample example) {
         return consumableService.searchPage(pageRequest, example);
-    }
-
-    @Override
-    public Consumable getConsumable(String consumableId) {
-        return consumableService.info(consumableId);
     }
 
     @Override

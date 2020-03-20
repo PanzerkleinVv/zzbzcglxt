@@ -10,6 +10,17 @@
             <arg column="PACKAGE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
+    <resultMap id="ExtendResultMap" type="com.demstudio.zzbzcglxt.vo.consumable.ConsumableVo">
+        <constructor>
+            <idArg column="CONSUMABLE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CONSUMABLE_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="PACKAGE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+        <collection property="subConsumable" column="CONSUMABLE_ID"
+                    select="com.demstudio.zzbzcglxt.repository.ConsumableMapper.getSubConsumable"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -215,7 +226,7 @@
     where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
   </update>
     <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.ConsumableExample"
-            resultMap="BaseResultMap">
+            resultMap="ExtendResultMap">
         select
         <if test="distinct">
             distinct
@@ -235,4 +246,11 @@
       CONSUMABLE_COUNT = CONSUMABLE_COUNT + #{consumableCount,jdbcType=INTEGER}
     where CONSUMABLE_ID = #{consumableId,jdbcType=VARCHAR}
   </update>
+    <select id="getSubConsumable" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from consumable
+        where PACKAGE_ID = #{consumableId,jdbcType=VARCHAR}
+        order by CONSUMABLE_NAME ASC
+    </select>
 </mapper>

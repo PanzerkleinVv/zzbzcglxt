@@ -2,6 +2,7 @@ package com.demstudio.zzbzcglxt.repository;
 
 import com.demstudio.zzbzcglxt.domain.Consumable;
 import com.demstudio.zzbzcglxt.domain.ConsumableExample;
+import com.demstudio.zzbzcglxt.vo.consumable.ConsumableVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface ConsumableMapper {
 
     int updateByPrimaryKey(Consumable record);
 
-    List<Consumable> searchPage(ConsumableExample example);
+    List<ConsumableVo> searchPage(ConsumableExample example);
 
     boolean addCount(Consumable consumable);
 }

@@ -5,9 +5,9 @@ import com.demstudio.zzbzcglxt.domain.EquipmentExample;
 import com.demstudio.zzbzcglxt.repository.EquipmentMapper;
 import com.demstudio.zzbzcglxt.service.equipment.EquipmentService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
-import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,6 +41,13 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public boolean delete(String equipmentId) {
         return 1 == equipmentMapper.deleteByPrimaryKey(equipmentId);
+    }
+
+    @Override
+    public Boolean checkEquipmentName(Equipment equipment) {
+        EquipmentExample example = new EquipmentExample();
+        example.createCriteria().andEquipmentNameEqualTo(equipment.getEquipmentName()).andEquipmentIdNotEqualTo(equipment.getEquipmentId());
+        return equipmentMapper.countByExample(example) == 0;
     }
 
     @Override

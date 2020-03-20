@@ -107,15 +107,15 @@
             dialogueOpen("registrationReasonInfo");
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeRegistrationReason").click(function (target) {
+        $("#closeRegistrationReason").click(function () {
             dialogueClose("registrationReasonInfo");
         });
 
-        $("#saveRegistrationReason").click(function (target) {
+        $("#saveRegistrationReason").click(function () {
             $("form#registrationReasonForm").submit();
         });
 

@@ -17,8 +17,6 @@ public class EquipmentVo extends Equipment {
 
     private String registrationReasonName;
 
-    private String logTarget;
-
     private List<LogVo> logs;
 
     public EquipmentVo() {
@@ -32,16 +30,6 @@ public class EquipmentVo extends Equipment {
         this.modelName = modelName;
         this.secrecyName = secrecyName;
         this.registrationReasonName = registrationReasonName;
-    }
-
-    public EquipmentVo(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, Integer equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String typeName, String brandName, String modelName, String secrecyName, String registrationReasonName, String logTarget) {
-        super(equipmentId, equipmentName, equipmentType, equipmentBrand, equipmentModel, equipmentSecrecy, equipmentIp, equipmentMac, equipmentSn, equipmentStatus, equipmentRegistrationDate, equipmentRegistrationReason, equipmentRegistrationNote, equipmentNote);
-        this.typeName = typeName;
-        this.brandName = brandName;
-        this.modelName = modelName;
-        this.secrecyName = secrecyName;
-        this.registrationReasonName = registrationReasonName;
-        this.logTarget = logTarget;
     }
 
     public String getTypeName() {
@@ -82,14 +70,6 @@ public class EquipmentVo extends Equipment {
 
     public void setRegistrationReasonName(String registrationReasonName) {
         this.registrationReasonName = registrationReasonName;
-    }
-
-    public String getLogTarget() {
-        return logTarget;
-    }
-
-    public void setLogTarget(String logTarget) {
-        this.logTarget = logTarget;
     }
 
     public List<LogVo> getLogs() {

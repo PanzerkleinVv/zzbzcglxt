@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2020-03-19 16:18:02
+Date: 2020-03-20 19:58:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -74,7 +74,7 @@ CREATE TABLE `equipment` (
 -- ----------------------------
 -- Records of equipment
 -- ----------------------------
-INSERT INTO `equipment` VALUES ('2f5d315a5bef26a3ba37fd00c06a041d83dca683', '130', 'f5e0487e401ec8237e136b23986518ceb39bbce6', '7ed31ca8e31c207a9e5bccff8ee20e656f65943b', 'ecfccca25032d3af1d5d42d71afb901c81e99815', '08ebab7ef709db8036443afe75e0690124267e9c', null, null, null, '2', '2020-02-29 16:00:00', '48244a0ef50d83b9b3636959f72efcff904b200c', '111', '');
+INSERT INTO `equipment` VALUES ('2f5d315a5bef26a3ba37fd00c06a041d83dca683', '130-123-111', 'f5e0487e401ec8237e136b23986518ceb39bbce6', '7ed31ca8e31c207a9e5bccff8ee20e656f65943b', '8de07ff1df49a61e34081e8dcce9f7b7bf0479ef', '08ebab7ef709db8036443afe75e0690124267e9c', null, null, null, '4', '2020-02-29 16:00:00', '40c6ed6e5fe9b230a072588af4d0f78c10cbda68', '111', '');
 
 -- ----------------------------
 -- Table structure for ledger
@@ -84,10 +84,11 @@ CREATE TABLE `ledger` (
   `LEDGER_ID` varchar(255) NOT NULL,
   `LEDGER_CONSUMABLE` varchar(255) DEFAULT NULL,
   `LEDGER_COUNT` int(11) DEFAULT NULL,
-  `LEDGER_TARGET` varchar(255) DEFAULT NULL,
+  `LEDGER_PERSON` varchar(255) DEFAULT NULL,
+  `LEDGER_UNIT` varchar(255) DEFAULT NULL,
   `LEDGER_TIME` datetime DEFAULT NULL,
   `LEDGER_USER` varchar(255) DEFAULT NULL,
-  `LEDGER_TYPE` int(11) DEFAULT NULL COMMENT '0-清点；1-购入；2-领取',
+  `LEDGER_TYPE` int(11) DEFAULT NULL COMMENT '0-盘点；1-购入；2-领取；3-拆散',
   PRIMARY KEY (`LEDGER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -114,6 +115,7 @@ CREATE TABLE `log` (
 -- ----------------------------
 -- Records of log
 -- ----------------------------
+INSERT INTO `log` VALUES ('18c9c7fd538a56b3eda536bc557d0f920768ae3e', '2f5d315a5bef26a3ba37fd00c06a041d83dca683', '6d4d2708dbc9fd944eecad305cdc72c5545d5e26', '2020-03-20 05:51:01', '5', '一处', '2020-02-29 16:00:00', null);
 INSERT INTO `log` VALUES ('cc6aa48e1118d0f9336320d985bafc113e67d8f5', '2f5d315a5bef26a3ba37fd00c06a041d83dca683', '6d4d2708dbc9fd944eecad305cdc72c5545d5e26', '2020-03-19 03:31:29', '4', '1036', '2020-02-29 16:00:00', null);
 
 -- ----------------------------

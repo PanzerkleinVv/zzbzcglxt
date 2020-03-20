@@ -15,11 +15,12 @@
             </select>
             <select name="equipmentStatus" id="equipmentStatusSearch" class="form-control"
                     style="width: 24%; display: inline-block;">
-                <option value="4" selected>所有</option>
+                <option value="5" selected>所有</option>
                 <option value="2">暂存</option>
                 <option value="1">借出</option>
                 <option value="3">维修</option>
                 <option value="0">报废</option>
+                <option value="4">调拨</option>
             </select>
             <input name="equipmentName" id="equipmentNameSearch" size="25"
                    class="form-control placeholder-no-fix searchBox"
@@ -277,6 +278,7 @@
                                     onclick="addLog(2)">报修</button>
                             <button id="abandonEquipment" type="button" class="btn red" onclick="addLog(3)">报废</button>
                             <button id="moveEquipment" type="button" class="btn green" onclick="addLog(4)">存放</button>
+                            <button id="giveEquipment" type="button" class="btn green" onclick="addLog(5)">调拨</button>
                             <button id="deleteEquipment" type="button" class="btn red">销毁</button>
                         </span>
                     </div>
@@ -325,9 +327,9 @@
     </div>
 
     <script type="text/javascript">
-        const equipmentStatusCode = ['报废', '借出', '暂存', '维修'];
+        const equipmentStatusCode = ['报废', '借出', '暂存', '维修', '调拨'];
 
-        const logStatusCode = ['借出', '归还', '报修', '报废', '存放'];
+        const logStatusCode = ['借出', '归还', '报修', '报废', '存放', '调拨'];
 
         let mode = 0;
 
@@ -364,7 +366,7 @@
                     'equipmentBrand': $("#equipmentBrandSearch").val(),
                     'equipmentModel': $("#equipmentModelSearch").val(),
                     'equipmentStatus': $("#equipmentStatusSearch").val(),
-                    'typeName': $("#equipmentNameSearch").val(),
+                    'equipmentName': $("#equipmentNameSearch").val(),
                     'equipmentMac': $("#equipmentMacSearch").val(),
                     'equipmentSn': $("#equipmentSnSearch").val()
                 },
@@ -379,7 +381,7 @@
                             + '</span><span class="userItem6-1">'
                             + n.equipmentName
                             + '</span><span class="userItem6-1">'
-                            + nullToUnsure(n.logTarget)
+                            + (n.equipmentStatus == null ? "入库待定" : equipmentStatusCode[n.equipmentStatus]) + nullToUnsure(n.logs.length === 0 ? null : "：" + n.logs[0].logTarget)
                             + '</span><span class="userItem6"><button type="button" class="btn blue" onclick="edit(\''
                             + n.equipmentId
                             + '\')">' + (mode == 0 ? '管理' : '修改') + '</button></span></div>');
@@ -439,19 +441,19 @@
             }
         }
 
-        $(".dialogueClose").click(function (target) {
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeEquipment").click(function (target) {
+        $("#closeEquipment").click(function () {
             dialogueClose("equipmentInfo");
         });
 
-        $("#saveEquipment").click(function (target) {
+        $("#saveEquipment").click(function () {
             $("form#equipmentForm").submit();
         });
 
-        $("#closeEquipmentLog").click(function (target) {
+        $("#closeEquipmentLog").click(function () {
             dialogueClose("equipmentLog");
         });
 
@@ -473,6 +475,21 @@
                     });
                 },
                 rules: {
+                    "equipmentName": {
+                      remote: {
+                          url: "equipment/checkEquipmentName",     //后台处理程序
+                          type: "get",               //数据发送方式
+                          dataType: "json",           //接受数据格式
+                          data: {                     //要传递的数据
+                              equipmentName: function () {
+                                  return $("#equipmentName").val();
+                              },
+                              equipmentId: function () {
+                                  return $("#equipmentId").val();
+                              }
+                          }
+                      }
+                    },
                     "equipmentType": {
                         notEqual: "0"
                     },
@@ -490,6 +507,9 @@
                     }
                 },
                 messages: {
+                    "equipmentName": {
+                        remote: "设备编号已存在"
+                    },
                     "equipmentType": {
                         notEqual: "请选择"
                     },
@@ -738,6 +758,7 @@
                 $("#abandonEquipment").hide();
                 $("#moveEquipment").show();
                 $("#deleteEquipment").hide();
+                $("#giveEquipment").show();
             } else if (equipmentStatus === 0) {
                 $("#lendEquipment").hide();
                 $("#returnEquipment").hide();
@@ -745,6 +766,7 @@
                 $("#abandonEquipment").hide();
                 $("#moveEquipment").show();
                 $("#deleteEquipment").show();
+                $("#giveEquipment").hide();
             } else if (equipmentStatus === 1) {
                 $("#lendEquipment").hide();
                 $("#returnEquipment").show();
@@ -752,6 +774,7 @@
                 $("#abandonEquipment").show();
                 $("#moveEquipment").hide();
                 $("#deleteEquipment").hide();
+                $("#giveEquipment").hide();
             } else if (equipmentStatus === 2 || equipmentStatus === 3) {
                 $("#lendEquipment").show();
                 $("#returnEquipment").hide();
@@ -759,6 +782,15 @@
                 $("#abandonEquipment").show();
                 $("#moveEquipment").show();
                 $("#deleteEquipment").hide();
+                $("#giveEquipment").show();
+            } else if (equipmentStatus === 4) {
+                $("#lendEquipment").hide();
+                $("#returnEquipment").hide();
+                $("#repairEquipment").hide();
+                $("#abandonEquipment").hide();
+                $("#moveEquipment").hide();
+                $("#deleteEquipment").hide();
+                $("#giveEquipment").hide();
             }
         }
 
@@ -780,6 +812,12 @@
             } else if (num == 1 || num == 3 || num == 4) {
                 $("#targetName").parent().show();
                 $("#targetName").html("存放地：<i>*</i>");
+                $("#logTarget").val("");
+                $("#logTarget").attr("disabled", false);
+                $("#logOperationDate").val("");
+            } else if (num == 5) {
+                $("#targetName").parent().show();
+                $("#targetName").html("接收方：<i>*</i>");
                 $("#logTarget").val("");
                 $("#logTarget").attr("disabled", false);
                 $("#logOperationDate").val("");
@@ -816,7 +854,7 @@
                     + logStatusCode[n.logStatus] + "："
                     + "</span><span>"
                     + "日期：&emsp;" + new Date(n.logOperationDate).format("yyyy-MM-dd") + "<br>"
-                    + (n.logStatus == 0 ? "借出人：" + n.logTarget : (n.logStatus == 2 ? "" : "存放地：" + n.logTarget)) + "<br>"
+                    + (n.logStatus == 0 ? "借出人：" + n.logTarget : (n.logStatus == 2 ? "" : (n.logStatus == 5 ? "接收方：" + n.logTarget : "存放地：" + n.logTarget))) + "<br>"
                     + "经手人：" + n.userName
                     + "</span></div></div>";
                 $("#equipmentLogForm").append(str);

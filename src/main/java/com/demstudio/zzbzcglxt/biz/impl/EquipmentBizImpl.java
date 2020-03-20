@@ -50,6 +50,9 @@ public class EquipmentBizImpl implements EquipmentBiz {
                 } else {
                     return true;
                 }
+            } else if (log.getLogStatus() == 5) {
+                equipment.setEquipmentStatus(4);
+                return equipmentService.edit(equipment);
             }
         }
         return false;

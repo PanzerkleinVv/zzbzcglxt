@@ -1,56 +1,61 @@
 <div class="mainContent">
     <div class="">
         <form action="" method="post">
-            <input name="brandName" id="brandNameSearch" size="25" class="form-control placeholder-no-fix searchBox"
-                   style="width: 50%;" type="text" autocomplete="off" placeholder="查找设备品牌"/>
-            <span>设备类型：</span>
-            <select name="brandType" id="brandTypeSearch" class="form-control" style="width: 25%; display: inline-block;">
-                <option value="0" selected>所有</option>
-            </select>
+            <input name="consumableName" id="consumableNameSearch" size="25"
+                   class="form-control placeholder-no-fix searchBox"
+                   type="text" style="width: 75%;" autocomplete="off" placeholder="查找耗材"/>
             <button id="searchBut" type="button" class="btn blue">查询</button>
             <button id="createBut" type="button" class="btn green">新增</button>
         </form>
     </div>
     <div class="userTable" id="searchResult">
         <div class="userRow userHeader">
-            <span class="userItem1">设备品牌</span>
-            <span class="userItem1">所属类型</span>
-            <span class="userItem6">设备数量</span>
-            <span class="userItem6">操作</span>
+            <span class="userItem5-1">耗材</span>
+            <span class="userItem6-1">存量</span>
+            <span class="userItem5-1">操作</span>
         </div>
     </div>
     <div class="pageBox">
         <input type="hidden" id="pageNum"/>
     </div>
     <div class="mask"></div>
-    <div id="equipmentBrandInfo" class="dialogueBox">
+    <div id="consumableInfo" class="dialogueBox">
         <div class="dialogueHeader">
-            <span>设备品牌信息</span>
+            <span>耗材信息</span>
             <span class="dialogueClose">
 				<i class="fa fa-window-close"></i>
 			</span>
         </div>
         <div class="dialogueBody">
-            <form id="equipmentBrandForm" class="needs-validation">
+            <form id="consumableForm" class="needs-validation">
                 <div class="formLine">
                     <div class="formDiv">
 						<span>
-							设备品牌：<i>*</i>
+							耗材名：<i>*</i>
 						</span>
-                        <input type="hidden" id="brandId" name="brandId"/>
                         <span>
-							<input type="text" id="brandName" name="brandName" placeholder="设备品牌"
+							<input type="text" id="consumableName" name="consumableName" placeholder="耗材名"
                                    class="form-control placeholder-no-fix" required autocomplete="off"/>
+						</span>
+                    </div>
+                    <div class="formDiv">
+						<span>
+							耗材单位：<i>*</i>
+						</span>
+                        <span>
+							<input type="text" id="consumableUnit" name="consumableUnit" placeholder="耗材单位"
+                                   class="form-control placeholder-no-fix" required autocomplete="on"/>
 						</span>
                     </div>
                 </div>
                 <div class="formLine">
                     <div class="formDiv">
                         <span>
-                            所属类型：<i>*</i>
+                            整包耗材：
                         </span>
                         <span>
-							<select name="brandType" id="brandType" class="form-control" required>
+							<select name="packageId" id="packageId" class="form-control">
+                                <option value="0" selected>---请选择---</option>
                             </select>
 						</span>
                     </div>
@@ -58,85 +63,176 @@
             </form>
         </div>
         <div class="dialogueFooter">
-            <button id="saveEquipmentBrand" type="button" class="btn blue">保存</button>
-            <button id="closeEquipmentBrand" type="button" class="btn gray">取消</button>
+            <button id="saveConsumable" type="button" class="btn blue">保存</button>
+            <button id="closeConsumable" type="button" class="btn gray">取消</button>
+        </div>
+    </div>
+    <div id="ledgerInfo" class="dialogueBox">
+        <div class="dialogueHeader">
+            <span>台账登记</span>
+            <span class="dialogueClose">
+				<i class="fa fa-window-close"></i>
+			</span>
+        </div>
+        <div class="dialogueBody">
+            <form id="ledgerForm" class="needs-validation">
+                <div class="formLine">
+                    <div class="formDiv">
+						<span>
+							耗材：<i>*</i>
+						</span>
+                        <input type="hidden" id="ledgerConsumable" name="ledgerConsumable"
+                               class="form-control" required/>
+                        <span id="ledgerConsumableName"></span>
+                    </div>
+                    <div class="formDiv">
+						<span>
+							操作：<i>*</i>
+						</span>
+                        <input type="hidden" id="ledgerType" name="ledgerType"
+                               class="form-control" required/>
+                        <span id="ledgerTypeName"></span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span>
+                            变更数量：<i>*</i>
+                        </span>
+                        <span>
+							<input type="number" id="ledgerCount" name="ledgerCount" placeholder=""
+                                   class="form-control placeholder-no-fix" step="1" required autocomplete="off"
+                                   value="0"/>
+						</span>
+                    </div>
+                    <div class="formDiv">
+                        <span>包装规格：</span>
+                        <span>
+                            <input type="number" id="subCount" name="ledgerCount" placeholder=""
+                                   class="form-control placeholder-no-fix" min="1" step="1" required
+                                   autocomplete="off"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+						<span>
+							经手人：<i>*</i>
+						</span>
+                        <span id="ledgerUser"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="dialogueFooter">
+            <button id="saveLedger" type="button" class="btn blue">保存</button>
+            <button id="closeLedger" type="button" class="btn gray">取消</button>
         </div>
     </div>
 
     <script type="text/javascript">
+        let ledgerTypes = ['盘点', '进货', '领取', '拆散'];
+
+        let pageList;
+
         $('#searchBut').click(function () {
             search(1);
         });
 
         $('#createBut').click(function () {
-            edit(0);
+            edit();
         });
 
         function search(pageNum) {
-            const url = 'equipment/brand/search';
+            const url = 'consumable/search';
             $.getJSON(
                 url,
                 {
                     'pageNum': pageNum,
                     'pageSize': 25,
-                    'brandName': $("#brandNameSearch").val(),
-                    'brandType': $("#brandTypeSearch").val()
+                    'consumableName': $("#consumableName").val()
                 },
                 function (data) {
                     setPage(data, $(".pageBox"), $("#pageNum"));
                     $("#searchResult .userHeader").nextAll().remove();
                     $.each(data.content, function (i, n) {
-                        $("#searchResult").append('<div class="userRow"><span class="userItem1">'
-                            + n.brandName
-                            + '</span><span class="userItem1">'
-                            + n.typeName
-                            + '</span><span class="userItem6">'
-                            + nullToZero(n.equipmentCount)
-                            + '</span><span class="userItem6"><button type="button" class="btn blue" onclick="edit(\''
-                            + n.brandId
-                            + '\')">修改</button></span></div>');
+                        pageList = data.content;
+                        $("#searchResult").append('<div class="userRow"><span class="userItem5-1">'
+                            + n.consumableName + (n.subConsumable.lenth == 0 ? "" : "（" + n.consumableUnit + "）")
+                            + '</span><span class="userItem6-1">'
+                            + nullToZero(n.consumableCount) + n.consumableUnit
+                            + '</span><span class="userItem5-1"><button type="button" class="btn blue" onclick="ledger(\''
+                            + i
+                            + '\', \'0\')">盘点</button><button type="button" class="btn blue" onclick="ledger(\''
+                            + i
+                            + '\', \'1\')">进货</button>'
+                            + (n.subConsumable.lenth > 0 ? '<button type="button" class="btn blue" onclick="ledger(\'' + i + '\', \'3\')">拆散</button>' : '')
+                            + '</span></div>');
                     });
                 });
         }
 
-        function edit(brandId) {
-            if (brandId == 0) {
-                $("#equipmentBrandForm").resetForm();
-            } else {
-                $("#equipmentBrandForm").resetForm();
-                const url = 'equipment/brand/info';
-                $.getJSON(url, {
-                    'brandId': brandId
-                }, function (data) {
-                    $("#brandId").val(data.brandId);
-                    $("#brandName").val(data.brandName);
-                    $("#brandType").val(data.brandType);
-                });
-            }
-            dialogueOpen("equipmentBrandInfo");
+        function edit() {
+            $("#consumableForm").resetForm();
+            dialogueOpen("consumableInfo");
         }
 
-        $(".dialogueClose").click(function (target) {
+        function ledger(index, ledgerType) {
+            $("#ledgerForm").resetForm();
+            $("#ledgerConsumable").val(pageList[index].consumableId);
+            $("#ledgerConsumableName").html(pageList[index].consumableName);
+            $("#ledgerType").val(ledgerType);
+            $("#ledgerTypeName").html(ledgerTypes[ledgerType]);
+            $("#ledgerCount").attr('placeholder', "耗材变更数量（" + pageList[index].consumableUnit + "）");
+            switch (ledgerType) {
+                case '0':
+                    $("#ledgerCount").removeAttr('min');
+                    $("#subCount").parent().parent().hide();
+                    $("#subCount").attr("disabled", true);
+                    break;
+                case '1':
+                    $("#ledgerCount").attr('min', 1);
+                    $("#subCount").parent().parent().hide();
+                    $("#subCount").attr("disabled", true);
+                    break;
+                case '3':
+                    $("#ledgerCount").attr('min', 1);
+                    $("#subName").parent().parent().show();
+                    $("#subCount").attr("disabled", false).attr("placeholder", "每" + pageList[index].consumableUnit + "应有数量（" + pageList[index].subConsumable[0].consumableUnit + "）");
+                    break;
+            }
+            dialogueOpen("ledgerInfo");
+        }
+
+        $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
 
-        $("#closeEquipmentBrand").click(function (target) {
-            dialogueClose("equipmentBrandInfo");
+        $("#closeConsumable").click(function () {
+            dialogueClose("consumableInfo");
         });
 
-        $("#saveEquipmentBrand").click(function (target) {
-            $("form#equipmentBrandForm").submit();
+        $("#saveConsumable").click(function () {
+            $("form#consumableForm").submit();
+        });
+
+        $("#closeLedger").click(function () {
+            dialogueClose("ledgerInfo");
+        });
+
+        $("#saveLedger").click(function () {
+            $("form#ledgerForm").submit();
         });
 
         $(function () {
-            $("form#equipmentBrandForm.needs-validation").validate({
+            $("form#consumableForm.needs-validation").validate({
                 submitHandler: function (form) {
                     $(form).ajaxSubmit({
                         type: 'post',
-                        url: "equipment/brand/edit",
+                        url: "consumable/edit",
                         dataType: "json",
                         success: function (result) { //表单提交后更新页面显示的数据
-                            dialogueClose("equipmentBrandInfo");
+                            dialogueClose("consumableInfo");
                             search(1);
                             layer.msg(result.content, {
                                 time: 2000
@@ -147,25 +243,48 @@
             });
         });
 
-        function getTypeList() {
-            const url = 'equipment/type/list';
-            $.getJSON(url, {
-                'typeBrand': true,
-                'typeModel': false
-                }, function (data) {
-                    $.each(data, function (i, n) {
-                        let str = "<option value='" + n.typeId + "'>" + n.typeName + "</option>";
-                        $("#brandTypeSearch").append(str);
-                        $("#brandType").append(str);
+        $(function () {
+            $("form#ledgerForm.needs-validation").validate({
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "consumable/ledger/edit",
+                        dataType: "json",
+                        success: function (result) { //表单提交后更新页面显示的数据
+                            dialogueClose("ledgerInfo");
+                            search(1);
+                            layer.msg(result.content, {
+                                time: 2000
+                            });
+                        }
                     });
+                }
+            });
+        });
+
+        function getConsumableList() {
+            const url = 'consumable/list';
+            $.getJSON(url, function (data) {
+                $.each(data, function (i, n) {
+                    let str = "<option value='" + n.consumableName + "'>" + n.consumableName + "</option>";
+                    $("#packageId").append(str);
+                });
+            });
+        }
+
+        function userInit() {
+            const url = 'user/me';
+            $.getJSON(url, function (data) {
+                $("#ledgerUser").html(data.userName);
             });
         }
 
         $(function () {
             search(1);
-            getTypeList();
-            $("#index-page-title").html("设备品牌管理");
-            $("#current-page-title").html("设备品牌管理");
+            userInit();
+            getConsumableList();
+            $("#index-page-title").html("耗材库存管理");
+            $("#current-page-title").html("耗材库存管理");
         });
     </script>
 </div>

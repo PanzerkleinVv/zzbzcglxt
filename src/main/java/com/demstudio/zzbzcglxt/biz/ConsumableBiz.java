@@ -6,13 +6,12 @@ import com.demstudio.zzbzcglxt.domain.Ledger;
 import com.demstudio.zzbzcglxt.domain.LedgerExample;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
+import com.demstudio.zzbzcglxt.vo.consumable.ConsumableVo;
 
 import java.util.List;
 
 public interface ConsumableBiz {
     PageResult consumablePage(PageRequest pageRequest, ConsumableExample example);
-
-    Consumable getConsumable(String consumableId);
 
     boolean setConsumable(Consumable consumable);
 
