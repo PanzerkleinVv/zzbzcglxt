@@ -31,6 +31,7 @@ public class ConsumableServiceImpl implements ConsumableService {
     @Override
     public boolean edit(Consumable consumable) {
         consumable.setConsumableId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
+        consumable.setConsumableCount(0);
         return 1 == consumableMapper.insertSelective(consumable);
     }
 

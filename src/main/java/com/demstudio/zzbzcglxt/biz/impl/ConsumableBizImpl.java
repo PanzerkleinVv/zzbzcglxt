@@ -9,7 +9,6 @@ import com.demstudio.zzbzcglxt.service.consumable.ConsumableService;
 import com.demstudio.zzbzcglxt.service.consumable.LedgerService;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import com.demstudio.zzbzcglxt.vo.consumable.ConsumableVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,6 +46,7 @@ public class ConsumableBizImpl implements ConsumableBiz {
     @Override
     public boolean newLedger(Ledger ledger, Integer subCount) {
         Consumable consumable = new Consumable();
+        consumable.setConsumableId(ledger.getLedgerConsumable());
         switch (ledger.getLedgerType()) {
             case 0:
             case 1:

@@ -32,6 +32,7 @@
                    type="text" style="width: 32%;" autocomplete="off" placeholder="查找设备sn码"/>
             <button id="searchBut" type="button" class="btn blue">查询</button>
             <button id="createBut" type="button" class="btn green">新增</button>
+            <button id="multipleAdminBut" type="button" class="btn yellow">批量管理</button>
             <span>
                 操作模式：
                 <input type="radio" name="mode" id="adminMode" value="0" checked/>
@@ -43,7 +44,10 @@
     </div>
     <div class="userTable" id="searchResult">
         <div class="userRow userHeader">
-            <span class="userItem6-1">设备类型</span>
+            <span class="userItem9">
+                <input type="checkbox" id="allSelected" form="multipleLogForm"/>
+            </span>
+            <span class="userItem6-2">设备类型</span>
             <span class="userItem6-1">品牌型号</span>
             <span class="userItem6-1">设备编号</span>
             <span class="userItem6-1">存放地点</span>
@@ -325,6 +329,64 @@
             <button id="closeEquipmentLog" type="button" class="btn gray">关闭</button>
         </div>
     </div>
+    <div id="multipleLog" class="dialogueBox">
+        <div class="dialogueHeader">
+            <span>设备批量管理</span>
+            <span class="dialogueClose">
+				<i class="fa fa-window-close"></i>
+			</span>
+        </div>
+        <div class="dialogueBody">
+            <form id="multipleLogForm" class="needs-validation">
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span>已选设备：</span>
+                        <span id="mLogEquipment" class="align-left"></span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span>可用操作：</span>
+                        <span>
+                            <select name="logStatus" id="mLogStatus" class="form-control" required>
+                                <option value="-1" selected>---请选择---</option>
+                                <option value="0">借出</option>
+                                <option value="1">归还</option>
+                                <option value="2">报修</option>
+                                <option value="3">报废</option>
+                                <option value="4">存放</option>
+                                <option value="5">调拨</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="formDiv">
+                        <span>经手人：</span>
+                        <span id="mLogUser" class="align-left"></span>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <div class="formDiv">
+                        <span id="mTargetName"></span>
+                        <span>
+                            <input type="text" id="mLogTarget" name="logTarget" placeholder=""
+                                   class="form-control placeholder-no-fix" required autocomplete="on"/>
+                        </span>
+                    </div>
+                    <div class="formDiv">
+                        <span>日期：</span>
+                        <span>
+                            <input type="date" id="mLogOperationDate" name="logOperationDate" placeholder="日期"
+                                   class="form-control placeholder-no-fix" required autocomplete="off"/>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="dialogueFooter">
+            <button id="saveMultipleLog" type="button" class="btn blue">保存</button>
+            <button id="closeMultipleLog" type="button" class="btn gray">关闭</button>
+        </div>
+    </div>
 
     <script type="text/javascript">
         const equipmentStatusCode = ['报废', '借出', '暂存', '维修', '调拨'];
@@ -336,6 +398,8 @@
         let typeList;
 
         let registrationReasonList;
+
+        let pageList;
 
         $(":radio[name='mode']").click(function () {
             mode = $(this).val();
@@ -355,13 +419,36 @@
             edit(0);
         });
 
+        $('#multipleAdminBut').click(function () {
+            if ($("input[name='multipleLogEquipment']:checked").length > 0) {
+                multiple();
+            } else {
+                layer.msg("请至少选择一个设备", {
+                    time: 2000
+                });
+                return false;
+            }
+        });
+
+        $("#allSelected").change(function () {
+            if ($(this).is(':checked')) {
+                $("input[name='multipleLogEquipment']").each(function () {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $("input[name='multipleLogEquipment']").each(function () {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
+
         function search(pageNum) {
             const url = 'equipment/search';
             $.getJSON(
                 url,
                 {
                     'pageNum': pageNum,
-                    'pageSize': 25,
+                    'pageSize': 13,
                     'equipmentType': $("#equipmentTypeSearch").val(),
                     'equipmentBrand': $("#equipmentBrandSearch").val(),
                     'equipmentModel': $("#equipmentModelSearch").val(),
@@ -371,10 +458,15 @@
                     'equipmentSn': $("#equipmentSnSearch").val()
                 },
                 function (data) {
+                    pageList = data.content;
                     setPage(data, $(".pageBox"), $("#pageNum"));
                     $("#searchResult .userHeader").nextAll().remove();
+                    $("#allSelected").prop("checked", false);
                     $.each(data.content, function (i, n) {
-                        $("#searchResult").append('<div class="userRow"><span class="userItem6-1">'
+                        $("#searchResult").append('<div class="userRow"><span class="userItem9">'
+                            + '<input type="checkbox" name="multipleLogEquipment" form="multipleLogForm" value="'
+                            + n.equipmentId
+                            + '"/></span><span class="userItem6-2">'
                             + n.typeName
                             + '</span><span class="userItem6-1">'
                             + n.brandName + '&emsp;' + n.modelName
@@ -385,6 +477,13 @@
                             + '</span><span class="userItem6"><button type="button" class="btn blue" onclick="edit(\''
                             + n.equipmentId
                             + '\')">' + (mode == 0 ? '管理' : '修改') + '</button></span></div>');
+                    });
+                    $("input[name='multipleLogEquipment']").change(function () {
+                        if ($("input[name='multipleLogEquipment']").not(":checked").length === 0) {
+                            $("#allSelected").prop("checked", true);
+                        } else {
+                            $("#allSelected").prop("checked", false);
+                        }
                     });
                 });
         }
@@ -441,6 +540,11 @@
             }
         }
 
+        function multiple() {
+            formInit(2);
+            dialogueOpen("multipleLog");
+        }
+
         $(".dialogueClose").click(function () {
             dialogueClose($(this).parent().parent().attr("id"));
         });
@@ -455,6 +559,14 @@
 
         $("#closeEquipmentLog").click(function () {
             dialogueClose("equipmentLog");
+        });
+
+        $("#closeMultipleLog").click(function () {
+            dialogueClose("multipleLog");
+        });
+
+        $("#saveMultipleLog").click(function () {
+            $("form#multipleLogForm").submit();
         });
 
         $(function () {
@@ -476,19 +588,19 @@
                 },
                 rules: {
                     "equipmentName": {
-                      remote: {
-                          url: "equipment/checkEquipmentName",     //后台处理程序
-                          type: "get",               //数据发送方式
-                          dataType: "json",           //接受数据格式
-                          data: {                     //要传递的数据
-                              equipmentName: function () {
-                                  return $("#equipmentName").val();
-                              },
-                              equipmentId: function () {
-                                  return $("#equipmentId").val();
-                              }
-                          }
-                      }
+                        remote: {
+                            url: "equipment/checkEquipmentName",     //后台处理程序
+                            type: "get",               //数据发送方式
+                            dataType: "json",           //接受数据格式
+                            data: {                     //要传递的数据
+                                equipmentName: function () {
+                                    return $("#equipmentName").val();
+                                },
+                                equipmentId: function () {
+                                    return $("#equipmentId").val();
+                                }
+                            }
+                        }
                     },
                     "equipmentType": {
                         notEqual: "0"
@@ -747,6 +859,26 @@
                 $("#eSn").html("");
                 $("#eSc").html("");
                 $(".addLog").hide().last().nextAll().remove();
+            } else if ("2" == num) {
+                $("#mLogEquipment").html("已选择" + $("input[name='multipleLogEquipment']:checked").length + "台设备");
+                let titleStr = "";
+                let selectTarget0 = $("#mLogStatus")[0];
+                $(selectTarget0[1]).show();
+                $(selectTarget0[2]).show();
+                $(selectTarget0[3]).show();
+                $(selectTarget0[4]).show();
+                $(selectTarget0[5]).show();
+                $(selectTarget0[6]).show();
+                $("input[name='multipleLogEquipment']").each(function (i) {
+                    if ($(this).is(":checked")) {
+                        titleStr += pageList[i].typeName + "[" + pageList[i].equipmentName + "]\n";
+                        initLogStatus(pageList[i].equipmentStatus);
+                    }
+                });
+                $("#mLogEquipment").prop("title", titleStr);
+                $("#mLogStatus").val(-1).change();
+                $("#mLogTarget").val("");
+                $("#mLogOperationDate").val("");
             }
         }
 
@@ -794,10 +926,38 @@
             }
         }
 
+        function initLogStatus(equipmentStatus) {
+            let selectTarget = $("#mLogStatus")[0];
+            if (equipmentStatus == null) {
+                $(selectTarget[2]).hide();
+                $(selectTarget[4]).hide();
+            } else if (equipmentStatus === 0) {
+                $(selectTarget[1]).hide();
+                $(selectTarget[2]).hide();
+                $(selectTarget[3]).hide();
+                $(selectTarget[4]).hide();
+                $(selectTarget[6]).hide();
+            } else if (equipmentStatus === 1) {
+                $(selectTarget[1]).hide();
+                $(selectTarget[5]).hide();
+                $(selectTarget[6]).hide();
+            } else if (equipmentStatus === 2 || equipmentStatus === 3) {
+                $(selectTarget[2]).hide();
+            } else if (equipmentStatus === 4) {
+                $(selectTarget[1]).hide();
+                $(selectTarget[2]).hide();
+                $(selectTarget[3]).hide();
+                $(selectTarget[4]).hide();
+                $(selectTarget[5]).hide();
+                $(selectTarget[6]).hide();
+            }
+        }
+
         function userInit() {
             const url = 'user/me';
             $.getJSON(url, function (data) {
                 $("#logUser").html(data.userName);
+                $("#mLogUser").html(data.userName);
             });
         }
 
@@ -806,18 +966,21 @@
             if (num == 0) {
                 $("#targetName").parent().show();
                 $("#targetName").html("借出人：<i>*</i>");
+                $("#logTarget").attr("placeholder", "借出人");
                 $("#logTarget").val("");
                 $("#logTarget").attr("disabled", false);
                 $("#logOperationDate").val("");
             } else if (num == 1 || num == 3 || num == 4) {
                 $("#targetName").parent().show();
                 $("#targetName").html("存放地：<i>*</i>");
+                $("#logTarget").attr("placeholder", "存放地");
                 $("#logTarget").val("");
                 $("#logTarget").attr("disabled", false);
                 $("#logOperationDate").val("");
             } else if (num == 5) {
                 $("#targetName").parent().show();
                 $("#targetName").html("接收方：<i>*</i>");
+                $("#logTarget").attr("placeholder", "接收方");
                 $("#logTarget").val("");
                 $("#logTarget").attr("disabled", false);
                 $("#logOperationDate").val("");
@@ -829,6 +992,33 @@
             }
             $(".addLog").show();
         }
+
+        $("#mLogStatus").change(function() {
+            let num = $(this).val();
+            if (num == 0) {
+                $("#mTargetName").parent().show();
+                $("#mTargetName").html("借出人：<i>*</i>");
+                $("#mLogTarget").attr("placeholder", "借出人");
+                $("#mLogTarget").val("");
+                $("#mLogTarget").attr("disabled", false);
+            } else if (num == 1 || num == 3 || num == 4) {
+                $("#mTargetName").parent().show();
+                $("#mTargetName").html("存放地：<i>*</i>");
+                $("#mLogTarget").attr("placeholder", "存放地");
+                $("#mLogTarget").val("");
+                $("#mLogTarget").attr("disabled", false);
+            } else if (num == 5) {
+                $("#mTargetName").parent().show();
+                $("#mTargetName").html("接收方：<i>*</i>");
+                $("#mLogTarget").attr("placeholder", "接收方");
+                $("#mLogTarget").val("");
+                $("#mLogTarget").attr("disabled", false);
+            } else if (num == 2 || num == -1) {
+                $("#mTargetName").parent().hide();
+                $("#mLogTarget").val("");
+                $("#mLogTarget").attr("disabled", true);
+            }
+        });
 
         $("#deleteEquipment").click(function () {
             layer.confirm('确认销毁？', {
@@ -881,6 +1071,35 @@
                             });
                         }
                     });
+                }
+            });
+        });
+
+        $(function () {
+            $("form#multipleLogForm.needs-validation").validate({
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "equipment/log/multipleSave",
+                        dataType: "json",
+                        success: function (result) { //表单提交后更新页面显示的数据
+                            dialogueClose("multipleLog");
+                            search(1);
+                            layer.msg(result.content, {
+                                time: 2000
+                            });
+                        }
+                    });
+                },
+                rules: {
+                    "logStatus": {
+                        notEqual: "-1"
+                    }
+                },
+                messages: {
+                    "logStatus": {
+                        notEqual: "请选择"
+                    }
                 }
             });
         });

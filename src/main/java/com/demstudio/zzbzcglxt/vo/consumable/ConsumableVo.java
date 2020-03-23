@@ -12,9 +12,8 @@ public class ConsumableVo extends Consumable {
         super();
     }
 
-    public ConsumableVo(String consumableId, String consumableName, Integer consumableCount, String consumableUnit, String packageId, List<Consumable> subConsumable) {
+    public ConsumableVo(String consumableId, String consumableName, Integer consumableCount, String consumableUnit, String packageId) {
         super(consumableId, consumableName, consumableCount, consumableUnit, packageId);
-        this.subConsumable = subConsumable;
     }
 
     public List<Consumable> getSubConsumable() {

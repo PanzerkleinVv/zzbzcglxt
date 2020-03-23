@@ -24,7 +24,8 @@
             <arg column="LEDGER_USER" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="LEDGER_TYPE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="USERNAME" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -93,7 +94,7 @@
   </sql>
     <sql id="Extend_Column_List">
     LEDGER_ID, LEDGER_CONSUMABLE, LEDGER_COUNT, LEDGER_PERSON, LEDGER_UNIT, LEDGER_TIME,
-    LEDGER_USER, LEDGER_TYPE, CONSUMABLE_NAME, USER_NAME
+    LEDGER_USER, LEDGER_TYPE, CONSUMABLE_NAME, CONSUMABLE_UNIT, USER_NAME
   </sql>
     <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.LedgerExample" resultMap="BaseResultMap">
         select

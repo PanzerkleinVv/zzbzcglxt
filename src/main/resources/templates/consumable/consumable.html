@@ -10,9 +10,9 @@
     </div>
     <div class="userTable" id="searchResult">
         <div class="userRow userHeader">
-            <span class="userItem5-1">耗材</span>
-            <span class="userItem6-1">存量</span>
-            <span class="userItem5-1">操作</span>
+            <span class="userItem5-2">耗材</span>
+            <span class="userItem6">存量</span>
+            <span class="userItem1">操作</span>
         </div>
     </div>
     <div class="pageBox">
@@ -108,7 +108,7 @@
                     <div class="formDiv">
                         <span>包装规格：</span>
                         <span>
-                            <input type="number" id="subCount" name="ledgerCount" placeholder=""
+                            <input type="number" id="subCount" name="subCount" placeholder=""
                                    class="form-control placeholder-no-fix" min="1" step="1" required
                                    autocomplete="off"/>
                         </span>
@@ -149,24 +149,24 @@
                 url,
                 {
                     'pageNum': pageNum,
-                    'pageSize': 25,
-                    'consumableName': $("#consumableName").val()
+                    'pageSize': 13,
+                    'consumableName': $("#consumableNameSearch").val()
                 },
                 function (data) {
                     setPage(data, $(".pageBox"), $("#pageNum"));
                     $("#searchResult .userHeader").nextAll().remove();
                     $.each(data.content, function (i, n) {
                         pageList = data.content;
-                        $("#searchResult").append('<div class="userRow"><span class="userItem5-1">'
-                            + n.consumableName + (n.subConsumable.lenth == 0 ? "" : "（" + n.consumableUnit + "）")
-                            + '</span><span class="userItem6-1">'
+                        $("#searchResult").append('<div class="userRow"><span class="userItem5-2">'
+                            + n.consumableName + (n.subConsumable.length == 0 && n.packageId == "0" ? "" : "（" + n.consumableUnit + "）")
+                            + '</span><span class="userItem6">'
                             + nullToZero(n.consumableCount) + n.consumableUnit
-                            + '</span><span class="userItem5-1"><button type="button" class="btn blue" onclick="ledger(\''
+                            + '</span><span class="userItem1"><button type="button" class="btn yellow" onclick="ledger(\''
                             + i
-                            + '\', \'0\')">盘点</button><button type="button" class="btn blue" onclick="ledger(\''
+                            + '\', \'0\')">盘点</button>&emsp;<button type="button" class="btn green" onclick="ledger(\''
                             + i
                             + '\', \'1\')">进货</button>'
-                            + (n.subConsumable.lenth > 0 ? '<button type="button" class="btn blue" onclick="ledger(\'' + i + '\', \'3\')">拆散</button>' : '')
+                            + (n.subConsumable.length > 0 ? '&emsp;<button type="button" class="btn blue" onclick="ledger(\'' + i + '\', \'3\')">拆散</button>' : '')
                             + '</span></div>');
                     });
                 });
@@ -197,7 +197,7 @@
                     break;
                 case '3':
                     $("#ledgerCount").attr('min', 1);
-                    $("#subName").parent().parent().show();
+                    $("#subCount").parent().parent().show();
                     $("#subCount").attr("disabled", false).attr("placeholder", "每" + pageList[index].consumableUnit + "应有数量（" + pageList[index].subConsumable[0].consumableUnit + "）");
                     break;
             }
@@ -234,6 +234,7 @@
                         success: function (result) { //表单提交后更新页面显示的数据
                             dialogueClose("consumableInfo");
                             search(1);
+                            getConsumableList();
                             layer.msg(result.content, {
                                 time: 2000
                             });
@@ -264,9 +265,10 @@
 
         function getConsumableList() {
             const url = 'consumable/list';
+            $("#packageId option[value='0']").nextAll().remove();
             $.getJSON(url, function (data) {
                 $.each(data, function (i, n) {
-                    let str = "<option value='" + n.consumableName + "'>" + n.consumableName + "</option>";
+                    let str = "<option value='" + n.consumableId + "'>" + n.consumableName + (n.packageId != "0" ? "（" + n.consumableUnit + "）" : "") + "</option>";
                     $("#packageId").append(str);
                 });
             });

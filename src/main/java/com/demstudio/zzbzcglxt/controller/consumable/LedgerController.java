@@ -34,7 +34,7 @@ public class LedgerController {
         if (ledgerConsumable != null && !"0".equals(ledgerConsumable)) {
             example.createCriteria().andLedgerConsumableEqualTo(ledgerConsumable);
         }
-        example.setOrderByClause("LEDGER_TIME DESC, CONSUMABLE ASC");
+        example.setOrderByClause("LEDGER_TIME DESC, CONSUMABLE_NAME ASC");
         return consumableBiz.ledgerPage(pageRequest, example);
     }
 

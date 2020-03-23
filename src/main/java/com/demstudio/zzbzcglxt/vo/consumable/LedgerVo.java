@@ -8,15 +8,18 @@ public class LedgerVo extends Ledger {
 
     private String consumableName;
 
+    private String consumableUnit;
+
     private String userName;
 
     public LedgerVo() {
         super();
     }
 
-    public LedgerVo(String ledgerId, String ledgerConsumable, Integer ledgerCount, String ledgerPerson, String ledgerUnit, Date ledgerTime, String ledgerUser, Integer ledgerType, String consumableName, String userName) {
+    public LedgerVo(String ledgerId, String ledgerConsumable, Integer ledgerCount, String ledgerPerson, String ledgerUnit, Date ledgerTime, String ledgerUser, Integer ledgerType, String consumableName, String consumableUnit, String userName) {
         super(ledgerId, ledgerConsumable, ledgerCount, ledgerPerson, ledgerUnit, ledgerTime, ledgerUser, ledgerType);
         this.consumableName = consumableName;
+        this.consumableUnit = consumableUnit;
         this.userName = userName;
     }
 
@@ -26,6 +29,14 @@ public class LedgerVo extends Ledger {
 
     public void setConsumableName(String consumableName) {
         this.consumableName = consumableName;
+    }
+
+    public String getConsumableUnit() {
+        return consumableUnit;
+    }
+
+    public void setConsumableUnit(String consumableUnit) {
+        this.consumableUnit = consumableUnit;
     }
 
     public String getUserName() {

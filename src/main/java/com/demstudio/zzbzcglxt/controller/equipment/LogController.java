@@ -48,4 +48,19 @@ public class LogController {
             return new Message(false, "操作失败");
         }
     }
+
+    @PostMapping("/multipleSave")
+    @ResponseBody
+    public Message multipleSave(Log log, String[] multipleLogEquipment) {
+        final User me = (User) SecurityUtils.getSubject().getPrincipal();
+        log.setLogUser(me.getUserId());
+        for (int i = 0; i < multipleLogEquipment.length / 2; i++) {
+            log.setLogTime(Date.from(Instant.now()));
+            log.setLogEquipment(multipleLogEquipment[i]);
+            if (!equipmentBiz.save(log)) {
+                return new Message(false, "操作失败");
+            }
+        }
+        return new Message(true, "操作成功");
+    }
 }
