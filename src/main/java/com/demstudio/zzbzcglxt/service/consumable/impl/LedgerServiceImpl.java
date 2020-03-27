@@ -39,6 +39,6 @@ public class LedgerServiceImpl implements LedgerService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<LedgerVo> ledger = ledgerMapper.searchPage(example);
-        return new PageInfo<LedgerVo>(ledger);
+        return new PageInfo<>(ledger);
     }
 }

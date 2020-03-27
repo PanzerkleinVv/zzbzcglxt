@@ -65,6 +65,6 @@ public class EquipmentServiceImpl implements EquipmentService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<EquipmentVo> brands = equipmentMapper.searchPage(example);
-        return new PageInfo<EquipmentVo>(brands);
+        return new PageInfo<>(brands);
     }
 }

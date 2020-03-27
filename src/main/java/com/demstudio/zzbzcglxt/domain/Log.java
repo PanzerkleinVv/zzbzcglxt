@@ -17,7 +17,7 @@ public class Log {
 
     private String logTarget;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date logOperationDate;
 
     private String logNote;
@@ -35,6 +35,17 @@ public class Log {
 
     public Log() {
         super();
+    }
+
+    public Log(Log log) {
+        this.logId = log.getLogId();
+        this.logEquipment = log.getLogEquipment();
+        this.logUser = log.getLogUser();
+        this.logTime = log.getLogTime();
+        this.logStatus = log.getLogStatus();
+        this.logTarget = log.getLogTarget();
+        this.logOperationDate = log.getLogOperationDate();
+        this.logNote = log.getLogNote();
     }
 
     public String getLogId() {

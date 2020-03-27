@@ -54,6 +54,6 @@ public class SecrecyServiceImpl implements SecrecyService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<Secrecy> secrecyList = secrecyMapper.searchPage(example);
-        return new PageInfo<Secrecy>(secrecyList);
+        return new PageInfo<>(secrecyList);
     }
 }

@@ -53,6 +53,8 @@
         <!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 -->
 
         <!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 -->
-        <table tableName="ledger"></table>
+        <table tableName="network_parameter"></table>
+        <table tableName="terminal"></table>
+        <table tableName="application"></table>
     </context>
 </generatorConfiguration>

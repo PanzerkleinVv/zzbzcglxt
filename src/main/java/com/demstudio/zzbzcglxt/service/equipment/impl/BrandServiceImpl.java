@@ -48,6 +48,6 @@ public class BrandServiceImpl implements BrandService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<BrandVo> brands = brandMapper.searchPage(example);
-        return new PageInfo<BrandVo>(brands);
+        return new PageInfo<>(brands);
     }
 }

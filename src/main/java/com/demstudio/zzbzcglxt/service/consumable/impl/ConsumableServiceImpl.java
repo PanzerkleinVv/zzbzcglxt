@@ -59,6 +59,6 @@ public class ConsumableServiceImpl implements ConsumableService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<ConsumableVo> consumable = consumableMapper.searchPage(example);
-        return new PageInfo<ConsumableVo>(consumable);
+        return new PageInfo<>(consumable);
     }
 }

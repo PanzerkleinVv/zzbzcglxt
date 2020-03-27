@@ -6,10 +6,12 @@ import com.demstudio.zzbzcglxt.domain.Log;
 import com.demstudio.zzbzcglxt.service.equipment.EquipmentService;
 import com.demstudio.zzbzcglxt.service.equipment.LogService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
 
 @Service
 public class EquipmentBizImpl implements EquipmentBiz {
@@ -57,4 +59,18 @@ public class EquipmentBizImpl implements EquipmentBiz {
         }
         return false;
     }
+
+    @Override
+    @Async("asyncServiceExecutor")
+    public void saveAsync(Log log, CountDownLatch countDownLatch) throws Exception {
+        try {
+            save(log);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("导入失败-" + log.getLogEquipment() + "-" + log.getLogStatus() + "-" + log.getLogOperationDate());
+        } finally {
+            countDownLatch.countDown();
+        }
+    }
+
 }

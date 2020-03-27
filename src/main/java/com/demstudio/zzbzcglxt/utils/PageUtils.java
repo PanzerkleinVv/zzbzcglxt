@@ -9,7 +9,7 @@ public class PageUtils {
      * 将分页信息封装到统一的接口
      *
      * @param pageRequest pageRequest
-     * @param pageInfo pageInfo
+     * @param pageInfo    pageInfo
      * @return PageResult
      */
     public static PageResult getPageResult(PageRequest pageRequest, PageInfo<?> pageInfo) {

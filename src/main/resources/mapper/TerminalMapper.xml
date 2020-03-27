@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demstudio.zzbzcglxt.repository.TerminalMapper">
+  <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Terminal">
+    <constructor>
+      <idArg column="TERMINAL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="IP_0" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="IP_1" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="IP_2" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="IP_3" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TERMINAL_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_OWNER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_SEGMENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_ROOM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_SWITCH" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TERMINAL_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TERMINAL_ID, TERMINAL_NAME, IP_0, IP_1, IP_2, IP_3, TERMINAL_DESC, TERMINAL_SYSTEM, 
+    TERMINAL_OWNER, TERMINAL_SEGMENT, TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH, 
+    TERMINAL_TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from terminal
+    where TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from terminal
+    where TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample">
+    delete from terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
+    insert into terminal (TERMINAL_ID, TERMINAL_NAME, IP_0, 
+      IP_1, IP_2, IP_3, TERMINAL_DESC, 
+      TERMINAL_SYSTEM, TERMINAL_OWNER, TERMINAL_SEGMENT, 
+      TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH, 
+      TERMINAL_TYPE)
+    values (#{terminalId,jdbcType=VARCHAR}, #{terminalName,jdbcType=VARCHAR}, #{ip0,jdbcType=INTEGER}, 
+      #{ip1,jdbcType=INTEGER}, #{ip2,jdbcType=INTEGER}, #{ip3,jdbcType=INTEGER}, #{terminalDesc,jdbcType=VARCHAR}, 
+      #{terminalSystem,jdbcType=VARCHAR}, #{terminalOwner,jdbcType=VARCHAR}, #{terminalSegment,jdbcType=VARCHAR}, 
+      #{terminalRoom,jdbcType=VARCHAR}, #{terminalSecrecy,jdbcType=VARCHAR}, #{terminalSwitch,jdbcType=VARCHAR}, 
+      #{terminalType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
+    insert into terminal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="terminalId != null">
+        TERMINAL_ID,
+      </if>
+      <if test="terminalName != null">
+        TERMINAL_NAME,
+      </if>
+      <if test="ip0 != null">
+        IP_0,
+      </if>
+      <if test="ip1 != null">
+        IP_1,
+      </if>
+      <if test="ip2 != null">
+        IP_2,
+      </if>
+      <if test="ip3 != null">
+        IP_3,
+      </if>
+      <if test="terminalDesc != null">
+        TERMINAL_DESC,
+      </if>
+      <if test="terminalSystem != null">
+        TERMINAL_SYSTEM,
+      </if>
+      <if test="terminalOwner != null">
+        TERMINAL_OWNER,
+      </if>
+      <if test="terminalSegment != null">
+        TERMINAL_SEGMENT,
+      </if>
+      <if test="terminalRoom != null">
+        TERMINAL_ROOM,
+      </if>
+      <if test="terminalSecrecy != null">
+        TERMINAL_SECRECY,
+      </if>
+      <if test="terminalSwitch != null">
+        TERMINAL_SWITCH,
+      </if>
+      <if test="terminalType != null">
+        TERMINAL_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="terminalId != null">
+        #{terminalId,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalName != null">
+        #{terminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip0 != null">
+        #{ip0,jdbcType=INTEGER},
+      </if>
+      <if test="ip1 != null">
+        #{ip1,jdbcType=INTEGER},
+      </if>
+      <if test="ip2 != null">
+        #{ip2,jdbcType=INTEGER},
+      </if>
+      <if test="ip3 != null">
+        #{ip3,jdbcType=INTEGER},
+      </if>
+      <if test="terminalDesc != null">
+        #{terminalDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSystem != null">
+        #{terminalSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalOwner != null">
+        #{terminalOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSegment != null">
+        #{terminalSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalRoom != null">
+        #{terminalRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSecrecy != null">
+        #{terminalSecrecy,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSwitch != null">
+        #{terminalSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalType != null">
+        #{terminalType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample" resultType="java.lang.Long">
+    select count(*) from terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update terminal
+    <set>
+      <if test="record.terminalId != null">
+        TERMINAL_ID = #{record.terminalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalName != null">
+        TERMINAL_NAME = #{record.terminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip0 != null">
+        IP_0 = #{record.ip0,jdbcType=INTEGER},
+      </if>
+      <if test="record.ip1 != null">
+        IP_1 = #{record.ip1,jdbcType=INTEGER},
+      </if>
+      <if test="record.ip2 != null">
+        IP_2 = #{record.ip2,jdbcType=INTEGER},
+      </if>
+      <if test="record.ip3 != null">
+        IP_3 = #{record.ip3,jdbcType=INTEGER},
+      </if>
+      <if test="record.terminalDesc != null">
+        TERMINAL_DESC = #{record.terminalDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalSystem != null">
+        TERMINAL_SYSTEM = #{record.terminalSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalOwner != null">
+        TERMINAL_OWNER = #{record.terminalOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalSegment != null">
+        TERMINAL_SEGMENT = #{record.terminalSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalRoom != null">
+        TERMINAL_ROOM = #{record.terminalRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalSecrecy != null">
+        TERMINAL_SECRECY = #{record.terminalSecrecy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalSwitch != null">
+        TERMINAL_SWITCH = #{record.terminalSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalType != null">
+        TERMINAL_TYPE = #{record.terminalType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update terminal
+    set TERMINAL_ID = #{record.terminalId,jdbcType=VARCHAR},
+      TERMINAL_NAME = #{record.terminalName,jdbcType=VARCHAR},
+      IP_0 = #{record.ip0,jdbcType=INTEGER},
+      IP_1 = #{record.ip1,jdbcType=INTEGER},
+      IP_2 = #{record.ip2,jdbcType=INTEGER},
+      IP_3 = #{record.ip3,jdbcType=INTEGER},
+      TERMINAL_DESC = #{record.terminalDesc,jdbcType=VARCHAR},
+      TERMINAL_SYSTEM = #{record.terminalSystem,jdbcType=VARCHAR},
+      TERMINAL_OWNER = #{record.terminalOwner,jdbcType=VARCHAR},
+      TERMINAL_SEGMENT = #{record.terminalSegment,jdbcType=VARCHAR},
+      TERMINAL_ROOM = #{record.terminalRoom,jdbcType=VARCHAR},
+      TERMINAL_SECRECY = #{record.terminalSecrecy,jdbcType=VARCHAR},
+      TERMINAL_SWITCH = #{record.terminalSwitch,jdbcType=VARCHAR},
+      TERMINAL_TYPE = #{record.terminalType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
+    update terminal
+    <set>
+      <if test="terminalName != null">
+        TERMINAL_NAME = #{terminalName,jdbcType=VARCHAR},
+      </if>
+      <if test="ip0 != null">
+        IP_0 = #{ip0,jdbcType=INTEGER},
+      </if>
+      <if test="ip1 != null">
+        IP_1 = #{ip1,jdbcType=INTEGER},
+      </if>
+      <if test="ip2 != null">
+        IP_2 = #{ip2,jdbcType=INTEGER},
+      </if>
+      <if test="ip3 != null">
+        IP_3 = #{ip3,jdbcType=INTEGER},
+      </if>
+      <if test="terminalDesc != null">
+        TERMINAL_DESC = #{terminalDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSystem != null">
+        TERMINAL_SYSTEM = #{terminalSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalOwner != null">
+        TERMINAL_OWNER = #{terminalOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSegment != null">
+        TERMINAL_SEGMENT = #{terminalSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalRoom != null">
+        TERMINAL_ROOM = #{terminalRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSecrecy != null">
+        TERMINAL_SECRECY = #{terminalSecrecy,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalSwitch != null">
+        TERMINAL_SWITCH = #{terminalSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalType != null">
+        TERMINAL_TYPE = #{terminalType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
+    update terminal
+    set TERMINAL_NAME = #{terminalName,jdbcType=VARCHAR},
+      IP_0 = #{ip0,jdbcType=INTEGER},
+      IP_1 = #{ip1,jdbcType=INTEGER},
+      IP_2 = #{ip2,jdbcType=INTEGER},
+      IP_3 = #{ip3,jdbcType=INTEGER},
+      TERMINAL_DESC = #{terminalDesc,jdbcType=VARCHAR},
+      TERMINAL_SYSTEM = #{terminalSystem,jdbcType=VARCHAR},
+      TERMINAL_OWNER = #{terminalOwner,jdbcType=VARCHAR},
+      TERMINAL_SEGMENT = #{terminalSegment,jdbcType=VARCHAR},
+      TERMINAL_ROOM = #{terminalRoom,jdbcType=VARCHAR},
+      TERMINAL_SECRECY = #{terminalSecrecy,jdbcType=VARCHAR},
+      TERMINAL_SWITCH = #{terminalSwitch,jdbcType=VARCHAR},
+      TERMINAL_TYPE = #{terminalType,jdbcType=VARCHAR}
+    where TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
+  </update>
+</mapper>

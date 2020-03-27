@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userMapper.selectPage();
-        return new PageInfo<User>(users);
+        return new PageInfo<>(users);
     }
 
     @Override

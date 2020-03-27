@@ -63,6 +63,6 @@ public class TypeServiceImpl implements TypeService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<TypeVo> types = typeMapper.searchPage(example);
-        return new PageInfo<TypeVo>(types);
+        return new PageInfo<>(types);
     }
 }

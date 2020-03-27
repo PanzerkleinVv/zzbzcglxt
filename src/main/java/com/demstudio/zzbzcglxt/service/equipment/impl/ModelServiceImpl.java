@@ -48,6 +48,6 @@ public class ModelServiceImpl implements ModelService {
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<ModelVo> models = modelMapper.searchPage(example);
-        return new PageInfo<ModelVo>(models);
+        return new PageInfo<>(models);
     }
 }

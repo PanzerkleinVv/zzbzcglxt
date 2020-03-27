@@ -15,7 +15,7 @@
             </select>
             <select name="equipmentStatus" id="equipmentStatusSearch" class="form-control"
                     style="width: 24%; display: inline-block;">
-                <option value="5" selected>所有</option>
+                <option value="5" selected>所有设备状态</option>
                 <option value="2">暂存</option>
                 <option value="1">借出</option>
                 <option value="3">维修</option>
@@ -448,7 +448,7 @@
                 url,
                 {
                     'pageNum': pageNum,
-                    'pageSize': 13,
+                    'pageSize': 30,
                     'equipmentType': $("#equipmentTypeSearch").val(),
                     'equipmentBrand': $("#equipmentBrandSearch").val(),
                     'equipmentModel': $("#equipmentModelSearch").val(),
@@ -473,7 +473,7 @@
                             + '</span><span class="userItem6-1">'
                             + n.equipmentName
                             + '</span><span class="userItem6-1">'
-                            + (n.equipmentStatus == null ? "入库待定" : equipmentStatusCode[n.equipmentStatus]) + nullToUnsure(n.logs.length === 0 ? null : "：" + n.logs[0].logTarget)
+                            + (n.equipmentStatus == null ? "入库" : equipmentStatusCode[n.equipmentStatus]) + "：" + nullToUnsure(n.logs.length === 0 ? null : n.logs[0].logTarget)
                             + '</span><span class="userItem6"><button type="button" class="btn blue" onclick="edit(\''
                             + n.equipmentId
                             + '\')">' + (mode == 0 ? '管理' : '修改') + '</button></span></div>');
@@ -837,6 +837,7 @@
         function formInit(num) {
             if ("0" == num) {
                 $("#equipmentForm").resetForm();
+                $("#equipmentId").val("");
                 let target = $("#equipmentBrand");
                 target.attr("disabled", true).parent().parent().hide();
                 target = $("#equipmentModel");

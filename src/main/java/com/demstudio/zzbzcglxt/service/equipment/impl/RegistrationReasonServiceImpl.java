@@ -56,6 +56,6 @@ public class RegistrationReasonServiceImpl implements RegistrationReasonService 
         int pageSize = pageRequest.getPageSize();
         PageHelper.startPage(pageNum, pageSize);
         List<RegistrationReason> registrationReasons = registrationReasonMapper.searchPage(example);
-        return new PageInfo<RegistrationReason>(registrationReasons);
+        return new PageInfo<>(registrationReasons);
     }
 }
