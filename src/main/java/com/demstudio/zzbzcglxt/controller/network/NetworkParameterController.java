@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
 
-@RequestMapping("/network/networkParameter")
 @Controller
+@RequestMapping("/network/networkParameter")
 public class NetworkParameterController {
 
     @Resource
@@ -45,7 +45,7 @@ public class NetworkParameterController {
         if (networkParameterService.edit(networkParameter)) {
             return new Message(true, "保存成功");
         } else {
-            return new Message(true, "保存失败");
+            return new Message(false, "保存失败");
         }
     }
 

@@ -1,67 +1,102 @@
 <div class="mainContent">
-    <div id="networkParameter" class="layui-tab layui-tab-card" lay-filter="main-card">
+    <div id="terminal" class="layui-tab layui-tab-card" lay-filter="main-card">
         <ul class="layui-tab-title">
-            <li lay-id="0" class="layui-this">终端类型</li>
-            <li lay-id="1">操作系统</li>
-            <li lay-id="2">网段</li>
-            <li lay-id="3">房号</li>
-            <li lay-id="4">密级</li>
+            <li lay-id="0" class="layui-this">服务器</li>
+            <li lay-id="1">PC</li>
+            <li lay-id="2">交换机</li>
+            <li lay-id="3">防火墙</li>
+            <li lay-id="4">打印机</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <table id="terminalTable" lay-filter="0"></table>
             </div>
             <div class="layui-tab-item">
-                <table id="systemTable" lay-filter="1"></table>
             </div>
             <div class="layui-tab-item">
-                <table id="segmentTable" lay-filter="2"></table>
             </div>
             <div class="layui-tab-item">
-                <table id="roomTable" lay-filter="3"></table>
             </div>
             <div class="layui-tab-item">
-                <table id="secrecyTable" lay-filter="4"></table>
             </div>
         </div>
     </div>
 
     <div>
         <form id="edit" class="layui-form" action="" lay-filter="editForm">
-            <input type="hidden" name="networkParameterId">
+            <input type="hidden" name="terminalId">
             <div class="layui-form-item">
-                <label class="layui-form-label">参数名</label>
+                <label class="layui-form-label">设备名</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="networkParameterName" required lay-verify="required"
-                           lay-verType="tips" placeholder="请输入参数名"
+                    <input type="text" name="terminalName" required lay-verify="required"
+                           lay-verType="tips" placeholder="请输入设备名"
                            autocomplete="off" class="layui-input">
                 </div>
-                <label class="layui-form-label">参数值</label>
+                <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="networkParameterValue" placeholder="请输入参数值" autocomplete="off"
-                           class="layui-input">
+                    <select name="terminalType" required lay-verify="required" lay-verType="tips">
+                        <option value=""></option>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">用途</label>
+                <label class="layui-form-label">IP</label>
                 <div class="layui-input-inline">
-                    <select name="networkParameterUse" lay-verify="required" lay-verType="tips">
+                    <input type="number" name="ip4" placeholder="127" autocomplete="off" required
+                           lay-verify="required" lay-verType="tips" class="layui-input">.
+                    <input type="number" name="ip3" placeholder="0" autocomplete="off" required
+                           lay-verify="required" lay-verType="tips" class="layui-input">.
+                    <input type="number" name="ip2" placeholder="0" autocomplete="off" required
+                           lay-verify="required" lay-verType="tips" class="layui-input">.
+                    <input type="number" name="ip1" placeholder="1" autocomplete="off" required
+                           lay-verify="required" lay-verType="tips" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">描述</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="terminalDesc" placeholder="请输入设备描述"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">系统</label>
+                <div class="layui-input-inline">
+                    <select name="terminalSystem" required lay-verify="required" lay-verType="tips">
                         <option value=""></option>
-                        <option value="0">全部可用</option>
-                        <option value="1">仅用于服务器</option>
-                        <option value="2">仅用于PC</option>
-                        <option value="3">停用</option>
                     </select>
                 </div>
-                <label class="layui-form-label">分组</label>
+                <label class="layui-form-label">所有人</label>
                 <div class="layui-input-inline">
-                    <select name="networkParameterGroup" lay-verify="required" lay-verType="tips">
+                    <input type="text" name="terminalOwner" required lay-verify="required"
+                           lay-verType="tips" placeholder="请输入所有人"
+                           autocomplete="on" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">网段</label>
+                <div class="layui-input-inline">
+                    <select name="terminalSegment" required lay-verify="required" lay-verType="tips">
                         <option value=""></option>
-                        <option value="0">终端类型</option>
-                        <option value="1">操作系统</option>
-                        <option value="2">网段</option>
-                        <option value="3">房号</option>
-                        <option value="4">密级</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">地点</label>
+                <div class="layui-input-inline">
+                    <select name="terminalRoom" required lay-verify="required" lay-verType="tips">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密级</label>
+                <div class="layui-input-inline">
+                    <select name="terminalSecrecy" required lay-verify="required" lay-verType="tips">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <label class="layui-form-label">交换机</label>
+                <div class="layui-input-inline">
+                    <select name="terminalSwitch" required lay-verify="required" lay-verType="tips">
+                        <option value=""></option>
                     </select>
                 </div>
             </div>
@@ -77,6 +112,10 @@
     <script type="text/html" id="topBar">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="create">新增参数</button>
+            <input type="text" id="ip" placeholder="请输入查询IP，如196.168.0.*"
+                   autocomplete="off" class="layui-input">
+            <button class="layui-btn layui-btn-sm" lay-event="search">搜索</button>
+            <button class="layui-btn layui-btn-sm" lay-event="search">扫描网段npm run dev</button>
         </div>
     </script>
 

@@ -161,4 +161,27 @@ public class Terminal {
     public void setTerminalType(String terminalType) {
         this.terminalType = terminalType == null ? null : terminalType.trim();
     }
+
+    public static TerminalExample toExample(String ip, String terminalType) {
+        TerminalExample example = new TerminalExample();
+        TerminalExample.Criteria criteria = example.createCriteria();
+        if (ip != null && ip.length() > 6) {
+            String[] ips = ip.split("\\.");
+            if (!"".equals(ips[0]) && !"*".equals(ips[0])) {
+                criteria.andIp3EqualTo(new Integer(ips[0]));
+                if (!"".equals(ips[1]) && !"*".equals(ips[1])) {
+                    criteria.andIp2EqualTo(new Integer(ips[1]));
+                    if (!"".equals(ips[2]) && !"*".equals(ips[2])) {
+                        criteria.andIp1EqualTo(new Integer(ips[2]));
+                        if (!"".equals(ips[3]) && !"*".equals(ips[3])) {
+                            criteria.andIp0EqualTo(new Integer(ips[3]));
+                        }
+                    }
+                }
+            }
+        }
+        criteria.andTerminalTypeEqualTo(terminalType);
+        example.setOrderByClause("ip3 asc, ip2 asc, ip1 asc, ip0 asc");
+        return example;
+    }
 }
