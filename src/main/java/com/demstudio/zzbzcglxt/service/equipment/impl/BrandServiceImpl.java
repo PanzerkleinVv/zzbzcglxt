@@ -20,34 +20,29 @@ import java.util.UUID;
 @Service
 public class BrandServiceImpl implements BrandService {
 
-    @Resource
-    private BrandMapper brandMapper;
+  @Resource
+  private BrandMapper brandMapper;
 
-    @Override
-    public PageResult searchPage(PageRequest pageRequest, BrandExample example) {
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
-    }
+  @Override
+  public PageResult searchPage(PageRequest pageRequest, BrandExample example) {
+    return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
+  }
 
-    @Override
-    public Brand info(String brandId) {
-        return brandMapper.selectByPrimaryKey(brandId);
+  @Override
+  public boolean edit(Brand brand) {
+    if (brand.getBrandId() != null && !"".equals(brand.getBrandId())) {
+      return 1 == brandMapper.updateByPrimaryKeySelective(brand);
+    } else {
+      brand.setBrandId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
+      return 1 == brandMapper.insertSelective(brand);
     }
+  }
 
-    @Override
-    public boolean edit(Brand brand) {
-        if (brand.getBrandId() != null && !"".equals(brand.getBrandId())) {
-            return 1 == brandMapper.updateByPrimaryKeySelective(brand);
-        } else {
-            brand.setBrandId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
-            return 1 == brandMapper.insertSelective(brand);
-        }
-    }
-
-    private PageInfo<BrandVo> getPageInfo(PageRequest pageRequest, BrandExample example) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<BrandVo> brands = brandMapper.searchPage(example);
-        return new PageInfo<>(brands);
-    }
+  private PageInfo<BrandVo> getPageInfo(PageRequest pageRequest, BrandExample example) {
+    int pageNum = pageRequest.getPageNum();
+    int pageSize = pageRequest.getPageSize();
+    PageHelper.startPage(pageNum, pageSize);
+    List<BrandVo> brands = brandMapper.searchPage(example);
+    return new PageInfo<>(brands);
+  }
 }

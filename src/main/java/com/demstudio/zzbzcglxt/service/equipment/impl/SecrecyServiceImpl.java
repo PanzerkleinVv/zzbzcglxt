@@ -19,41 +19,36 @@ import java.util.UUID;
 @Service
 public class SecrecyServiceImpl implements SecrecyService {
 
-    @Resource
-    private SecrecyMapper secrecyMapper;
+  @Resource
+  private SecrecyMapper secrecyMapper;
 
-    @Override
-    public PageResult searchPage(PageRequest pageRequest, SecrecyExample example) {
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
-    }
+  @Override
+  public PageResult searchPage(PageRequest pageRequest, SecrecyExample example) {
+    return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
+  }
 
-    @Override
-    public Secrecy info(String secrecyId) {
-        return secrecyMapper.selectByPrimaryKey(secrecyId);
+  @Override
+  public boolean edit(Secrecy secrecy) {
+    if (secrecy.getSecrecyId() != null && !"".equals(secrecy.getSecrecyId())) {
+      return 1 == secrecyMapper.updateByPrimaryKeySelective(secrecy);
+    } else {
+      secrecy.setSecrecyId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
+      return 1 == secrecyMapper.insertSelective(secrecy);
     }
+  }
 
-    @Override
-    public boolean edit(Secrecy secrecy) {
-        if (secrecy.getSecrecyId() != null && !"".equals(secrecy.getSecrecyId())) {
-            return 1 == secrecyMapper.updateByPrimaryKeySelective(secrecy);
-        } else {
-            secrecy.setSecrecyId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
-            return 1 == secrecyMapper.insertSelective(secrecy);
-        }
-    }
+  @Override
+  public List<Secrecy> list() {
+    SecrecyExample example = new SecrecyExample();
+    example.setOrderByClause("SECRECY_NAME ASC");
+    return secrecyMapper.selectByExample(example);
+  }
 
-    @Override
-    public List<Secrecy> list() {
-        SecrecyExample example = new SecrecyExample();
-        example.setOrderByClause("SECRECY_NAME ASC");
-        return secrecyMapper.selectByExample(example);
-    }
-
-    private PageInfo<Secrecy> getPageInfo(PageRequest pageRequest, SecrecyExample example) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<Secrecy> secrecyList = secrecyMapper.searchPage(example);
-        return new PageInfo<>(secrecyList);
-    }
+  private PageInfo<Secrecy> getPageInfo(PageRequest pageRequest, SecrecyExample example) {
+    int pageNum = pageRequest.getPageNum();
+    int pageSize = pageRequest.getPageSize();
+    PageHelper.startPage(pageNum, pageSize);
+    List<Secrecy> secrecyList = secrecyMapper.searchPage(example);
+    return new PageInfo<>(secrecyList);
+  }
 }

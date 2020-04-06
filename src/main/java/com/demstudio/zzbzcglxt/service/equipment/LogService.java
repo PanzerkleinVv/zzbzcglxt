@@ -4,7 +4,7 @@ import com.demstudio.zzbzcglxt.domain.Log;
 
 public interface LogService {
 
-    void deleteByLogEquipment(String logEquipment);
+  void deleteByLogEquipment(String logEquipment);
 
-    boolean addLog(Log log);
+  boolean addLog(Log log);
 }

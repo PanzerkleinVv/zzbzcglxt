@@ -9,29 +9,29 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface TypeMapper {
-    long countByExample(TypeExample example);
+  long countByExample(TypeExample example);
 
-    int deleteByExample(TypeExample example);
+  int deleteByExample(TypeExample example);
 
-    int deleteByPrimaryKey(String typeId);
+  int deleteByPrimaryKey(String typeId);
 
-    int insert(Type record);
+  int insert(Type record);
 
-    int insertSelective(Type record);
+  int insertSelective(Type record);
 
-    List<Type> selectByExample(TypeExample example);
+  List<Type> selectByExample(TypeExample example);
 
-    Type selectByPrimaryKey(String typeId);
+  Type selectByPrimaryKey(String typeId);
 
-    int updateByExampleSelective(@Param("record") Type record, @Param("example") TypeExample example);
+  int updateByExampleSelective(@Param("record") Type record, @Param("example") TypeExample example);
 
-    int updateByExample(@Param("record") Type record, @Param("example") TypeExample example);
+  int updateByExample(@Param("record") Type record, @Param("example") TypeExample example);
 
-    int updateByPrimaryKeySelective(Type record);
+  int updateByPrimaryKeySelective(Type record);
 
-    int updateByPrimaryKey(Type record);
+  int updateByPrimaryKey(Type record);
 
-    List<TypeVo> searchPage(TypeExample example);
+  List<TypeVo> searchPage(TypeExample example);
 
-    List<TypeExtend> list(TypeExample example);
+  List<TypeExtend> list();
 }

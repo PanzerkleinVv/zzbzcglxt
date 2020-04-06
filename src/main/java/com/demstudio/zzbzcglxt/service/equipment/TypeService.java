@@ -10,12 +10,10 @@ import java.util.List;
 
 public interface TypeService {
 
-    PageResult searchPage(PageRequest pageRequest, TypeExample example);
+  PageResult searchPage(PageRequest pageRequest, TypeExample example);
 
-    Type info(String typeId);
+  boolean edit(Type type);
 
-    boolean edit(Type type);
-
-    List<TypeExtend> list(Type type);
+  List<TypeExtend> list();
 
 }

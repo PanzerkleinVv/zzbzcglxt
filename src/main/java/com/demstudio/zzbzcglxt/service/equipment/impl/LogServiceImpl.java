@@ -11,19 +11,18 @@ import javax.annotation.Resource;
 @Service
 public class LogServiceImpl implements LogService {
 
-    @Resource
-    private LogMapper logMapper;
+  @Resource
+  private LogMapper logMapper;
 
+  @Override
+  public void deleteByLogEquipment(String logEquipment) {
+    LogExample example = new LogExample();
+    example.createCriteria().andLogEquipmentEqualTo(logEquipment);
+    logMapper.deleteByExample(example);
+  }
 
-    @Override
-    public void deleteByLogEquipment(String logEquipment) {
-        LogExample example = new LogExample();
-        example.createCriteria().andLogEquipmentEqualTo(logEquipment);
-        logMapper.deleteByExample(example);
-    }
-
-    @Override
-    public boolean addLog(Log log) {
-        return 1 == logMapper.insertSelective(log);
-    }
+  @Override
+  public boolean addLog(Log log) {
+    return 1 == logMapper.insertSelective(log);
+  }
 }

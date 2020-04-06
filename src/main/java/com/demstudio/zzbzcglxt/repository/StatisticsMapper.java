@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface StatisticsMapper {
 
-    List<EquipmentStatistics> equipment();
+  List<EquipmentStatistics> equipment();
 
-    List<LogPeriod> logByPeriod();
+  List<LogPeriod> logByPeriod();
 
-    List<LogStatistics> log(Integer logYear, Integer logMonth);
+  List<LogStatistics> log(Integer logYear, Integer logMonth);
 
-    List<ConsumableStatistics> consumable();
+  List<ConsumableStatistics> consumable();
 
-    List<LedgerPeriod> ledgerByPeriod();
+  List<LedgerPeriod> ledgerByPeriod();
 
-    List<LedgerStatistics> ledger(Integer logYear, Integer logMonth);
+  List<LedgerStatistics> ledger(Integer logYear, Integer logMonth);
 }

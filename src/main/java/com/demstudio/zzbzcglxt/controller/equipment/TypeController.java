@@ -20,7 +20,6 @@ public class TypeController {
   private TypeService typeService;
 
   @GetMapping("/search")
-  @ResponseBody
   public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String typeName) {
     TypeExample example = new TypeExample();
     if (typeName != null && !"".equals(typeName)) {
@@ -30,14 +29,7 @@ public class TypeController {
     return typeService.searchPage(pageRequest, example);
   }
 
-  @GetMapping("/info")
-  @ResponseBody
-  public Type info(String typeId) {
-    return typeService.info(typeId);
-  }
-
   @PostMapping("/edit")
-  @ResponseBody
   public Message edit(Type type) {
     if (typeService.edit(type)) {
       return new Message(true, "保存成功");
@@ -47,8 +39,7 @@ public class TypeController {
   }
 
   @GetMapping("/list")
-  @ResponseBody
-  public List<TypeExtend> list(Type type) {
-    return typeService.list(type);
+  public List<TypeExtend> list() {
+    return typeService.list();
   }
 }

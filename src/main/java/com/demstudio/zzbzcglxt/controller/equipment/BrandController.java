@@ -11,49 +11,36 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-@Controller
+@RestController
 @RequestMapping("/equipment/brand")
 public class BrandController {
 
-    @Resource
-    private BrandService brandService;
+  @Resource
+  private BrandService brandService;
 
-    @GetMapping("/index")
-    public String index() {
-        return "equipment/brand";
+  @GetMapping("/search")
+  public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String brandName, @RequestParam(required = false) String brandType) {
+    BrandExample example = new BrandExample();
+    if (brandName != null && !"".equals(brandName)) {
+      if (brandType == null || "".equals(brandType)) {
+        example.createCriteria().andBrandNameLike("%" + brandName + "%");
+      } else {
+        example.createCriteria().andBrandNameLike("%" + brandName + "%").andBrandTypeEqualTo(brandType);
+      }
+    } else if (brandType != null && !"".equals(brandType)) {
+      example.createCriteria().andBrandTypeEqualTo(brandType);
     }
+    example.setOrderByClause("TYPE_NAME ASC, BRAND_NAME ASC");
+    return brandService.searchPage(pageRequest, example);
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String brandName, @RequestParam(required = false) String brandType) {
-        BrandExample example = new BrandExample();
-        if (brandName != null && !"".equals(brandName)) {
-            if (brandType == null || "0".equals(brandType)) {
-                example.createCriteria().andBrandNameLike("%" + brandName + "%");
-            } else {
-                example.createCriteria().andBrandNameLike("%" + brandName + "%").andBrandTypeEqualTo(brandType);
-            }
-        } else if (brandType != null && !"0".equals(brandType)) {
-            example.createCriteria().andBrandTypeEqualTo(brandType);
-        }
-        example.setOrderByClause("TYPE_NAME ASC, BRAND_NAME ASC");
-        return brandService.searchPage(pageRequest, example);
+  @PostMapping("/edit")
+  public Message edit(Brand brand) {
+    if (brandService.edit(brand)) {
+      return new Message(true, "保存成功");
+    } else {
+      return new Message(false, "保存失败");
     }
-
-    @GetMapping("/info")
-    @ResponseBody
-    public Brand info(String brandId) {
-        return brandService.info(brandId);
-    }
-
-    @PostMapping("/edit")
-    @ResponseBody
-    public Message edit(Brand brand) {
-        if (brandService.edit(brand)) {
-            return new Message(true, "保存成功");
-        } else {
-            return new Message(false, "保存失败");
-        }
-    }
+  }
 
 }

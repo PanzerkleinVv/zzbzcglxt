@@ -21,48 +21,34 @@ import java.util.UUID;
 @Service
 public class TypeServiceImpl implements TypeService {
 
-    @Resource
-    private TypeMapper typeMapper;
+  @Resource
+  private TypeMapper typeMapper;
 
-    @Override
-    public PageResult searchPage(PageRequest pageRequest, TypeExample example) {
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
-    }
+  @Override
+  public PageResult searchPage(PageRequest pageRequest, TypeExample example) {
+    return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
+  }
 
-    @Override
-    public Type info(String typeId) {
-        return typeMapper.selectByPrimaryKey(typeId);
+  @Override
+  public boolean edit(Type type) {
+    if (type.getTypeId() != null && !"".equals(type.getTypeId())) {
+      return 1 == typeMapper.updateByPrimaryKeySelective(type);
+    } else {
+      type.setTypeId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
+      return 1 == typeMapper.insertSelective(type);
     }
+  }
 
-    @Override
-    public boolean edit(Type type) {
-        if (type.getTypeId() != null && !"".equals(type.getTypeId())) {
-            return 1 == typeMapper.updateByPrimaryKeySelective(type);
-        } else {
-            type.setTypeId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
-            return 1 == typeMapper.insertSelective(type);
-        }
-    }
+  @Override
+  public List<TypeExtend> list() {
+    return typeMapper.list();
+  }
 
-    @Override
-    public List<TypeExtend> list(Type type) {
-        TypeExample example = new TypeExample();
-        if (type != null) {
-            if (type.getTypeBrand()) {
-                example.createCriteria().andTypeBrandEqualTo(true);
-            }
-            if (type.getTypeModel()) {
-                example.createCriteria().andTypeModelEqualTo(true);
-            }
-        }
-        return typeMapper.list(example);
-    }
-
-    private PageInfo<TypeVo> getPageInfo(PageRequest pageRequest, TypeExample example) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<TypeVo> types = typeMapper.searchPage(example);
-        return new PageInfo<>(types);
-    }
+  private PageInfo<TypeVo> getPageInfo(PageRequest pageRequest, TypeExample example) {
+    int pageNum = pageRequest.getPageNum();
+    int pageSize = pageRequest.getPageSize();
+    PageHelper.startPage(pageNum, pageSize);
+    List<TypeVo> types = typeMapper.searchPage(example);
+    return new PageInfo<>(types);
+  }
 }

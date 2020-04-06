@@ -9,11 +9,9 @@ import java.util.List;
 
 public interface RegistrationReasonService {
 
-    PageResult searchPage(PageRequest pageRequest, RegistrationReasonExample example);
+  PageResult searchPage(PageRequest pageRequest, RegistrationReasonExample example);
 
-    RegistrationReason info(String registrationReasonId);
+  boolean edit(RegistrationReason registrationReason);
 
-    boolean edit(RegistrationReason registrationReason);
-
-    List<RegistrationReason> list();
+  List<RegistrationReason> list();
 }

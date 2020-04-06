@@ -7,9 +7,7 @@ import com.demstudio.zzbzcglxt.vo.PageResult;
 
 public interface BrandService {
 
-    PageResult searchPage(PageRequest pageRequest, BrandExample example);
+  PageResult searchPage(PageRequest pageRequest, BrandExample example);
 
-    Brand info(String brandId);
-
-    boolean edit(Brand brand);
+  boolean edit(Brand brand);
 }

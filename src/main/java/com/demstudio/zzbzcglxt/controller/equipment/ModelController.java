@@ -12,48 +12,35 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-@Controller
+@RestController
 @RequestMapping("/equipment/model")
 public class ModelController {
 
-    @Resource
-    private ModelService modelService;
+  @Resource
+  private ModelService modelService;
 
-    @GetMapping("/index")
-    public String index() {
-        return "equipment/model";
+  @GetMapping("/search")
+  public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String modelName, @RequestParam(required = false) String modelBrand) {
+    ModelExample example = new ModelExample();
+    if (modelName != null && !"".equals(modelName)) {
+      if (modelBrand == null || "".equals(modelBrand)) {
+        example.createCriteria().andModelNameLike("%" + modelName + "%");
+      } else {
+        example.createCriteria().andModelNameLike("%" + modelName + "%").andModelBrandEqualTo(modelBrand);
+      }
+    } else if (modelBrand != null && !"".equals(modelBrand)) {
+      example.createCriteria().andModelBrandEqualTo(modelBrand);
     }
+    example.setOrderByClause("TYPE_NAME ASC, BRAND_NAME ASC, MODEL_NAME ASC");
+    return modelService.searchPage(pageRequest, example);
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String modelName, @RequestParam(required = false) String modelBrand) {
-        ModelExample example = new ModelExample();
-        if (modelName != null && !"".equals(modelName)) {
-            if (modelBrand == null || "0".equals(modelBrand)) {
-                example.createCriteria().andModelNameLike("%" + modelName + "%");
-            } else {
-                example.createCriteria().andModelNameLike("%" + modelName + "%").andModelBrandEqualTo(modelBrand);
-            }
-        } else if (modelBrand != null && !"0".equals(modelBrand)) {
-            example.createCriteria().andModelBrandEqualTo(modelBrand);
-        }
-        example.setOrderByClause("TYPE_NAME ASC, BRAND_NAME ASC, MODEL_NAME ASC");
-        return modelService.searchPage(pageRequest, example);
+  @PostMapping("/edit")
+  public Message edit(Model model) {
+    if (modelService.edit(model)) {
+      return new Message(true, "保存成功");
+    } else {
+      return new Message(false, "保存失败");
     }
-
-    @GetMapping("/info")
-    @ResponseBody
-    public ModelVo info(String modelId) {
-        return modelService.info(modelId);
-    }
-
-    @PostMapping("/edit")
-    @ResponseBody
-    public Message edit(Model model) {
-        if (modelService.edit(model)) {
-            return new Message(true, "保存成功");
-        } else {
-            return new Message(false, "保存失败");
-        }
-    }
+  }
 }

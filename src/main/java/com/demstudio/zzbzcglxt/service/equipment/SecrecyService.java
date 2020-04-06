@@ -9,11 +9,9 @@ import java.util.List;
 
 public interface SecrecyService {
 
-    PageResult searchPage(PageRequest pageRequest, SecrecyExample example);
+  PageResult searchPage(PageRequest pageRequest, SecrecyExample example);
 
-    Secrecy info(String secrecyId);
+  boolean edit(Secrecy secrecy);
 
-    boolean edit(Secrecy secrecy);
-
-    List<Secrecy> list();
+  List<Secrecy> list();
 }

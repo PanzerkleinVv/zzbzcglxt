@@ -136,11 +136,11 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Type">
-    insert into type (TYPE_ID, TYPE_NAME, TYPE_BRAND, 
-      TYPE_MODEL, TYPE_SECRECY, TYPE_IP, 
+    insert into type (TYPE_ID, TYPE_NAME, TYPE_BRAND,
+      TYPE_MODEL, TYPE_SECRECY, TYPE_IP,
       TYPE_MAC, TYPE_SN)
-    values (#{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{typeBrand,jdbcType=BIT}, 
-      #{typeModel,jdbcType=BIT}, #{typeSecrecy,jdbcType=BIT}, #{typeIp,jdbcType=BIT}, 
+    values (#{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{typeBrand,jdbcType=BIT},
+      #{typeModel,jdbcType=BIT}, #{typeSecrecy,jdbcType=BIT}, #{typeIp,jdbcType=BIT},
       #{typeMac,jdbcType=BIT}, #{typeSn,jdbcType=BIT})
   </insert>
     <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Type">
@@ -304,16 +304,13 @@
             order by ${orderByClause}
         </if>
     </select>
-    <select id="list" parameterType="com.demstudio.zzbzcglxt.domain.TypeExample" resultMap="ListResultMap">
+    <select id="list" resultMap="ListResultMap">
         select
         <if test="distinct">
             distinct
         </if>
         <include refid="Base_Column_List"/>
         from type
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
         order by TYPE_NAME ASC
     </select>
 </mapper>

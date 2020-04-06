@@ -21,41 +21,36 @@ import java.util.UUID;
 @Service
 public class RegistrationReasonServiceImpl implements RegistrationReasonService {
 
-    @Resource
-    private RegistrationReasonMapper registrationReasonMapper;
+  @Resource
+  private RegistrationReasonMapper registrationReasonMapper;
 
-    @Override
-    public PageResult searchPage(PageRequest pageRequest, RegistrationReasonExample example) {
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
-    }
+  @Override
+  public PageResult searchPage(PageRequest pageRequest, RegistrationReasonExample example) {
+    return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest, example));
+  }
 
-    @Override
-    public RegistrationReason info(String registrationReasonId) {
-        return registrationReasonMapper.selectByPrimaryKey(registrationReasonId);
+  @Override
+  public boolean edit(RegistrationReason registrationReason) {
+    if (registrationReason.getRegistrationReasonId() != null && !"".equals(registrationReason.getRegistrationReasonId())) {
+      return 1 == registrationReasonMapper.updateByPrimaryKeySelective(registrationReason);
+    } else {
+      registrationReason.setRegistrationReasonId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
+      return 1 == registrationReasonMapper.insertSelective(registrationReason);
     }
+  }
 
-    @Override
-    public boolean edit(RegistrationReason registrationReason) {
-        if (registrationReason.getRegistrationReasonId() != null && !"".equals(registrationReason.getRegistrationReasonId())) {
-            return 1 == registrationReasonMapper.updateByPrimaryKeySelective(registrationReason);
-        } else {
-            registrationReason.setRegistrationReasonId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
-            return 1 == registrationReasonMapper.insertSelective(registrationReason);
-        }
-    }
+  @Override
+  public List<RegistrationReason> list() {
+    RegistrationReasonExample example = new RegistrationReasonExample();
+    example.setOrderByClause("REGISTRATION_REASON_NAME ASC");
+    return registrationReasonMapper.selectByExample(example);
+  }
 
-    @Override
-    public List<RegistrationReason> list() {
-        RegistrationReasonExample example = new RegistrationReasonExample();
-        example.setOrderByClause("REGISTRATION_REASON_NAME ASC");
-        return registrationReasonMapper.selectByExample(example);
-    }
-
-    private PageInfo<RegistrationReason> getPageInfo(PageRequest pageRequest, RegistrationReasonExample example) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<RegistrationReason> registrationReasons = registrationReasonMapper.searchPage(example);
-        return new PageInfo<>(registrationReasons);
-    }
+  private PageInfo<RegistrationReason> getPageInfo(PageRequest pageRequest, RegistrationReasonExample example) {
+    int pageNum = pageRequest.getPageNum();
+    int pageSize = pageRequest.getPageSize();
+    PageHelper.startPage(pageNum, pageSize);
+    List<RegistrationReason> registrationReasons = registrationReasonMapper.searchPage(example);
+    return new PageInfo<>(registrationReasons);
+  }
 }

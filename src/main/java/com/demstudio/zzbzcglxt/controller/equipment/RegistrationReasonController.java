@@ -12,48 +12,34 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/equipment/registrationReason")
 public class RegistrationReasonController {
 
-    @Resource
-    private RegistrationReasonService registrationReasonService;
+  @Resource
+  private RegistrationReasonService registrationReasonService;
 
-    @GetMapping("/index")
-    public String index() {
-        return "equipment/registrationReason";
+  @GetMapping("/search")
+  public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String registrationReasonName) {
+    RegistrationReasonExample example = new RegistrationReasonExample();
+    if (registrationReasonName != null && !"".equals(registrationReasonName)) {
+      example.createCriteria().andRegistrationReasonNameLike("%" + registrationReasonName + "%");
     }
+    example.setOrderByClause("REGISTRATION_REASON_NAME ASC");
+    return registrationReasonService.searchPage(pageRequest, example);
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public PageResult search(PageRequest pageRequest, @RequestParam(required = false) String registrationReasonName) {
-        RegistrationReasonExample example = new RegistrationReasonExample();
-        if (registrationReasonName != null && !"".equals(registrationReasonName)) {
-            example.createCriteria().andRegistrationReasonNameLike("%" + registrationReasonName + "%");
-        }
-        example.setOrderByClause("REGISTRATION_REASON_NAME ASC");
-        return registrationReasonService.searchPage(pageRequest, example);
+  @PostMapping("/edit")
+  public Message edit(RegistrationReason registrationReason) {
+    if (registrationReasonService.edit(registrationReason)) {
+      return new Message(true, "保存成功");
+    } else {
+      return new Message(false, "保存失败");
     }
+  }
 
-    @GetMapping("/info")
-    @ResponseBody
-    public RegistrationReason info(String registrationReasonId) {
-        return registrationReasonService.info(registrationReasonId);
-    }
-
-    @PostMapping("/edit")
-    @ResponseBody
-    public Message edit(RegistrationReason registrationReason) {
-        if (registrationReasonService.edit(registrationReason)) {
-            return new Message(true, "保存成功");
-        } else {
-            return new Message(false, "保存失败");
-        }
-    }
-
-    @GetMapping("/list")
-    @ResponseBody
-    public List<RegistrationReason> list() {
-        return registrationReasonService.list();
-    }
+  @GetMapping("/list")
+  public List<RegistrationReason> list() {
+    return registrationReasonService.list();
+  }
 }

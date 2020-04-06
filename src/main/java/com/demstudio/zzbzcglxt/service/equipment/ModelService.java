@@ -8,9 +8,7 @@ import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
 
 public interface ModelService {
 
-    PageResult searchPage(PageRequest pageRequest, ModelExample example);
+  PageResult searchPage(PageRequest pageRequest, ModelExample example);
 
-    ModelVo info(String modelId);
-
-    boolean edit(Model model);
+  boolean edit(Model model);
 }

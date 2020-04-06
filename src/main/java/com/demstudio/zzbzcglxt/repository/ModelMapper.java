@@ -8,31 +8,29 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ModelMapper {
-    long countByExample(ModelExample example);
+  long countByExample(ModelExample example);
 
-    int deleteByExample(ModelExample example);
+  int deleteByExample(ModelExample example);
 
-    int deleteByPrimaryKey(String modelId);
+  int deleteByPrimaryKey(String modelId);
 
-    int insert(Model record);
+  int insert(Model record);
 
-    int insertSelective(Model record);
+  int insertSelective(Model record);
 
-    List<Model> selectByExample(ModelExample example);
+  List<Model> selectByExample(ModelExample example);
 
-    Model selectByPrimaryKey(String modelId);
+  Model selectByPrimaryKey(String modelId);
 
-    int updateByExampleSelective(@Param("record") Model record, @Param("example") ModelExample example);
+  int updateByExampleSelective(@Param("record") Model record, @Param("example") ModelExample example);
 
-    int updateByExample(@Param("record") Model record, @Param("example") ModelExample example);
+  int updateByExample(@Param("record") Model record, @Param("example") ModelExample example);
 
-    int updateByPrimaryKeySelective(Model record);
+  int updateByPrimaryKeySelective(Model record);
 
-    int updateByPrimaryKey(Model record);
+  int updateByPrimaryKey(Model record);
 
-    List<ModelVo> searchPage(ModelExample example);
+  List<ModelVo> searchPage(ModelExample example);
 
-    ModelVo selectByPrimaryKeyExtend(String modelId);
-
-    List<Model> list(String modelBrand);
+  List<Model> list(String modelBrand);
 }

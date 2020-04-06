@@ -7,57 +7,39 @@ import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-@Controller
+@RestController
 @RequestMapping("/equipment")
 public class EquipmentController {
 
-    @Resource
-    private EquipmentService equipmentService;
+  @Resource
+  private EquipmentService equipmentService;
 
-    @GetMapping("/index")
-    public String index() {
-        return "equipment/equipment";
-    }
+  @GetMapping("/search")
+  public PageResult search(PageRequest pageRequest, Equipment equipment) {
+    return equipmentService.searchPage(pageRequest, equipment.toExample());
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public PageResult search(PageRequest pageRequest, Equipment equipment) {
-        return equipmentService.searchPage(pageRequest, equipment.toExample());
-    }
+  @GetMapping("/admin")
+  public EquipmentVo admin(String equipmentId) {
+    return equipmentService.admin(equipmentId);
+  }
 
-    @GetMapping("/info")
-    @ResponseBody
-    public Equipment info(String equipmentId) {
-        return equipmentService.info(equipmentId);
+  @PostMapping("/edit")
+  public Message edit(Equipment equipment) {
+    if (equipmentService.edit(equipment)) {
+      return new Message(true, "保存成功");
+    } else {
+      return new Message(false, "保存失败");
     }
+  }
 
-    @GetMapping("/admin")
-    @ResponseBody
-    public EquipmentVo admin(String equipmentId) {
-        return equipmentService.admin(equipmentId);
-    }
-
-    @PostMapping("/edit")
-    @ResponseBody
-    public Message edit(Equipment equipment) {
-        if (equipmentService.edit(equipment)) {
-            return new Message(true, "保存成功");
-        } else {
-            return new Message(false, "保存失败");
-        }
-    }
-
-    @GetMapping("/checkEquipmentName")
-    @ResponseBody
-    public Boolean checkEquipmentName(Equipment equipment) {
-        return equipmentService.checkEquipmentName(equipment);
-    }
+  @GetMapping("/checkEquipmentName")
+  public Boolean checkEquipmentName(Equipment equipment) {
+    return equipmentService.checkEquipmentName(equipment);
+  }
 
 }

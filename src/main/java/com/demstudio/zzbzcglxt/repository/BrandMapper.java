@@ -9,29 +9,29 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface BrandMapper {
-    long countByExample(BrandExample example);
+  long countByExample(BrandExample example);
 
-    int deleteByExample(BrandExample example);
+  int deleteByExample(BrandExample example);
 
-    int deleteByPrimaryKey(String brandId);
+  int deleteByPrimaryKey(String brandId);
 
-    int insert(Brand record);
+  int insert(Brand record);
 
-    int insertSelective(Brand record);
+  int insertSelective(Brand record);
 
-    List<Brand> selectByExample(BrandExample example);
+  List<Brand> selectByExample(BrandExample example);
 
-    Brand selectByPrimaryKey(String brandId);
+  Brand selectByPrimaryKey(String brandId);
 
-    int updateByExampleSelective(@Param("record") Brand record, @Param("example") BrandExample example);
+  int updateByExampleSelective(@Param("record") Brand record, @Param("example") BrandExample example);
 
-    int updateByExample(@Param("record") Brand record, @Param("example") BrandExample example);
+  int updateByExample(@Param("record") Brand record, @Param("example") BrandExample example);
 
-    int updateByPrimaryKeySelective(Brand record);
+  int updateByPrimaryKeySelective(Brand record);
 
-    int updateByPrimaryKey(Brand record);
+  int updateByPrimaryKey(Brand record);
 
-    List<BrandVo> searchPage(BrandExample example);
+  List<BrandVo> searchPage(BrandExample example);
 
-    List<BrandModel> list(String brandType);
+  List<BrandModel> list(String brandType);
 }
