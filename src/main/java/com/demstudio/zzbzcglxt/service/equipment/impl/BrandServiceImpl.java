@@ -38,6 +38,11 @@ public class BrandServiceImpl implements BrandService {
     }
   }
 
+  @Override
+  public Brand info(String brandId) {
+    return brandMapper.selectByPrimaryKey(brandId);
+  }
+
   private PageInfo<BrandVo> getPageInfo(PageRequest pageRequest, BrandExample example) {
     int pageNum = pageRequest.getPageNum();
     int pageSize = pageRequest.getPageSize();

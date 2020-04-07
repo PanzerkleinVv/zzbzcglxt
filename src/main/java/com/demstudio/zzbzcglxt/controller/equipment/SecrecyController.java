@@ -6,7 +6,6 @@ import com.demstudio.zzbzcglxt.service.equipment.SecrecyService;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,6 +31,11 @@ public class SecrecyController {
     }
     example.setOrderByClause("SECRECY_NAME ASC");
     return secrecyService.searchPage(pageRequest, example);
+  }
+
+  @GetMapping("/info")
+  public Secrecy info(String secrecyId) {
+    return secrecyService.info(secrecyId);
   }
 
   @PostMapping("/edit")

@@ -1,378 +1,379 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demstudio.zzbzcglxt.repository.EquipmentMapper">
-    <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Equipment">
-        <constructor>
-            <idArg column="EQUIPMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_MODEL" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_IP" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="EQUIPMENT_MAC" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_SN" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="EQUIPMENT_REGISTRATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-            <arg column="EQUIPMENT_REGISTRATION_REASON" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_REGISTRATION_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="LogResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo">
-        <constructor>
-            <idArg column="EQUIPMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_MODEL" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_IP" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="EQUIPMENT_MAC" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_SN" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="EQUIPMENT_REGISTRATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-            <arg column="EQUIPMENT_REGISTRATION_REASON" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_REGISTRATION_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="SECRECY_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="REGISTRATION_REASON_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-        <collection property="logs" column="EQUIPMENT_ID" select="com.demstudio.zzbzcglxt.repository.LogMapper.list"/>
-    </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+  <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Equipment">
+    <constructor>
+      <idArg column="EQUIPMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_MODEL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_IP" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_MAC" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_SN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="EQUIPMENT_REGISTRATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+      <arg column="EQUIPMENT_REGISTRATION_REASON" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_REGISTRATION_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="LogResultMap" type="com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo">
+    <constructor>
+      <idArg column="EQUIPMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_BRAND" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_MODEL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_IP" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_MAC" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_SN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="EQUIPMENT_REGISTRATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+      <arg column="EQUIPMENT_REGISTRATION_REASON" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_REGISTRATION_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="EQUIPMENT_NOTE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="LOG_TARGET" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="BRAND_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="MODEL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="SECRECY_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="REGISTRATION_REASON_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </constructor>
+    <collection property="logs" column="EQUIPMENT_ID" select="com.demstudio.zzbzcglxt.repository.LogMapper.list"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                           separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                           separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Base_Column_List">
-    EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE, EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY, 
-    EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN, EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE, 
-    EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, EQUIPMENT_NOTE
-    </sql>
-    <sql id="Extend_Column_List">
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
     EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE, EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY,
     EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN, EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE,
-    EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, EQUIPMENT_NOTE, TYPE_NAME,
+    EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, EQUIPMENT_NOTE
+    </sql>
+  <sql id="Extend_Column_List">
+    EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE, EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY,
+    EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN, EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE,
+    EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, EQUIPMENT_NOTE, LOG_TARGET, TYPE_NAME,
     BRAND_NAME, MODEL_NAME, SECRECY_NAME, REGISTRATION_REASON_NAME
     </sql>
-    <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample"
-            resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from equipment
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from equipment
-        where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample"
+          resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    from equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from equipment
+    where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from equipment
     where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
   </delete>
-    <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample">
-        delete from equipment
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
-    <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
-    insert into equipment (EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE, 
-      EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY, 
-      EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN, 
-      EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE, 
-      EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE, 
+  <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample">
+    delete from equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
+    insert into equipment (EQUIPMENT_ID, EQUIPMENT_NAME, EQUIPMENT_TYPE,
+      EQUIPMENT_BRAND, EQUIPMENT_MODEL, EQUIPMENT_SECRECY,
+      EQUIPMENT_IP, EQUIPMENT_MAC, EQUIPMENT_SN,
+      EQUIPMENT_STATUS, EQUIPMENT_REGISTRATION_DATE,
+      EQUIPMENT_REGISTRATION_REASON, EQUIPMENT_REGISTRATION_NOTE,
       EQUIPMENT_NOTE)
-    values (#{equipmentId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentType,jdbcType=VARCHAR}, 
-      #{equipmentBrand,jdbcType=VARCHAR}, #{equipmentModel,jdbcType=VARCHAR}, #{equipmentSecrecy,jdbcType=VARCHAR}, 
-      #{equipmentIp,jdbcType=INTEGER}, #{equipmentMac,jdbcType=VARCHAR}, #{equipmentSn,jdbcType=VARCHAR}, 
-      #{equipmentStatus,jdbcType=INTEGER}, #{equipmentRegistrationDate,jdbcType=TIMESTAMP}, 
-      #{equipmentRegistrationReason,jdbcType=VARCHAR}, #{equipmentRegistrationNote,jdbcType=VARCHAR}, 
+    values (#{equipmentId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentType,jdbcType=VARCHAR},
+      #{equipmentBrand,jdbcType=VARCHAR}, #{equipmentModel,jdbcType=VARCHAR}, #{equipmentSecrecy,jdbcType=VARCHAR},
+      #{equipmentIp,jdbcType=INTEGER}, #{equipmentMac,jdbcType=VARCHAR}, #{equipmentSn,jdbcType=VARCHAR},
+      #{equipmentStatus,jdbcType=INTEGER}, #{equipmentRegistrationDate,jdbcType=TIMESTAMP},
+      #{equipmentRegistrationReason,jdbcType=VARCHAR}, #{equipmentRegistrationNote,jdbcType=VARCHAR},
       #{equipmentNote,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
-        insert into equipment
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="equipmentId != null">
-                EQUIPMENT_ID,
-            </if>
-            <if test="equipmentName != null">
-                EQUIPMENT_NAME,
-            </if>
-            <if test="equipmentType != null">
-                EQUIPMENT_TYPE,
-            </if>
-            <if test="equipmentBrand != null">
-                EQUIPMENT_BRAND,
-            </if>
-            <if test="equipmentModel != null">
-                EQUIPMENT_MODEL,
-            </if>
-            <if test="equipmentSecrecy != null">
-                EQUIPMENT_SECRECY,
-            </if>
-            <if test="equipmentIp != null">
-                EQUIPMENT_IP,
-            </if>
-            <if test="equipmentMac != null">
-                EQUIPMENT_MAC,
-            </if>
-            <if test="equipmentSn != null">
-                EQUIPMENT_SN,
-            </if>
-            <if test="equipmentStatus != null">
-                EQUIPMENT_STATUS,
-            </if>
-            <if test="equipmentRegistrationDate != null">
-                EQUIPMENT_REGISTRATION_DATE,
-            </if>
-            <if test="equipmentRegistrationReason != null">
-                EQUIPMENT_REGISTRATION_REASON,
-            </if>
-            <if test="equipmentRegistrationNote != null">
-                EQUIPMENT_REGISTRATION_NOTE,
-            </if>
-            <if test="equipmentNote != null">
-                EQUIPMENT_NOTE,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="equipmentId != null">
-                #{equipmentId,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentName != null">
-                #{equipmentName,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentType != null">
-                #{equipmentType,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentBrand != null">
-                #{equipmentBrand,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentModel != null">
-                #{equipmentModel,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentSecrecy != null">
-                #{equipmentSecrecy,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentIp != null">
-                #{equipmentIp,jdbcType=INTEGER},
-            </if>
-            <if test="equipmentMac != null">
-                #{equipmentMac,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentSn != null">
-                #{equipmentSn,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentStatus != null">
-                #{equipmentStatus,jdbcType=INTEGER},
-            </if>
-            <if test="equipmentRegistrationDate != null">
-                #{equipmentRegistrationDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="equipmentRegistrationReason != null">
-                #{equipmentRegistrationReason,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentRegistrationNote != null">
-                #{equipmentRegistrationNote,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentNote != null">
-                #{equipmentNote,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample"
-            resultType="java.lang.Long">
-        select count(*) from equipment
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        update equipment
-        <set>
-            <if test="record.equipmentId != null">
-                EQUIPMENT_ID = #{record.equipmentId,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentName != null">
-                EQUIPMENT_NAME = #{record.equipmentName,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentType != null">
-                EQUIPMENT_TYPE = #{record.equipmentType,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentBrand != null">
-                EQUIPMENT_BRAND = #{record.equipmentBrand,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentModel != null">
-                EQUIPMENT_MODEL = #{record.equipmentModel,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentSecrecy != null">
-                EQUIPMENT_SECRECY = #{record.equipmentSecrecy,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentIp != null">
-                EQUIPMENT_IP = #{record.equipmentIp,jdbcType=INTEGER},
-            </if>
-            <if test="record.equipmentMac != null">
-                EQUIPMENT_MAC = #{record.equipmentMac,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentSn != null">
-                EQUIPMENT_SN = #{record.equipmentSn,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentStatus != null">
-                EQUIPMENT_STATUS = #{record.equipmentStatus,jdbcType=INTEGER},
-            </if>
-            <if test="record.equipmentRegistrationDate != null">
-                EQUIPMENT_REGISTRATION_DATE = #{record.equipmentRegistrationDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="record.equipmentRegistrationReason != null">
-                EQUIPMENT_REGISTRATION_REASON = #{record.equipmentRegistrationReason,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentRegistrationNote != null">
-                EQUIPMENT_REGISTRATION_NOTE = #{record.equipmentRegistrationNote,jdbcType=VARCHAR},
-            </if>
-            <if test="record.equipmentNote != null">
-                EQUIPMENT_NOTE = #{record.equipmentNote,jdbcType=VARCHAR},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        update equipment
-        set EQUIPMENT_ID = #{record.equipmentId,jdbcType=VARCHAR},
+  <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
+    insert into equipment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipmentId != null">
+        EQUIPMENT_ID,
+      </if>
+      <if test="equipmentName != null">
+        EQUIPMENT_NAME,
+      </if>
+      <if test="equipmentType != null">
+        EQUIPMENT_TYPE,
+      </if>
+      <if test="equipmentBrand != null">
+        EQUIPMENT_BRAND,
+      </if>
+      <if test="equipmentModel != null">
+        EQUIPMENT_MODEL,
+      </if>
+      <if test="equipmentSecrecy != null">
+        EQUIPMENT_SECRECY,
+      </if>
+      <if test="equipmentIp != null">
+        EQUIPMENT_IP,
+      </if>
+      <if test="equipmentMac != null">
+        EQUIPMENT_MAC,
+      </if>
+      <if test="equipmentSn != null">
+        EQUIPMENT_SN,
+      </if>
+      <if test="equipmentStatus != null">
+        EQUIPMENT_STATUS,
+      </if>
+      <if test="equipmentRegistrationDate != null">
+        EQUIPMENT_REGISTRATION_DATE,
+      </if>
+      <if test="equipmentRegistrationReason != null">
+        EQUIPMENT_REGISTRATION_REASON,
+      </if>
+      <if test="equipmentRegistrationNote != null">
+        EQUIPMENT_REGISTRATION_NOTE,
+      </if>
+      <if test="equipmentNote != null">
+        EQUIPMENT_NOTE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null">
+        #{equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentBrand != null">
+        #{equipmentBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentModel != null">
+        #{equipmentModel,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentSecrecy != null">
+        #{equipmentSecrecy,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentIp != null">
+        #{equipmentIp,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentMac != null">
+        #{equipmentMac,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentSn != null">
+        #{equipmentSn,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentStatus != null">
+        #{equipmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentRegistrationDate != null">
+        #{equipmentRegistrationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentRegistrationReason != null">
+        #{equipmentRegistrationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentRegistrationNote != null">
+        #{equipmentRegistrationNote,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNote != null">
+        #{equipmentNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample"
+          resultType="java.lang.Long">
+    select count(*) from equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update equipment
+    <set>
+      <if test="record.equipmentId != null">
+        EQUIPMENT_ID = #{record.equipmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentName != null">
         EQUIPMENT_NAME = #{record.equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentType != null">
         EQUIPMENT_TYPE = #{record.equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentBrand != null">
         EQUIPMENT_BRAND = #{record.equipmentBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentModel != null">
         EQUIPMENT_MODEL = #{record.equipmentModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentSecrecy != null">
         EQUIPMENT_SECRECY = #{record.equipmentSecrecy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentIp != null">
         EQUIPMENT_IP = #{record.equipmentIp,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentMac != null">
         EQUIPMENT_MAC = #{record.equipmentMac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentSn != null">
         EQUIPMENT_SN = #{record.equipmentSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentStatus != null">
         EQUIPMENT_STATUS = #{record.equipmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentRegistrationDate != null">
         EQUIPMENT_REGISTRATION_DATE = #{record.equipmentRegistrationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.equipmentRegistrationReason != null">
         EQUIPMENT_REGISTRATION_REASON = #{record.equipmentRegistrationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentRegistrationNote != null">
         EQUIPMENT_REGISTRATION_NOTE = #{record.equipmentRegistrationNote,jdbcType=VARCHAR},
-        EQUIPMENT_NOTE = #{record.equipmentNote,jdbcType=VARCHAR}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
-        update equipment
-        <set>
-            <if test="equipmentName != null">
-                EQUIPMENT_NAME = #{equipmentName,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentType != null">
-                EQUIPMENT_TYPE = #{equipmentType,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentBrand != null">
-                EQUIPMENT_BRAND = #{equipmentBrand,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentModel != null">
-                EQUIPMENT_MODEL = #{equipmentModel,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentSecrecy != null">
-                EQUIPMENT_SECRECY = #{equipmentSecrecy,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentIp != null">
-                EQUIPMENT_IP = #{equipmentIp,jdbcType=INTEGER},
-            </if>
-            <if test="equipmentMac != null">
-                EQUIPMENT_MAC = #{equipmentMac,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentSn != null">
-                EQUIPMENT_SN = #{equipmentSn,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentStatus != null">
-                EQUIPMENT_STATUS = #{equipmentStatus,jdbcType=INTEGER},
-            </if>
-            <if test="equipmentRegistrationDate != null">
-                EQUIPMENT_REGISTRATION_DATE = #{equipmentRegistrationDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="equipmentRegistrationReason != null">
-                EQUIPMENT_REGISTRATION_REASON = #{equipmentRegistrationReason,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentRegistrationNote != null">
-                EQUIPMENT_REGISTRATION_NOTE = #{equipmentRegistrationNote,jdbcType=VARCHAR},
-            </if>
-            <if test="equipmentNote != null">
-                EQUIPMENT_NOTE = #{equipmentNote,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
+      </if>
+      <if test="record.equipmentNote != null">
+        EQUIPMENT_NOTE = #{record.equipmentNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update equipment
+    set EQUIPMENT_ID = #{record.equipmentId,jdbcType=VARCHAR},
+    EQUIPMENT_NAME = #{record.equipmentName,jdbcType=VARCHAR},
+    EQUIPMENT_TYPE = #{record.equipmentType,jdbcType=VARCHAR},
+    EQUIPMENT_BRAND = #{record.equipmentBrand,jdbcType=VARCHAR},
+    EQUIPMENT_MODEL = #{record.equipmentModel,jdbcType=VARCHAR},
+    EQUIPMENT_SECRECY = #{record.equipmentSecrecy,jdbcType=VARCHAR},
+    EQUIPMENT_IP = #{record.equipmentIp,jdbcType=INTEGER},
+    EQUIPMENT_MAC = #{record.equipmentMac,jdbcType=VARCHAR},
+    EQUIPMENT_SN = #{record.equipmentSn,jdbcType=VARCHAR},
+    EQUIPMENT_STATUS = #{record.equipmentStatus,jdbcType=INTEGER},
+    EQUIPMENT_REGISTRATION_DATE = #{record.equipmentRegistrationDate,jdbcType=TIMESTAMP},
+    EQUIPMENT_REGISTRATION_REASON = #{record.equipmentRegistrationReason,jdbcType=VARCHAR},
+    EQUIPMENT_REGISTRATION_NOTE = #{record.equipmentRegistrationNote,jdbcType=VARCHAR},
+    EQUIPMENT_NOTE = #{record.equipmentNote,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
+    update equipment
+    <set>
+      <if test="equipmentName != null">
+        EQUIPMENT_NAME = #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null">
+        EQUIPMENT_TYPE = #{equipmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentBrand != null">
+        EQUIPMENT_BRAND = #{equipmentBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentModel != null">
+        EQUIPMENT_MODEL = #{equipmentModel,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentSecrecy != null">
+        EQUIPMENT_SECRECY = #{equipmentSecrecy,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentIp != null">
+        EQUIPMENT_IP = #{equipmentIp,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentMac != null">
+        EQUIPMENT_MAC = #{equipmentMac,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentSn != null">
+        EQUIPMENT_SN = #{equipmentSn,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentStatus != null">
+        EQUIPMENT_STATUS = #{equipmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentRegistrationDate != null">
+        EQUIPMENT_REGISTRATION_DATE = #{equipmentRegistrationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentRegistrationReason != null">
+        EQUIPMENT_REGISTRATION_REASON = #{equipmentRegistrationReason,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentRegistrationNote != null">
+        EQUIPMENT_REGISTRATION_NOTE = #{equipmentRegistrationNote,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNote != null">
+        EQUIPMENT_NOTE = #{equipmentNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demstudio.zzbzcglxt.domain.Equipment">
     update equipment
     set EQUIPMENT_NAME = #{equipmentName,jdbcType=VARCHAR},
       EQUIPMENT_TYPE = #{equipmentType,jdbcType=VARCHAR},
@@ -389,44 +390,68 @@
       EQUIPMENT_NOTE = #{equipmentNote,jdbcType=VARCHAR}
     where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
   </update>
-    <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample" resultMap="LogResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Extend_Column_List"/>
-        from equipment
-        left outer join type
-        on equipment.EQUIPMENT_TYPE = type.TYPE_ID
-        left outer join brand
-        on equipment.EQUIPMENT_BRAND = brand.BRAND_ID
-        left outer join model
-        on equipment.EQUIPMENT_MODEL = model.MODEL_ID
-        left outer join secrecy
-        on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
-        left outer join registration_reason
-        on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-    <select id="admin" parameterType="java.lang.String" resultMap="LogResultMap">
-        select
-        <include refid="Extend_Column_List"/>
-        from equipment
-        left outer join type
-        on equipment.EQUIPMENT_TYPE = type.TYPE_ID
-        left outer join brand
-        on equipment.EQUIPMENT_BRAND = brand.BRAND_ID
-        left outer join model
-        on equipment.EQUIPMENT_MODEL = model.MODEL_ID
-        left outer join secrecy
-        on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
-        left outer join registration_reason
-        on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
-        where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
-    </select>
+  <select id="searchPage" parameterType="com.demstudio.zzbzcglxt.domain.EquipmentExample" resultMap="LogResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Extend_Column_List"/>
+    from equipment
+    left outer join type
+    on equipment.EQUIPMENT_TYPE = type.TYPE_ID
+    left outer join brand
+    on equipment.EQUIPMENT_BRAND = brand.BRAND_ID
+    left outer join model
+    on equipment.EQUIPMENT_MODEL = model.MODEL_ID
+    left outer join secrecy
+    on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
+    left outer join registration_reason
+    on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
+    left outer join (
+    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET
+    from (
+    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET, any_value(LOG_TIME) LOG_TIME
+    from log
+    group by LOG_EQUIPMENT
+    having max(LOG_OPERATION_DATE)
+    ) t0
+    group by LOG_EQUIPMENT
+    having max(LOG_TIME)
+    ) t1
+    on equipment.EQUIPMENT_ID = t1.LOG_EQUIPMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="admin" parameterType="java.lang.String" resultMap="LogResultMap">
+    select
+    <include refid="Extend_Column_List"/>
+    from equipment
+    left outer join type
+    on equipment.EQUIPMENT_TYPE = type.TYPE_ID
+    left outer join brand
+    on equipment.EQUIPMENT_BRAND = brand.BRAND_ID
+    left outer join model
+    on equipment.EQUIPMENT_MODEL = model.MODEL_ID
+    left outer join secrecy
+    on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
+    left outer join registration_reason
+    on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
+    left outer join (
+    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET
+    from (
+    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET, any_value(LOG_TIME) LOG_TIME
+    from log
+    group by LOG_EQUIPMENT
+    having max(LOG_OPERATION_DATE)
+    ) t0
+    group by LOG_EQUIPMENT
+    having max(LOG_TIME)
+    ) t1
+    on equipment.EQUIPMENT_ID = t1.LOG_EQUIPMENT
+    where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
+  </select>
 </mapper>

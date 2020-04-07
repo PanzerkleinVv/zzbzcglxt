@@ -29,6 +29,11 @@ public class TypeController {
     return typeService.searchPage(pageRequest, example);
   }
 
+  @GetMapping("info")
+  public Type info(String typeId) {
+    return typeService.info(typeId);
+  }
+
   @PostMapping("/edit")
   public Message edit(Type type) {
     if (typeService.edit(type)) {

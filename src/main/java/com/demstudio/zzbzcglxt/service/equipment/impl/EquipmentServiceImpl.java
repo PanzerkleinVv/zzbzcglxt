@@ -46,7 +46,11 @@ public class EquipmentServiceImpl implements EquipmentService {
   @Override
   public Boolean checkEquipmentName(Equipment equipment) {
     EquipmentExample example = new EquipmentExample();
-    example.createCriteria().andEquipmentNameEqualTo(equipment.getEquipmentName()).andEquipmentIdNotEqualTo(equipment.getEquipmentId());
+    if (equipment.getEquipmentId() != null) {
+      example.createCriteria().andEquipmentNameEqualTo(equipment.getEquipmentName()).andEquipmentIdNotEqualTo(equipment.getEquipmentId());
+    } else {
+      example.createCriteria().andEquipmentNameEqualTo(equipment.getEquipmentName());
+    }
     return equipmentMapper.countByExample(example) == 0;
   }
 

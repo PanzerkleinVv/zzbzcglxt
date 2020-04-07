@@ -6,7 +6,6 @@ import com.demstudio.zzbzcglxt.service.equipment.RegistrationReasonService;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +26,11 @@ public class RegistrationReasonController {
     }
     example.setOrderByClause("REGISTRATION_REASON_NAME ASC");
     return registrationReasonService.searchPage(pageRequest, example);
+  }
+
+  @GetMapping("/info")
+  public RegistrationReason info(String registrationReasonId) {
+    return registrationReasonService.info(registrationReasonId);
   }
 
   @PostMapping("/edit")

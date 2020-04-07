@@ -38,6 +38,11 @@ public class ModelServiceImpl implements ModelService {
     }
   }
 
+  @Override
+  public Model info(String modelId) {
+    return modelMapper.selectByPrimaryKey(modelId);
+  }
+
   private PageInfo<ModelVo> getPageInfo(PageRequest pageRequest, ModelExample example) {
     int pageNum = pageRequest.getPageNum();
     int pageSize = pageRequest.getPageSize();

@@ -44,6 +44,11 @@ public class TypeServiceImpl implements TypeService {
     return typeMapper.list();
   }
 
+  @Override
+  public Type info(String typeId) {
+    return typeMapper.selectByPrimaryKey(typeId);
+  }
+
   private PageInfo<TypeVo> getPageInfo(PageRequest pageRequest, TypeExample example) {
     int pageNum = pageRequest.getPageNum();
     int pageSize = pageRequest.getPageSize();

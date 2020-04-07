@@ -44,6 +44,11 @@ public class SecrecyServiceImpl implements SecrecyService {
     return secrecyMapper.selectByExample(example);
   }
 
+  @Override
+  public Secrecy info(String secrecyId) {
+    return secrecyMapper.selectByPrimaryKey(secrecyId);
+  }
+
   private PageInfo<Secrecy> getPageInfo(PageRequest pageRequest, SecrecyExample example) {
     int pageNum = pageRequest.getPageNum();
     int pageSize = pageRequest.getPageSize();

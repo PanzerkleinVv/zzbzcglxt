@@ -14,4 +14,6 @@ public interface RegistrationReasonService {
   boolean edit(RegistrationReason registrationReason);
 
   List<RegistrationReason> list();
+
+  RegistrationReason info(String registrationReasonId);
 }

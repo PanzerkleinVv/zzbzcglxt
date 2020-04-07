@@ -6,8 +6,6 @@ import com.demstudio.zzbzcglxt.service.equipment.ModelService;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import com.demstudio.zzbzcglxt.vo.equipment.ModelVo;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,6 +31,11 @@ public class ModelController {
     }
     example.setOrderByClause("TYPE_NAME ASC, BRAND_NAME ASC, MODEL_NAME ASC");
     return modelService.searchPage(pageRequest, example);
+  }
+
+  @GetMapping("/info")
+  public Model info(String modelId) {
+    return modelService.info(modelId);
   }
 
   @PostMapping("/edit")

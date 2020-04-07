@@ -52,6 +52,7 @@ public class LogController {
     final User me = (User) SecurityUtils.getSubject().getPrincipal();
     final String[] logEquipments = Arrays.copyOf(multipleLogEquipment, multipleLogEquipment.length / 2);
     log.setLogUser(me.getUserId());
+    log.setLogTime(Date.from(Instant.now()));
     if (asyncEquipmentBiz.multipleSave(log, logEquipments)) {
       return new Message(true, "操作成功");
     } else {

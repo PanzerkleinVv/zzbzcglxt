@@ -6,7 +6,6 @@ import com.demstudio.zzbzcglxt.service.equipment.BrandService;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,6 +31,11 @@ public class BrandController {
     }
     example.setOrderByClause("TYPE_NAME ASC, BRAND_NAME ASC");
     return brandService.searchPage(pageRequest, example);
+  }
+
+  @GetMapping("/info")
+  public Brand info(String brandId) {
+    return brandService.info(brandId);
   }
 
   @PostMapping("/edit")

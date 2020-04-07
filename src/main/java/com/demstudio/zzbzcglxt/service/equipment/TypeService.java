@@ -16,4 +16,5 @@ public interface TypeService {
 
   List<TypeExtend> list();
 
+  Type info(String typeId);
 }

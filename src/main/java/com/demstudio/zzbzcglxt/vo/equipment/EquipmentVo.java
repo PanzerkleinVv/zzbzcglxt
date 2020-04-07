@@ -23,8 +23,17 @@ public class EquipmentVo extends Equipment {
     super();
   }
 
-  public EquipmentVo(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, Integer equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String typeName, String brandName, String modelName, String secrecyName, String registrationReasonName) {
+  public EquipmentVo(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, String equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String typeName, String brandName, String modelName, String secrecyName, String registrationReasonName) {
     super(equipmentId, equipmentName, equipmentType, equipmentBrand, equipmentModel, equipmentSecrecy, equipmentIp, equipmentMac, equipmentSn, equipmentStatus, equipmentRegistrationDate, equipmentRegistrationReason, equipmentRegistrationNote, equipmentNote);
+    this.typeName = typeName;
+    this.brandName = brandName;
+    this.modelName = modelName;
+    this.secrecyName = secrecyName;
+    this.registrationReasonName = registrationReasonName;
+  }
+
+  public EquipmentVo(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, String equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String logTarget, String typeName, String brandName, String modelName, String secrecyName, String registrationReasonName) {
+    super(equipmentId, equipmentName, equipmentType, equipmentBrand, equipmentModel, equipmentSecrecy, equipmentIp, equipmentMac, equipmentSn, equipmentStatus, equipmentRegistrationDate, equipmentRegistrationReason, equipmentRegistrationNote, equipmentNote, logTarget);
     this.typeName = typeName;
     this.brandName = brandName;
     this.modelName = modelName;

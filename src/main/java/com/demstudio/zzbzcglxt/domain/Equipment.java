@@ -1,5 +1,6 @@
 package com.demstudio.zzbzcglxt.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public class Equipment {
 
   private String equipmentSecrecy;
 
-  private Integer equipmentIp;
+  private String equipmentIp;
 
   private String equipmentMac;
 
@@ -26,6 +27,7 @@ public class Equipment {
   private Integer equipmentStatus;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
   private Date equipmentRegistrationDate;
 
   private String equipmentRegistrationReason;
@@ -34,7 +36,9 @@ public class Equipment {
 
   private String equipmentNote;
 
-  public Equipment(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, Integer equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote) {
+  private String logTarget;
+
+  public Equipment(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, String equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote) {
     this.equipmentId = equipmentId;
     this.equipmentName = equipmentName;
     this.equipmentType = equipmentType;
@@ -49,6 +53,32 @@ public class Equipment {
     this.equipmentRegistrationReason = equipmentRegistrationReason;
     this.equipmentRegistrationNote = equipmentRegistrationNote;
     this.equipmentNote = equipmentNote;
+  }
+
+  public Equipment(String equipmentId, String equipmentName, String equipmentType, String equipmentBrand, String equipmentModel, String equipmentSecrecy, String equipmentIp, String equipmentMac, String equipmentSn, Integer equipmentStatus, Date equipmentRegistrationDate, String equipmentRegistrationReason, String equipmentRegistrationNote, String equipmentNote, String logTarget) {
+    this.equipmentId = equipmentId;
+    this.equipmentName = equipmentName;
+    this.equipmentType = equipmentType;
+    this.equipmentBrand = equipmentBrand;
+    this.equipmentModel = equipmentModel;
+    this.equipmentSecrecy = equipmentSecrecy;
+    this.equipmentIp = equipmentIp;
+    this.equipmentMac = equipmentMac;
+    this.equipmentSn = equipmentSn;
+    this.equipmentStatus = equipmentStatus;
+    this.equipmentRegistrationDate = equipmentRegistrationDate;
+    this.equipmentRegistrationReason = equipmentRegistrationReason;
+    this.equipmentRegistrationNote = equipmentRegistrationNote;
+    this.equipmentNote = equipmentNote;
+    this.logTarget = logTarget;
+  }
+
+  public String getLogTarget() {
+    return logTarget;
+  }
+
+  public void setLogTarget(String logTarget) {
+    this.logTarget = logTarget;
   }
 
   public Equipment() {
@@ -103,11 +133,11 @@ public class Equipment {
     this.equipmentSecrecy = equipmentSecrecy == null ? null : equipmentSecrecy.trim();
   }
 
-  public Integer getEquipmentIp() {
+  public String getEquipmentIp() {
     return equipmentIp;
   }
 
-  public void setEquipmentIp(Integer equipmentIp) {
+  public void setEquipmentIp(String equipmentIp) {
     this.equipmentIp = equipmentIp;
   }
 
@@ -190,6 +220,9 @@ public class Equipment {
     }
     if (equipmentStatus != null && !(equipmentStatus == 5)) {
       criteria.andEquipmentStatusEqualTo(equipmentStatus);
+    }
+    if (logTarget != null && !"".equals(logTarget)) {
+      criteria.addCriterion("LOG_TARGET like '%" + logTarget + "%'");
     }
     example.setOrderByClause("EQUIPMENT_NAME ASC");
     return example;

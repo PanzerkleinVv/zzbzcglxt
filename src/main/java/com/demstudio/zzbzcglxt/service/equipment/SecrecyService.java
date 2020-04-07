@@ -14,4 +14,6 @@ public interface SecrecyService {
   boolean edit(Secrecy secrecy);
 
   List<Secrecy> list();
+
+  Secrecy info(String secrecyId);
 }

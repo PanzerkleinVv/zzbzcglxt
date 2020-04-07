@@ -10,4 +10,6 @@ public interface BrandService {
   PageResult searchPage(PageRequest pageRequest, BrandExample example);
 
   boolean edit(Brand brand);
+
+  Brand info(String brandId);
 }

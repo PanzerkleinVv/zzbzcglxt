@@ -2,8 +2,6 @@ package com.demstudio.zzbzcglxt.service.equipment.impl;
 
 import com.demstudio.zzbzcglxt.domain.RegistrationReason;
 import com.demstudio.zzbzcglxt.domain.RegistrationReasonExample;
-import com.demstudio.zzbzcglxt.domain.Secrecy;
-import com.demstudio.zzbzcglxt.domain.SecrecyExample;
 import com.demstudio.zzbzcglxt.repository.RegistrationReasonMapper;
 import com.demstudio.zzbzcglxt.service.equipment.RegistrationReasonService;
 import com.demstudio.zzbzcglxt.utils.PageUtils;
@@ -44,6 +42,11 @@ public class RegistrationReasonServiceImpl implements RegistrationReasonService 
     RegistrationReasonExample example = new RegistrationReasonExample();
     example.setOrderByClause("REGISTRATION_REASON_NAME ASC");
     return registrationReasonMapper.selectByExample(example);
+  }
+
+  @Override
+  public RegistrationReason info(String registrationReasonId) {
+    return registrationReasonMapper.selectByPrimaryKey(registrationReasonId);
   }
 
   private PageInfo<RegistrationReason> getPageInfo(PageRequest pageRequest, RegistrationReasonExample example) {

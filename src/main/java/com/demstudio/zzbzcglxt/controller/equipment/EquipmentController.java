@@ -2,12 +2,14 @@ package com.demstudio.zzbzcglxt.controller.equipment;
 
 import com.demstudio.zzbzcglxt.domain.Equipment;
 import com.demstudio.zzbzcglxt.service.equipment.EquipmentService;
-import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import com.demstudio.zzbzcglxt.vo.equipment.EquipmentVo;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -21,6 +23,11 @@ public class EquipmentController {
   @GetMapping("/search")
   public PageResult search(PageRequest pageRequest, Equipment equipment) {
     return equipmentService.searchPage(pageRequest, equipment.toExample());
+  }
+
+  @GetMapping("/info")
+  public Equipment info(String equipmentId) {
+    return equipmentService.info(equipmentId);
   }
 
   @GetMapping("/admin")
