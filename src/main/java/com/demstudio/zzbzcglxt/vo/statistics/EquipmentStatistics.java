@@ -4,6 +4,8 @@ public class EquipmentStatistics {
 
   private String typeName;
 
+  private String typeId;
+
   private Integer abandon;
 
   private Integer lend;
@@ -21,8 +23,9 @@ public class EquipmentStatistics {
   public EquipmentStatistics() {
   }
 
-  public EquipmentStatistics(String typeName, Integer abandon, Integer lend, Integer keep, Integer repair, Integer give, Integer unsure, Integer total) {
+  public EquipmentStatistics(String typeName, String typeId, Integer abandon, Integer lend, Integer keep, Integer repair, Integer give, Integer unsure, Integer total) {
     this.typeName = typeName;
+    this.typeId = typeId;
     this.abandon = abandon;
     this.lend = lend;
     this.keep = keep;
@@ -30,6 +33,14 @@ public class EquipmentStatistics {
     this.give = give;
     this.unsure = unsure;
     this.total = total;
+  }
+
+  public String getTypeId() {
+    return typeId;
+  }
+
+  public void setTypeId(String typeId) {
+    this.typeId = typeId;
   }
 
   public String getTypeName() {

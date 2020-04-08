@@ -6,10 +6,7 @@ import com.demstudio.zzbzcglxt.domain.Log;
 import com.demstudio.zzbzcglxt.domain.User;
 import com.demstudio.zzbzcglxt.vo.Message;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.Instant;
@@ -50,10 +47,9 @@ public class LogController {
   @PostMapping("/multipleSave")
   public Message multipleSave(Log log, String[] multipleLogEquipment) {
     final User me = (User) SecurityUtils.getSubject().getPrincipal();
-    final String[] logEquipments = Arrays.copyOf(multipleLogEquipment, multipleLogEquipment.length / 2);
     log.setLogUser(me.getUserId());
     log.setLogTime(Date.from(Instant.now()));
-    if (asyncEquipmentBiz.multipleSave(log, logEquipments)) {
+    if (asyncEquipmentBiz.multipleSave(log, multipleLogEquipment)) {
       return new Message(true, "操作成功");
     } else {
       return new Message(false, "操作失败");

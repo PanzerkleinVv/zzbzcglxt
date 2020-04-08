@@ -407,17 +407,14 @@
     on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
     left outer join registration_reason
     on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
-    left outer join (
-    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET
-    from (
-    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET, any_value(LOG_TIME) LOG_TIME
-    from log
-    group by LOG_EQUIPMENT
-    having max(LOG_OPERATION_DATE)
-    ) t0
-    group by LOG_EQUIPMENT
-    having max(LOG_TIME)
-    ) t1
+    left outer join
+    (select log.LOG_EQUIPMENT, log.LOG_TARGET from
+    (select LOG_EQUIPMENT, max(LOG_TIME) LOG_TIME from
+    (select log.LOG_EQUIPMENT, log.LOG_TIME from
+    (select LOG_EQUIPMENT, max(LOG_OPERATION_DATE) LOG_OPERATION_DATE from log group by LOG_EQUIPMENT) t, log
+    where log.LOG_EQUIPMENT = t.LOG_EQUIPMENT and log.LOG_OPERATION_DATE = t.LOG_OPERATION_DATE) t
+    group by LOG_EQUIPMENT) t, log
+    where log.LOG_EQUIPMENT = t.LOG_EQUIPMENT and log.LOG_TIME = t.LOG_TIME) t1
     on equipment.EQUIPMENT_ID = t1.LOG_EQUIPMENT
     <if test="_parameter != null">
       <include refid="Example_Where_Clause"/>
@@ -440,17 +437,14 @@
     on equipment.EQUIPMENT_SECRECY = secrecy.SECRECY_ID
     left outer join registration_reason
     on equipment.EQUIPMENT_REGISTRATION_REASON = registration_reason.REGISTRATION_REASON_ID
-    left outer join (
-    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET
-    from (
-    select any_value(LOG_EQUIPMENT) LOG_EQUIPMENT, any_value(LOG_TARGET) LOG_TARGET, any_value(LOG_TIME) LOG_TIME
-    from log
-    group by LOG_EQUIPMENT
-    having max(LOG_OPERATION_DATE)
-    ) t0
-    group by LOG_EQUIPMENT
-    having max(LOG_TIME)
-    ) t1
+    left outer join
+    (select log.LOG_EQUIPMENT, log.LOG_TARGET from
+    (select LOG_EQUIPMENT, max(LOG_TIME) LOG_TIME from
+    (select log.LOG_EQUIPMENT, log.LOG_TIME from
+    (select LOG_EQUIPMENT, max(LOG_OPERATION_DATE) LOG_OPERATION_DATE from log group by LOG_EQUIPMENT) t, log
+    where log.LOG_EQUIPMENT = t.LOG_EQUIPMENT and log.LOG_OPERATION_DATE = t.LOG_OPERATION_DATE) t
+    group by LOG_EQUIPMENT) t, log
+    where log.LOG_EQUIPMENT = t.LOG_EQUIPMENT and log.LOG_TIME = t.LOG_TIME) t1
     on equipment.EQUIPMENT_ID = t1.LOG_EQUIPMENT
     where EQUIPMENT_ID = #{equipmentId,jdbcType=VARCHAR}
   </select>

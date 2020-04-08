@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demstudio.zzbzcglxt.repository.StatisticsMapper">
-    <resultMap id="EquipmentResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.EquipmentStatistics">
-        <constructor>
-            <idArg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="ABANDON" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="LEND" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="KEEP" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="REPAIR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="GIVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="UNSURE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="TOTAL" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="PeriodResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LogPeriod">
-        <constructor>
-            <idArg column="PERIOD" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="LOG_YEAR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="LOG_MONTH" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="LogResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LogStatistics">
-        <constructor>
-            <idArg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="LEND" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="BACK" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="REPAIR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="ABANDON" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="MOVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="GIVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="ConsumableResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.ConsumableStatistics">
-        <constructor>
-            <idArg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="CONSUMABLE_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="LedgerResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LedgerPeriod">
-        <constructor>
-            <idArg column="PERIOD" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="LOG_YEAR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="LOG_MONTH" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="LedgerPeriodResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LedgerStatistics">
-        <constructor>
-            <idArg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <arg column="CHECK" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="BUY" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="RECEIVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="SPLIT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="NET" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </constructor>
-    </resultMap>
-    <select id="equipment" resultMap="EquipmentResultMap">
+  <resultMap id="EquipmentResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.EquipmentStatistics">
+    <constructor>
+      <idArg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TYPE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="ABANDON" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="LEND" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="KEEP" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="REPAIR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="GIVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="UNSURE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="TOTAL" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="PeriodResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LogPeriod">
+    <constructor>
+      <idArg column="PERIOD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="LOG_YEAR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="LOG_MONTH" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="LogResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LogStatistics">
+    <constructor>
+      <idArg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="LEND" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="BACK" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="REPAIR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="ABANDON" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="MOVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="GIVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="ConsumableResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.ConsumableStatistics">
+    <constructor>
+      <idArg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="CONSUMABLE_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="LedgerResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LedgerPeriod">
+    <constructor>
+      <idArg column="PERIOD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="LOG_YEAR" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="LOG_MONTH" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="LedgerPeriodResultMap" type="com.demstudio.zzbzcglxt.vo.statistics.LedgerStatistics">
+    <constructor>
+      <idArg column="CONSUMABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="CONSUMABLE_UNIT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="CHECK" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="BUY" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="RECEIVE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="SPLIT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="NET" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </constructor>
+  </resultMap>
+  <select id="equipment" resultMap="EquipmentResultMap">
         select
-        TYPE_NAME,
+        TYPE_NAME, TYPE_ID,
         IFNULL(sum(ABANDON), 0) ABANDON,
         IFNULL(sum(LEND), 0) LEND,
         IFNULL(sum(KEEP), 0) KEEP,
@@ -81,7 +82,7 @@
         group by TYPE_ID
         order by TYPE_NAME ASC
     </select>
-    <select id="log" resultMap="LogResultMap" parameterType="com.demstudio.zzbzcglxt.vo.statistics.LogPeriod">
+  <select id="log" resultMap="LogResultMap" parameterType="com.demstudio.zzbzcglxt.vo.statistics.LogPeriod">
         select TYPE_NAME,
         IFNULL(sum(LEND), 0) LEND,
         IFNULL(sum(BACK), 0) BACK,
@@ -106,25 +107,26 @@
         group by TYPE_ID, year(LOG_OPERATION_DATE), month(LOG_OPERATION_DATE)
         order by TYPE_NAME ASC
     </select>
-    <select id="logByPeriod" resultMap="PeriodResultMap">
+  <select id="logByPeriod" resultMap="PeriodResultMap">
         select
         distinct CONCAT(year(LOG_OPERATION_DATE), '年', month(LOG_OPERATION_DATE), '月') PERIOD, year(LOG_OPERATION_DATE) LOG_YEAR,  month(LOG_OPERATION_DATE) LOG_MONTH
         from log
         order by LOG_YEAR DESC, LOG_MONTH DESC
     </select>
-    <select id="consumable" resultMap="ConsumableResultMap">
+  <select id="consumable" resultMap="ConsumableResultMap">
         select
         CONSUMABLE_NAME, CONSUMABLE_COUNT, CONSUMABLE_UNIT
         from consumable
         order by CONSUMABLE_NAME ASC
     </select>
-    <select id="ledgerByPeriod" resultMap="LedgerResultMap" parameterType="com.demstudio.zzbzcglxt.vo.statistics.LedgerPeriod">
+  <select id="ledgerByPeriod" resultMap="LedgerResultMap"
+          parameterType="com.demstudio.zzbzcglxt.vo.statistics.LedgerPeriod">
         select
         distinct CONCAT(year(LEDGER_TIME), '年', month(LEDGER_TIME), '月') PERIOD, year(LEDGER_TIME) LOG_YEAR,  month(LEDGER_TIME) LOG_MONTH
         from ledger
         order by LOG_YEAR DESC, LOG_MONTH DESC
     </select>
-    <select id="ledger" resultMap="LedgerPeriodResultMap">
+  <select id="ledger" resultMap="LedgerPeriodResultMap">
         select CONSUMABLE_NAME, CONSUMABLE_UNIT,
         IFNULL(sum(`CHECK`), 0) `CHECK`,
         IFNULL(sum(BUY), 0) BUY,
