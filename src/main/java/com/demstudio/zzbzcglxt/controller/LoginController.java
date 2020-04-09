@@ -38,11 +38,11 @@ public class LoginController {
     }
   }
 
-  @RequestMapping("/logout")
-  public String logout(HttpSession session, Model model) {
+  @CrossOrigin
+  @GetMapping("/logout")
+  public VueResult logout(Model model) {
     Subject subject = SecurityUtils.getSubject();
     subject.logout();
-    model.addAttribute("msg", "安全退出！");
-    return "login";
+    return new VueResult(Code.SUCCESS.getValue());
   }
 }

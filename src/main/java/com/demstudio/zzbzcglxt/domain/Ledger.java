@@ -1,100 +1,103 @@
 package com.demstudio.zzbzcglxt.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Ledger {
-    private String ledgerId;
+  private String ledgerId;
 
-    private String ledgerConsumable;
+  private String ledgerConsumable;
 
-    private Integer ledgerCount;
+  private Integer ledgerCount;
 
-    private String ledgerPerson;
+  private String ledgerPerson;
 
-    private String ledgerUnit;
+  private String ledgerUnit;
 
-    private Date ledgerTime;
+  @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+  private Date ledgerTime;
 
-    private String ledgerUser;
+  private String ledgerUser;
 
-    private Integer ledgerType;
+  private Integer ledgerType;
 
-    public Ledger(String ledgerId, String ledgerConsumable, Integer ledgerCount, String ledgerPerson, String ledgerUnit, Date ledgerTime, String ledgerUser, Integer ledgerType) {
-        this.ledgerId = ledgerId;
-        this.ledgerConsumable = ledgerConsumable;
-        this.ledgerCount = ledgerCount;
-        this.ledgerPerson = ledgerPerson;
-        this.ledgerUnit = ledgerUnit;
-        this.ledgerTime = ledgerTime;
-        this.ledgerUser = ledgerUser;
-        this.ledgerType = ledgerType;
-    }
+  public Ledger(String ledgerId, String ledgerConsumable, Integer ledgerCount, String ledgerPerson, String ledgerUnit, Date ledgerTime, String ledgerUser, Integer ledgerType) {
+    this.ledgerId = ledgerId;
+    this.ledgerConsumable = ledgerConsumable;
+    this.ledgerCount = ledgerCount;
+    this.ledgerPerson = ledgerPerson;
+    this.ledgerUnit = ledgerUnit;
+    this.ledgerTime = ledgerTime;
+    this.ledgerUser = ledgerUser;
+    this.ledgerType = ledgerType;
+  }
 
-    public Ledger() {
-        super();
-    }
+  public Ledger() {
+    super();
+  }
 
-    public String getLedgerId() {
-        return ledgerId;
-    }
+  public String getLedgerId() {
+    return ledgerId;
+  }
 
-    public void setLedgerId(String ledgerId) {
-        this.ledgerId = ledgerId == null ? null : ledgerId.trim();
-    }
+  public void setLedgerId(String ledgerId) {
+    this.ledgerId = ledgerId == null ? null : ledgerId.trim();
+  }
 
-    public String getLedgerConsumable() {
-        return ledgerConsumable;
-    }
+  public String getLedgerConsumable() {
+    return ledgerConsumable;
+  }
 
-    public void setLedgerConsumable(String ledgerConsumable) {
-        this.ledgerConsumable = ledgerConsumable == null ? null : ledgerConsumable.trim();
-    }
+  public void setLedgerConsumable(String ledgerConsumable) {
+    this.ledgerConsumable = ledgerConsumable == null ? null : ledgerConsumable.trim();
+  }
 
-    public Integer getLedgerCount() {
-        return ledgerCount;
-    }
+  public Integer getLedgerCount() {
+    return ledgerCount;
+  }
 
-    public void setLedgerCount(Integer ledgerCount) {
-        this.ledgerCount = ledgerCount;
-    }
+  public void setLedgerCount(Integer ledgerCount) {
+    this.ledgerCount = ledgerCount;
+  }
 
-    public String getLedgerPerson() {
-        return ledgerPerson;
-    }
+  public String getLedgerPerson() {
+    return ledgerPerson;
+  }
 
-    public void setLedgerPerson(String ledgerPerson) {
-        this.ledgerPerson = ledgerPerson == null ? null : ledgerPerson.trim();
-    }
+  public void setLedgerPerson(String ledgerPerson) {
+    this.ledgerPerson = ledgerPerson == null ? null : ledgerPerson.trim();
+  }
 
-    public String getLedgerUnit() {
-        return ledgerUnit;
-    }
+  public String getLedgerUnit() {
+    return ledgerUnit;
+  }
 
-    public void setLedgerUnit(String ledgerUnit) {
-        this.ledgerUnit = ledgerUnit == null ? null : ledgerUnit.trim();
-    }
+  public void setLedgerUnit(String ledgerUnit) {
+    this.ledgerUnit = ledgerUnit == null ? null : ledgerUnit.trim();
+  }
 
-    public Date getLedgerTime() {
-        return ledgerTime;
-    }
+  public Date getLedgerTime() {
+    return ledgerTime;
+  }
 
-    public void setLedgerTime(Date ledgerTime) {
-        this.ledgerTime = ledgerTime;
-    }
+  public void setLedgerTime(Date ledgerTime) {
+    this.ledgerTime = ledgerTime;
+  }
 
-    public String getLedgerUser() {
-        return ledgerUser;
-    }
+  public String getLedgerUser() {
+    return ledgerUser;
+  }
 
-    public void setLedgerUser(String ledgerUser) {
-        this.ledgerUser = ledgerUser == null ? null : ledgerUser.trim();
-    }
+  public void setLedgerUser(String ledgerUser) {
+    this.ledgerUser = ledgerUser == null ? null : ledgerUser.trim();
+  }
 
-    public Integer getLedgerType() {
-        return ledgerType;
-    }
+  public Integer getLedgerType() {
+    return ledgerType;
+  }
 
-    public void setLedgerType(Integer ledgerType) {
-        this.ledgerType = ledgerType;
-    }
+  public void setLedgerType(Integer ledgerType) {
+    this.ledgerType = ledgerType;
+  }
 }

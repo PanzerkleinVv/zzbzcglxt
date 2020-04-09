@@ -29,7 +29,7 @@ public class ShiroConfig {
         filterChainMap.put("/app/**", "anon");
         filterChainMap.put("/assets/**", "anon");
         //logout是shiro提供的过滤器,这是走自定义的 shiroLogoutFilter 上面有配置
-        filterChainMap.put("/logout", "logout");
+        filterChainMap.put("/logout", "anon");
         //此时访问/user/delete需要delete权限,在自定义Realm中为用户授权。
         //filterChainDefinitionMap.put("/user/delete", "perms[\"user:delete\"]");
 

@@ -15,40 +15,33 @@ import javax.annotation.Resource;
 import java.time.Instant;
 import java.util.Date;
 
-@Controller
+@RestController
 @RequestMapping("/consumable/ledger")
 public class LedgerController {
 
-    @Resource
-    private ConsumableBiz consumableBiz;
+  @Resource
+  private ConsumableBiz consumableBiz;
 
-    @GetMapping("/index")
-    public String index() {
-        return "consumable/ledger";
+  @GetMapping("/search")
+  public PageResult search(PageRequest pageRequest, String ledgerConsumable) {
+    LedgerExample example = new LedgerExample();
+    if (ledgerConsumable != null && !"".equals(ledgerConsumable)) {
+      example.createCriteria().andLedgerConsumableEqualTo(ledgerConsumable);
     }
+    example.setOrderByClause("LEDGER_TIME DESC, CONSUMABLE_NAME ASC");
+    return consumableBiz.ledgerPage(pageRequest, example);
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public PageResult search(PageRequest pageRequest, String ledgerConsumable) {
-        LedgerExample example = new LedgerExample();
-        if (ledgerConsumable != null && !"0".equals(ledgerConsumable)) {
-            example.createCriteria().andLedgerConsumableEqualTo(ledgerConsumable);
-        }
-        example.setOrderByClause("LEDGER_TIME DESC, CONSUMABLE_NAME ASC");
-        return consumableBiz.ledgerPage(pageRequest, example);
+  @PostMapping("/edit")
+  public Message edit(Ledger ledger, @RequestParam(required = false) Integer subCount) {
+    final User me = (User) SecurityUtils.getSubject().getPrincipal();
+    ledger.setLedgerUser(me.getUserId());
+    ledger.setLedgerTime(Date.from(Instant.now()));
+    if (consumableBiz.newLedger(ledger, subCount)) {
+      return new Message(true, "保存成功");
+    } else {
+      return new Message(false, "保存失败");
     }
-
-    @PostMapping("/edit")
-    @ResponseBody
-    public Message edit(Ledger ledger, @RequestParam(required = false) Integer subCount) {
-        final User me = (User) SecurityUtils.getSubject().getPrincipal();
-        ledger.setLedgerUser(me.getUserId());
-        ledger.setLedgerTime(Date.from(Instant.now()));
-        if (consumableBiz.newLedger(ledger, subCount)) {
-            return new Message(true, "保存成功");
-        } else {
-            return new Message(false, "保存失败");
-        }
-    }
+  }
 
 }
