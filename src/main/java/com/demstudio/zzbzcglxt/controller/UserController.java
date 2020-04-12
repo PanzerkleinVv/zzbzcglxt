@@ -55,7 +55,6 @@ public class UserController {
   @PostMapping("/changePsw")
   public Message changePsw(String userPsw) {
     final User me = (User) SecurityUtils.getSubject().getPrincipal();
-    System.out.println("-------------" + userPsw);
     User user = new User();
     user.setUserId(me.getUserId());
     user.setUserPsw(userPsw);
