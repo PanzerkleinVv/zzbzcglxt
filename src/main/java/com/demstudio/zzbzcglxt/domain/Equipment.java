@@ -224,6 +224,9 @@ public class Equipment {
     if (logTarget != null && !"".equals(logTarget)) {
       criteria.addCriterion("LOG_TARGET like '%" + logTarget + "%'");
     }
+    if (equipmentRegistrationDate != null) {
+      criteria.andEquipmentRegistrationDateEqualTo(equipmentRegistrationDate);
+    }
     example.setOrderByClause("EQUIPMENT_NAME ASC");
     return example;
   }

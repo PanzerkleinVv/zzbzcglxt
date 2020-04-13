@@ -4,7 +4,6 @@ import com.demstudio.zzbzcglxt.domain.NetworkParameter;
 import com.demstudio.zzbzcglxt.domain.NetworkParameterExample;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import com.demstudio.zzbzcglxt.vo.layUI.LayUIPageRequest;
 
 import java.util.List;
 

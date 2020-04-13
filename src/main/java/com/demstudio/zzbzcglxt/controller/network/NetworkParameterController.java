@@ -5,10 +5,10 @@ import com.demstudio.zzbzcglxt.service.network.NetworkParameterService;
 import com.demstudio.zzbzcglxt.vo.Message;
 import com.demstudio.zzbzcglxt.vo.PageRequest;
 import com.demstudio.zzbzcglxt.vo.PageResult;
-import com.demstudio.zzbzcglxt.vo.layUI.LayUI;
-import com.demstudio.zzbzcglxt.vo.layUI.LayUIPageRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
