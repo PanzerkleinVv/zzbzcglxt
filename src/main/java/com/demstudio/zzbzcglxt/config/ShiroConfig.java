@@ -26,8 +26,6 @@ public class ShiroConfig {
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问,先配置anon再配置authc。
         filterChainMap.put("/login", "anon");
         filterChainMap.put("/", "anon");
-        filterChainMap.put("/app/**", "anon");
-        filterChainMap.put("/assets/**", "anon");
         //logout是shiro提供的过滤器,这是走自定义的 shiroLogoutFilter 上面有配置
         filterChainMap.put("/logout", "anon");
         //此时访问/user/delete需要delete权限,在自定义Realm中为用户授权。
