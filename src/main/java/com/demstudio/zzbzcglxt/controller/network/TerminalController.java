@@ -2,9 +2,9 @@ package com.demstudio.zzbzcglxt.controller.network;
 
 import com.demstudio.zzbzcglxt.biz.AsyncTerminalBiz;
 import com.demstudio.zzbzcglxt.domain.Terminal;
-import com.demstudio.zzbzcglxt.domain.TerminalExample;
 import com.demstudio.zzbzcglxt.service.network.TerminalService;
 import com.demstudio.zzbzcglxt.vo.Message;
+import com.demstudio.zzbzcglxt.vo.network.TerminalVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -26,13 +27,18 @@ public class TerminalController {
   private AsyncTerminalBiz asyncTerminalBiz;
 
   @GetMapping("/search")
-  public List<Terminal> search(String ip, String terminalType) {
-    return terminalService.search(Terminal.toExample(ip, terminalType));
+  public List<TerminalVo> search(String ip, String terminalSegment) {
+    return terminalService.searchVo(Terminal.toExample(ip, terminalSegment));
+  }
+
+  @GetMapping("/info")
+  public Terminal info(String terminalId) {
+    return terminalService.info(terminalId);
   }
 
   @PostMapping("/status")
-  public Map<String, Boolean> status(List<String> terminalIps) {
-    return asyncTerminalBiz.ping(terminalIps);
+  public Map<String, Boolean> status(String[] terminalIps) {
+    return asyncTerminalBiz.ping(Arrays.asList(terminalIps));
   }
 
   @GetMapping("/scan")
@@ -47,6 +53,11 @@ public class TerminalController {
     } else {
       return new Message(false, "保存失败");
     }
+  }
+
+  @GetMapping("/ping")
+  public Boolean ping(String terminalIp) {
+    return terminalService.ping(terminalIp);
   }
 
   @GetMapping("/checkIp")
@@ -64,10 +75,7 @@ public class TerminalController {
   }
 
   @GetMapping("/switchList")
-  public List<Terminal> switchList(String switchTypeId, String terminalId) {
-    TerminalExample example = new TerminalExample();
-    example.createCriteria().andTerminalTypeEqualTo(switchTypeId).andTerminalIdNotEqualTo(terminalId);
-    example.setOrderByClause("terminal_name asc");
-    return terminalService.search(example);
+  public List<Terminal> switchList() {
+    return terminalService.search(Terminal.switchExample());
   }
 }

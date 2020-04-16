@@ -3,20 +3,42 @@
 <mapper namespace="com.demstudio.zzbzcglxt.repository.TerminalMapper">
   <resultMap id="BaseResultMap" type="com.demstudio.zzbzcglxt.domain.Terminal">
     <constructor>
-      <idArg column="TERMINAL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="IP_0" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="IP_1" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="IP_2" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="IP_3" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="TERMINAL_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_OWNER" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_SEGMENT" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_ROOM" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_SWITCH" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TERMINAL_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="TERMINAL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="IP_0" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="IP_1" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="IP_2" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="IP_3" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="TERMINAL_DESC" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_OWNER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SEGMENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_ROOM" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SWITCH" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </constructor>
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.demstudio.zzbzcglxt.vo.network.TerminalVo">
+    <constructor>
+      <idArg column="TERMINAL_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="IP_0" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="IP_1" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="IP_2" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="IP_3" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="TERMINAL_DESC" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_OWNER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SEGMENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_ROOM" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SECRECY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_SWITCH" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TERMINAL_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="TYPE_VALUE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="SYSTEM_VALUE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="ROOM_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -78,27 +100,32 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    TERMINAL_ID, TERMINAL_NAME, IP_0, IP_1, IP_2, IP_3, TERMINAL_DESC, TERMINAL_SYSTEM, 
-    TERMINAL_OWNER, TERMINAL_SEGMENT, TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH, 
+    TERMINAL_ID, TERMINAL_NAME, IP_0, IP_1, IP_2, IP_3, TERMINAL_DESC, TERMINAL_SYSTEM,
+    TERMINAL_OWNER, TERMINAL_SEGMENT, TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH,
     TERMINAL_TYPE
+  </sql>
+  <sql id="Vo_Column_List">
+    TERMINAL_ID, TERMINAL_NAME, IP_0, IP_1, IP_2, IP_3, TERMINAL_DESC, TERMINAL_SYSTEM,
+    TERMINAL_OWNER, TERMINAL_SEGMENT, TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH,
+    TERMINAL_TYPE, type_table.NETWORK_PARAMETER_NAME TYPE_NAME, type_table.NETWORK_PARAMETER_VALUE TYPE_VALUE, system_table.NETWORK_PARAMETER_VALUE SYSTEM_VALUE, room_table.NETWORK_PARAMETER_NAME ROOM_NAME
   </sql>
   <select id="selectByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from terminal
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from terminal
     where TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
   </select>
@@ -109,19 +136,19 @@
   <delete id="deleteByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample">
     delete from terminal
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
   </delete>
   <insert id="insert" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
-    insert into terminal (TERMINAL_ID, TERMINAL_NAME, IP_0, 
-      IP_1, IP_2, IP_3, TERMINAL_DESC, 
-      TERMINAL_SYSTEM, TERMINAL_OWNER, TERMINAL_SEGMENT, 
-      TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH, 
+    insert into terminal (TERMINAL_ID, TERMINAL_NAME, IP_0,
+      IP_1, IP_2, IP_3, TERMINAL_DESC,
+      TERMINAL_SYSTEM, TERMINAL_OWNER, TERMINAL_SEGMENT,
+      TERMINAL_ROOM, TERMINAL_SECRECY, TERMINAL_SWITCH,
       TERMINAL_TYPE)
-    values (#{terminalId,jdbcType=VARCHAR}, #{terminalName,jdbcType=VARCHAR}, #{ip0,jdbcType=INTEGER}, 
-      #{ip1,jdbcType=INTEGER}, #{ip2,jdbcType=INTEGER}, #{ip3,jdbcType=INTEGER}, #{terminalDesc,jdbcType=VARCHAR}, 
-      #{terminalSystem,jdbcType=VARCHAR}, #{terminalOwner,jdbcType=VARCHAR}, #{terminalSegment,jdbcType=VARCHAR}, 
-      #{terminalRoom,jdbcType=VARCHAR}, #{terminalSecrecy,jdbcType=VARCHAR}, #{terminalSwitch,jdbcType=VARCHAR}, 
+    values (#{terminalId,jdbcType=VARCHAR}, #{terminalName,jdbcType=VARCHAR}, #{ip0,jdbcType=INTEGER},
+      #{ip1,jdbcType=INTEGER}, #{ip2,jdbcType=INTEGER}, #{ip3,jdbcType=INTEGER}, #{terminalDesc,jdbcType=VARCHAR},
+      #{terminalSystem,jdbcType=VARCHAR}, #{terminalOwner,jdbcType=VARCHAR}, #{terminalSegment,jdbcType=VARCHAR},
+      #{terminalRoom,jdbcType=VARCHAR}, #{terminalSecrecy,jdbcType=VARCHAR}, #{terminalSwitch,jdbcType=VARCHAR},
       #{terminalType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
@@ -215,10 +242,11 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample"
+          resultType="java.lang.Long">
     select count(*) from terminal
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Example_Where_Clause"/>
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -268,27 +296,27 @@
       </if>
     </set>
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
+      <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update terminal
     set TERMINAL_ID = #{record.terminalId,jdbcType=VARCHAR},
-      TERMINAL_NAME = #{record.terminalName,jdbcType=VARCHAR},
-      IP_0 = #{record.ip0,jdbcType=INTEGER},
-      IP_1 = #{record.ip1,jdbcType=INTEGER},
-      IP_2 = #{record.ip2,jdbcType=INTEGER},
-      IP_3 = #{record.ip3,jdbcType=INTEGER},
-      TERMINAL_DESC = #{record.terminalDesc,jdbcType=VARCHAR},
-      TERMINAL_SYSTEM = #{record.terminalSystem,jdbcType=VARCHAR},
-      TERMINAL_OWNER = #{record.terminalOwner,jdbcType=VARCHAR},
-      TERMINAL_SEGMENT = #{record.terminalSegment,jdbcType=VARCHAR},
-      TERMINAL_ROOM = #{record.terminalRoom,jdbcType=VARCHAR},
-      TERMINAL_SECRECY = #{record.terminalSecrecy,jdbcType=VARCHAR},
-      TERMINAL_SWITCH = #{record.terminalSwitch,jdbcType=VARCHAR},
-      TERMINAL_TYPE = #{record.terminalType,jdbcType=VARCHAR}
+    TERMINAL_NAME = #{record.terminalName,jdbcType=VARCHAR},
+    IP_0 = #{record.ip0,jdbcType=INTEGER},
+    IP_1 = #{record.ip1,jdbcType=INTEGER},
+    IP_2 = #{record.ip2,jdbcType=INTEGER},
+    IP_3 = #{record.ip3,jdbcType=INTEGER},
+    TERMINAL_DESC = #{record.terminalDesc,jdbcType=VARCHAR},
+    TERMINAL_SYSTEM = #{record.terminalSystem,jdbcType=VARCHAR},
+    TERMINAL_OWNER = #{record.terminalOwner,jdbcType=VARCHAR},
+    TERMINAL_SEGMENT = #{record.terminalSegment,jdbcType=VARCHAR},
+    TERMINAL_ROOM = #{record.terminalRoom,jdbcType=VARCHAR},
+    TERMINAL_SECRECY = #{record.terminalSecrecy,jdbcType=VARCHAR},
+    TERMINAL_SWITCH = #{record.terminalSwitch,jdbcType=VARCHAR},
+    TERMINAL_TYPE = #{record.terminalType,jdbcType=VARCHAR}
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
+      <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.demstudio.zzbzcglxt.domain.Terminal">
@@ -353,4 +381,21 @@
       TERMINAL_TYPE = #{terminalType,jdbcType=VARCHAR}
     where TERMINAL_ID = #{terminalId,jdbcType=VARCHAR}
   </update>
+  <select id="selectVoByExample" parameterType="com.demstudio.zzbzcglxt.domain.TerminalExample" resultMap="VoResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Vo_Column_List"/>
+    from terminal
+    left outer join network_parameter type_table on TERMINAL_TYPE = type_table.NETWORK_PARAMETER_ID
+    left outer join network_parameter system_table on TERMINAL_SYSTEM = system_table.NETWORK_PARAMETER_ID
+    left outer join network_parameter room_table on TERMINAL_ROOM = room_table.NETWORK_PARAMETER_ID
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
 </mapper>

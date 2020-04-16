@@ -67,11 +67,13 @@ public class NetworkParameter {
         NetworkParameterExample example = new NetworkParameterExample();
         NetworkParameterExample.Criteria criteria = example.createCriteria();
         if (this.networkParameterUse != null) {
-            criteria.andNetworkParameterUseNotEqualTo(3);
+            criteria.andNetworkParameterUseNotEqualTo(4);
             if (this.networkParameterUse == 1) {
-                criteria.andNetworkParameterUseNotEqualTo(2);
+                criteria.andNetworkParameterUseNotEqualTo(2).andNetworkParameterUseNotEqualTo(3);
             } else if (this.networkParameterUse == 2) {
-                criteria.andNetworkParameterUseNotEqualTo(1);
+                criteria.andNetworkParameterUseNotEqualTo(1).andNetworkParameterUseNotEqualTo(3);
+            } else if (this.networkParameterUse == 3) {
+              criteria.andNetworkParameterUseNotEqualTo(1).andNetworkParameterUseNotEqualTo(2);
             }
         }
         if (this.networkParameterGroup != null) {
